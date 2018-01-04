@@ -428,6 +428,8 @@ ptrSimGetShapeViz simGetShapeViz=0;
 ptrSimExecuteScriptString simExecuteScriptString=0;
 ptrSimGetApiFunc simGetApiFunc=0;
 ptrSimGetApiInfo simGetApiInfo=0;
+ptrSimSetModuleInfo simSetModuleInfo=0;
+ptrSimGetModuleInfo simGetModuleInfo=0;
 
 
 
@@ -1075,6 +1077,8 @@ int getVrepProcAddresses(LIBRARY lib)
     simExecuteScriptString=(ptrSimExecuteScriptString)(_getProcAddress(lib,"simExecuteScriptString"));
     simGetApiFunc=(ptrSimGetApiFunc)(_getProcAddress(lib,"simGetApiFunc"));
     simGetApiInfo=(ptrSimGetApiInfo)(_getProcAddress(lib,"simGetApiInfo"));
+    simSetModuleInfo=(ptrSimSetModuleInfo)(_getProcAddress(lib,"simSetModuleInfo"));
+    simGetModuleInfo=(ptrSimGetModuleInfo)(_getProcAddress(lib,"simGetModuleInfo"));
 
 
 
@@ -3354,6 +3358,18 @@ int getVrepProcAddresses(LIBRARY lib)
         printf("%s simGetApiInfo\n",couldNotFind);
         return 0;
     }
+    if (simSetModuleInfo==0)
+    {
+        printf("%s simSetModuleInfo\n",couldNotFind);
+        return 0;
+    }
+    if (simGetModuleInfo==0)
+    {
+        printf("%s simGetModuleInfo\n",couldNotFind);
+        return 0;
+    }
+
+
 
 
     if (_simGetContactCallbackCount==0)
