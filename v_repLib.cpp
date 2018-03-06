@@ -526,6 +526,7 @@ ptr_simHandleJointControl _simHandleJointControl=0;
 ptr_simHandleCustomContact _simHandleCustomContact=0;
 ptr_simGetPureHollowScaling _simGetPureHollowScaling=0;
 ptr_simGetJointCallbackCallOrder _simGetJointCallbackCallOrder=0;
+ptr_simDynCallback _simDynCallback=0;
 
 
 // Deprecated begin
@@ -1170,6 +1171,8 @@ int getVrepProcAddresses(LIBRARY lib)
     _simHandleCustomContact=(ptr_simHandleCustomContact)(_getProcAddress(lib,"_simHandleCustomContact"));
     _simGetPureHollowScaling=(ptr_simGetPureHollowScaling)(_getProcAddress(lib,"_simGetPureHollowScaling"));
     _simGetJointCallbackCallOrder=(ptr_simGetJointCallbackCallOrder)(_getProcAddress(lib,"_simGetJointCallbackCallOrder"));
+    _simDynCallback=(ptr_simDynCallback)(_getProcAddress(lib,"_simDynCallback"));
+
 
 
     // Deprecated begin
@@ -3810,6 +3813,11 @@ int getVrepProcAddresses(LIBRARY lib)
     if (_simGetJointCallbackCallOrder==0)
     {
         printf("%s _simGetJointCallbackCallOrder\n",couldNotFind);
+        return 0;
+    }
+    if (_simDynCallback==0)
+    {
+        printf("%s _simDynCallback\n",couldNotFind);
         return 0;
     }
 
