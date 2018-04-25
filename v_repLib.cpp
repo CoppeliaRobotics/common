@@ -101,8 +101,6 @@ ptrSimHandleMill simHandleMill=0;
 ptrSimHandleIkGroup simHandleIkGroup=0;
 ptrSimCheckIkGroup simCheckIkGroup=0;
 ptrSimHandleDynamics simHandleDynamics=0;
-ptrSimGetMechanismHandle simGetMechanismHandle=0;
-ptrSimHandleMechanism simHandleMechanism=0;
 ptrSimGetScriptHandle simGetScriptHandle=0;
 ptrSimSetScriptText simSetScriptText=0;
 ptrSimGetScriptText simGetScriptText=0;
@@ -339,7 +337,6 @@ ptrSimScaleObject simScaleObject=0;
 ptrSimSetShapeTexture simSetShapeTexture=0;
 ptrSimGetShapeTextureId simGetShapeTextureId=0;
 ptrSimGetCollectionObjects simGetCollectionObjects=0;
-ptrSimHandleCustomizationScripts simHandleCustomizationScripts=0;
 ptrSimSetScriptAttribute simSetScriptAttribute=0;
 ptrSimGetScriptAttribute simGetScriptAttribute=0;
 ptrSimReorientShapeBoundingBox simReorientShapeBoundingBox=0;
@@ -601,6 +598,9 @@ ptrSimHandleGeneralCallbackScript simHandleGeneralCallbackScript=0;
 ptrSimRegisterCustomLuaFunction simRegisterCustomLuaFunction=0;
 ptrSimRegisterCustomLuaVariable simRegisterCustomLuaVariable=0;
 ptrSimRegisterContactCallback simRegisterContactCallback=0;
+ptrSimGetMechanismHandle simGetMechanismHandle=0;
+ptrSimHandleMechanism simHandleMechanism=0;
+ptrSimHandleCustomizationScripts simHandleCustomizationScripts=0;
 // Deprecated end
 
 
@@ -751,8 +751,6 @@ int getVrepProcAddresses(LIBRARY lib)
     simHandleIkGroup=(ptrSimHandleIkGroup)(_getProcAddress(lib,"simHandleIkGroup"));
     simCheckIkGroup=(ptrSimCheckIkGroup)(_getProcAddress(lib,"simCheckIkGroup"));
     simHandleDynamics=(ptrSimHandleDynamics)(_getProcAddress(lib,"simHandleDynamics"));
-    simGetMechanismHandle=(ptrSimGetMechanismHandle)(_getProcAddress(lib,"simGetMechanismHandle"));
-    simHandleMechanism=(ptrSimHandleMechanism)(_getProcAddress(lib,"simHandleMechanism"));
     simGetScriptHandle=(ptrSimGetScriptHandle)(_getProcAddress(lib,"simGetScriptHandle"));
     simSetScriptText=(ptrSimSetScriptText)(_getProcAddress(lib,"simSetScriptText"));
     simGetScriptText=(ptrSimGetScriptText)(_getProcAddress(lib,"simGetScriptText"));
@@ -989,7 +987,6 @@ int getVrepProcAddresses(LIBRARY lib)
     simSetShapeTexture=(ptrSimSetShapeTexture)(_getProcAddress(lib,"simSetShapeTexture"));
     simGetShapeTextureId=(ptrSimGetShapeTextureId)(_getProcAddress(lib,"simGetShapeTextureId"));
     simGetCollectionObjects=(ptrSimGetCollectionObjects)(_getProcAddress(lib,"simGetCollectionObjects"));
-    simHandleCustomizationScripts=(ptrSimHandleCustomizationScripts)(_getProcAddress(lib,"simHandleCustomizationScripts"));
     simSetScriptAttribute=(ptrSimSetScriptAttribute)(_getProcAddress(lib,"simSetScriptAttribute"));
     simGetScriptAttribute=(ptrSimGetScriptAttribute)(_getProcAddress(lib,"simGetScriptAttribute"));
     simReorientShapeBoundingBox=(ptrSimReorientShapeBoundingBox)(_getProcAddress(lib,"simReorientShapeBoundingBox"));
@@ -1247,6 +1244,9 @@ int getVrepProcAddresses(LIBRARY lib)
     simRegisterCustomLuaFunction=(ptrSimRegisterCustomLuaFunction)(_getProcAddress(lib,"simRegisterCustomLuaFunction"));
     simRegisterCustomLuaVariable=(ptrSimRegisterCustomLuaVariable)(_getProcAddress(lib,"simRegisterCustomLuaVariable"));
     simRegisterContactCallback=(ptrSimRegisterContactCallback)(_getProcAddress(lib,"simRegisterContactCallback"));
+    simGetMechanismHandle=(ptrSimGetMechanismHandle)(_getProcAddress(lib,"simGetMechanismHandle"));
+    simHandleMechanism=(ptrSimHandleMechanism)(_getProcAddress(lib,"simHandleMechanism"));
+    simHandleCustomizationScripts=(ptrSimHandleCustomizationScripts)(_getProcAddress(lib,"simHandleCustomizationScripts"));
     // Deprecated end
 
 
@@ -1724,16 +1724,6 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simHandleDynamics==0)
     {
         printf("%s simHandleDynamics\n",couldNotFind);
-        return 0;
-    }
-    if (simGetMechanismHandle==0)
-    {
-        printf("%s simGetMechanismHandle\n",couldNotFind);
-        return 0;
-    }
-    if (simHandleMechanism==0)
-    {
-        printf("%s simHandleMechanism\n",couldNotFind);
         return 0;
     }
     if (simGetScriptHandle==0)
@@ -2914,11 +2904,6 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simGetCollectionObjects==0)
     {
         printf("%s simGetCollectionObjects\n",couldNotFind);
-        return 0;
-    }
-    if (simHandleCustomizationScripts==0)
-    {
-        printf("%s simHandleCustomizationScripts\n",couldNotFind);
         return 0;
     }
     if (simSetScriptAttribute==0)
@@ -4178,6 +4163,21 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simRegisterContactCallback==0)
     {
         printf("%s simRegisterContactCallback\n",couldNotFind);
+        return 0;
+    }
+    if (simGetMechanismHandle==0)
+    {
+        printf("%s simGetMechanismHandle\n",couldNotFind);
+        return 0;
+    }
+    if (simHandleMechanism==0)
+    {
+        printf("%s simHandleMechanism\n",couldNotFind);
+        return 0;
+    }
+    if (simHandleCustomizationScripts==0)
+    {
+        printf("%s simHandleCustomizationScripts\n",couldNotFind);
         return 0;
     }
     // Deprecated end
