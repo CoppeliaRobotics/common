@@ -106,7 +106,13 @@ CStackObject* CStackObject::buildItemFromTopStackPosition(int stackId)
         else
         { // the item is not a NULL, bool, number or string. So it must be an array or a map:
             int s=simGetStackTableInfo(stackId,0);
-            if (s==sim_stack_table_empty)
+            if (s==sim_stack_table_circular_ref)
+            { // A map/array in a circular reference
+                retVal=new CStackArray();
+                retVal->setCircularRef();
+                simPopStackItem(stackId,1);
+            }
+            else if (s==sim_stack_table_empty)
             { // Empty Array
                 retVal=new CStackArray();
                 simPopStackItem(stackId,1);

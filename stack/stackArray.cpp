@@ -8,6 +8,7 @@
 CStackArray::CStackArray()
 {
     _objectType=STACK_ARRAY;
+    _circularRef=false;
 }
 
 CStackArray::~CStackArray()
@@ -68,6 +69,16 @@ bool CStackArray::buildFromStack(int stackId)
         return(true);
     }
     return(false);
+}
+
+void CStackArray::setCircularRef()
+{
+    _circularRef=true;
+}
+
+bool CStackArray::isCircularRef()
+{
+    return(_circularRef);
 }
 
 void CStackArray::appendTopStackItem(int stackId)
