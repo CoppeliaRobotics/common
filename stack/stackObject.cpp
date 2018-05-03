@@ -108,8 +108,9 @@ CStackObject* CStackObject::buildItemFromTopStackPosition(int stackId)
             int s=simGetStackTableInfo(stackId,0);
             if (s==sim_stack_table_circular_ref)
             { // A map/array in a circular reference
-                retVal=new CStackArray();
-                retVal->setCircularRef();
+                CStackArray* arr=new CStackArray();
+                arr->setCircularRef();
+                retVal=arr;
                 simPopStackItem(stackId,1);
             }
             else if (s==sim_stack_table_empty)
