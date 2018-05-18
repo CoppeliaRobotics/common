@@ -353,7 +353,6 @@ ptrSimTransformImage simTransformImage=0;
 ptrSimGetQHull simGetQHull=0;
 ptrSimGetDecimatedMesh simGetDecimatedMesh=0;
 ptrSimExportIk simExportIk=0;
-ptrSimCallScriptFunction simCallScriptFunction=0;
 ptrSimCallScriptFunctionEx simCallScriptFunctionEx=0;
 ptrSimComputeJacobian simComputeJacobian=0;
 ptrSimGetConfigForTipPose simGetConfigForTipPose=0;
@@ -601,6 +600,7 @@ ptrSimRegisterContactCallback simRegisterContactCallback=0;
 ptrSimGetMechanismHandle simGetMechanismHandle=0;
 ptrSimHandleMechanism simHandleMechanism=0;
 ptrSimHandleCustomizationScripts simHandleCustomizationScripts=0;
+ptrSimCallScriptFunction simCallScriptFunction=0;
 // Deprecated end
 
 
@@ -1003,7 +1003,6 @@ int getVrepProcAddresses(LIBRARY lib)
     simGetQHull=(ptrSimGetQHull)(_getProcAddress(lib,"simGetQHull"));
     simGetDecimatedMesh=(ptrSimGetDecimatedMesh)(_getProcAddress(lib,"simGetDecimatedMesh"));
     simExportIk=(ptrSimExportIk)(_getProcAddress(lib,"simExportIk"));
-    simCallScriptFunction=(ptrSimCallScriptFunction)(_getProcAddress(lib,"simCallScriptFunction"));
     simCallScriptFunctionEx=(ptrSimCallScriptFunctionEx)(_getProcAddress(lib,"simCallScriptFunctionEx"));
     simComputeJacobian=(ptrSimComputeJacobian)(_getProcAddress(lib,"simComputeJacobian"));
     simGetConfigForTipPose=(ptrSimGetConfigForTipPose)(_getProcAddress(lib,"simGetConfigForTipPose"));
@@ -1247,6 +1246,7 @@ int getVrepProcAddresses(LIBRARY lib)
     simGetMechanismHandle=(ptrSimGetMechanismHandle)(_getProcAddress(lib,"simGetMechanismHandle"));
     simHandleMechanism=(ptrSimHandleMechanism)(_getProcAddress(lib,"simHandleMechanism"));
     simHandleCustomizationScripts=(ptrSimHandleCustomizationScripts)(_getProcAddress(lib,"simHandleCustomizationScripts"));
+    simCallScriptFunction=(ptrSimCallScriptFunction)(_getProcAddress(lib,"simCallScriptFunction"));
     // Deprecated end
 
 
@@ -2986,11 +2986,6 @@ int getVrepProcAddresses(LIBRARY lib)
         printf("%s simExportIk\n",couldNotFind);
         return 0;
     }
-    if (simCallScriptFunction==0)
-    {
-        printf("%s simCallScriptFunction\n",couldNotFind);
-        return 0;
-    }
     if (simCallScriptFunctionEx==0)
     {
         printf("%s simCallScriptFunctionEx\n",couldNotFind);
@@ -4178,6 +4173,11 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simHandleCustomizationScripts==0)
     {
         printf("%s simHandleCustomizationScripts\n",couldNotFind);
+        return 0;
+    }
+    if (simCallScriptFunction==0)
+    {
+        printf("%s simCallScriptFunction\n",couldNotFind);
         return 0;
     }
     // Deprecated end
