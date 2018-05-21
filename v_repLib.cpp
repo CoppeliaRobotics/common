@@ -426,6 +426,10 @@ ptrSimGetApiFunc simGetApiFunc=0;
 ptrSimGetApiInfo simGetApiInfo=0;
 ptrSimSetModuleInfo simSetModuleInfo=0;
 ptrSimGetModuleInfo simGetModuleInfo=0;
+ptrSimIsDeprecated simIsDeprecated=0;
+ptrSimGetPersistentDataTags simGetPersistentDataTags=0;
+
+
 
 
 
@@ -1076,6 +1080,8 @@ int getVrepProcAddresses(LIBRARY lib)
     simGetApiInfo=(ptrSimGetApiInfo)(_getProcAddress(lib,"simGetApiInfo"));
     simSetModuleInfo=(ptrSimSetModuleInfo)(_getProcAddress(lib,"simSetModuleInfo"));
     simGetModuleInfo=(ptrSimGetModuleInfo)(_getProcAddress(lib,"simGetModuleInfo"));
+    simIsDeprecated=(ptrSimIsDeprecated)(_getProcAddress(lib,"simIsDeprecated"));
+    simGetPersistentDataTags=(ptrSimGetPersistentDataTags)(_getProcAddress(lib,"simGetPersistentDataTags"));
 
 
 
@@ -3351,7 +3357,16 @@ int getVrepProcAddresses(LIBRARY lib)
         printf("%s simGetModuleInfo\n",couldNotFind);
         return 0;
     }
-
+    if (simIsDeprecated==0)
+    {
+        printf("%s simIsDeprecated\n",couldNotFind);
+        return 0;
+    }
+    if (simGetPersistentDataTags==0)
+    {
+        printf("%s simGetPersistentDataTags\n",couldNotFind);
+        return 0;
+    }
 
 
 
