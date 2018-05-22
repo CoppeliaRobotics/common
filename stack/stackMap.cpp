@@ -414,10 +414,10 @@ CStackMap* CStackMap::getMap(bool key)
     return(NULL);
 }
 
-bool CStackMap::contains(const char* key,int theType,size_t theMinSizeIfArray/*=0*/,bool onlyNumbersInArray/*=false*/)
+bool CStackMap::contains(const char* key,int theType/*=-1*/,size_t theMinSizeIfArray/*=0*/,bool onlyNumbersInArray/*=false*/)
 {
     std::map<std::string,CStackObject*>::iterator it=_objectValuesKStr.find(key);
-    if ( (it!=_objectValuesKStr.end())&&(it->second->getObjectType()==theType) )
+    if ( (it!=_objectValuesKStr.end())&&(theType==-1||it->second->getObjectType()==theType) )
     {
         if (theType!=STACK_ARRAY)
             return(true);
@@ -428,10 +428,10 @@ bool CStackMap::contains(const char* key,int theType,size_t theMinSizeIfArray/*=
     return(false);
 }
 
-bool CStackMap::contains(int key,int theType,size_t theMinSizeIfArray/*=0*/,bool onlyNumbersInArray/*=false*/)
+bool CStackMap::contains(int key,int theType/*=-1*/,size_t theMinSizeIfArray/*=0*/,bool onlyNumbersInArray/*=false*/)
 {
     std::map<int,CStackObject*>::iterator it=_objectValuesKInt.find(key);
-    if ( (it!=_objectValuesKInt.end())&&(it->second->getObjectType()==theType) )
+    if ( (it!=_objectValuesKInt.end())&&(theType==-1||it->second->getObjectType()==theType) )
     {
         if (theType!=STACK_ARRAY)
             return(true);
@@ -442,10 +442,10 @@ bool CStackMap::contains(int key,int theType,size_t theMinSizeIfArray/*=0*/,bool
     return(false);
 }
 
-bool CStackMap::contains(bool key,int theType,size_t theMinSizeIfArray/*=0*/,bool onlyNumbersInArray/*=false*/)
+bool CStackMap::contains(bool key,int theType/*=-1*/,size_t theMinSizeIfArray/*=0*/,bool onlyNumbersInArray/*=false*/)
 {
     std::map<bool,CStackObject*>::iterator it=_objectValuesKBool.find(key);
-    if ( (it!=_objectValuesKBool.end())&&(it->second->getObjectType()==theType) )
+    if ( (it!=_objectValuesKBool.end())&&(theType==-1||it->second->getObjectType()==theType) )
     {
         if (theType!=STACK_ARRAY)
             return(true);
