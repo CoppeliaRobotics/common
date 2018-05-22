@@ -156,10 +156,17 @@ CStackObject* CStackObject::buildItemFromTopStackPosition(int stackId)
                 {
                     simMoveStackItemToTop(stackId,oi); // that's the key
                     char* str=simGetStackStringValue(stackId,NULL);
+                    bool isbool=simGetStackBoolValue(stackId,&bv)==1;
+                    bool isnum=simGetStackDoubleValue(stackId,&dv)==1;
                     simPopStackItem(stackId,1);
                     simMoveStackItemToTop(stackId,oi); // that's the value
-                    map->appendTopStackItem(str,stackId); // will also pop it
-                    simReleaseBuffer(str);
+                    if(isnum)
+                        map->appendTopStackItem(int(dv),stackId); // will also pop it
+                    else if(isbool)
+                        map->appendTopStackItem(bv,stackId); // will also pop it
+                    else
+                        map->appendTopStackItem(str,stackId); // will also pop it
+                    if(str) simReleaseBuffer(str);
                 }
                 retVal=map;
             }
