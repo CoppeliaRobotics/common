@@ -14,6 +14,10 @@ CStackMap::~CStackMap()
 {
     for (std::map<std::string,CStackObject*>::iterator it=_objectValuesKStr.begin();it!=_objectValuesKStr.end();it++)
         delete it->second;
+    for (std::map<int,CStackObject*>::iterator it=_objectValuesKInt.begin();it!=_objectValuesKInt.end();it++)
+        delete it->second;
+    for (std::map<bool,CStackObject*>::iterator it=_objectValuesKBool.begin();it!=_objectValuesKBool.end();it++)
+        delete it->second;
 }
 
 void CStackMap::_remove(const char* key)
