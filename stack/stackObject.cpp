@@ -174,3 +174,54 @@ CStackObject* CStackObject::buildItemFromTopStackPosition(int stackId)
     }
     return(retVal);
 }
+
+CStackNull* CStackObject::asNull()
+{
+    if(_objectType==STACK_NULL) return(static_cast<CStackNull*>(this));
+    else return(NULL);
+}
+
+CStackNumber* CStackObject::asNumber()
+{
+    if(_objectType==STACK_NUMBER) return(static_cast<CStackNumber*>(this));
+    else return(NULL);
+}
+
+CStackBool* CStackObject::asBool()
+{
+    if(_objectType==STACK_BOOL) return(static_cast<CStackBool*>(this));
+    else return(NULL);
+}
+
+CStackString* CStackObject::asString()
+{
+    if(_objectType==STACK_STRING) return(static_cast<CStackString*>(this));
+    else return(NULL);
+}
+
+CStackArray* CStackObject::asArray()
+{
+    if(_objectType==STACK_ARRAY) return(static_cast<CStackArray*>(this));
+    else return(NULL);
+}
+
+CStackMap* CStackObject::asMap()
+{
+    if(_objectType==STACK_MAP) return(static_cast<CStackMap*>(this));
+    else return(NULL);
+}
+
+std::string CStackObject::getObjectTypeString() const
+{
+    switch(_objectType)
+    {
+    case STACK_NULL: return "null";
+    case STACK_NUMBER: return "number";
+    case STACK_BOOL: return "bool";
+    case STACK_STRING: return "string";
+    case STACK_ARRAY: return "array";
+    case STACK_MAP: return "map";
+    default: return "object";
+    }
+}
+

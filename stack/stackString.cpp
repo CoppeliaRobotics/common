@@ -11,6 +11,11 @@ CStackString::~CStackString()
 {
 }
 
+std::string CStackString::toString() const
+{
+    return(_value);
+}
+
 std::string CStackString::getValue()
 {
     return(_value);

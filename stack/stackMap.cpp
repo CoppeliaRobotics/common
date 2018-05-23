@@ -4,6 +4,7 @@
 #include "stackNumber.h"
 #include "stackBool.h"
 #include "stackString.h"
+#include <sstream>
 
 CStackMap::CStackMap()
 {
@@ -14,6 +15,34 @@ CStackMap::~CStackMap()
 {
     for (std::map<std::string,CStackObject*>::iterator it=_objectValuesKStr.begin();it!=_objectValuesKStr.end();it++)
         delete it->second;
+    for (std::map<int,CStackObject*>::iterator it=_objectValuesKInt.begin();it!=_objectValuesKInt.end();it++)
+        delete it->second;
+    for (std::map<bool,CStackObject*>::iterator it=_objectValuesKBool.begin();it!=_objectValuesKBool.end();it++)
+        delete it->second;
+}
+
+std::string CStackMap::toString() const
+{
+    std::stringstream ss;
+    ss << "{";
+    std::string sep = "";
+    for(const auto &item : _objectValuesKInt)
+    {
+        ss << sep << item.first << "=" << item.second->toString();
+        sep = ", ";
+    }
+    for(const auto &item : _objectValuesKBool)
+    {
+        ss << sep << item.first << "=" << item.second->toString();
+        sep = ", ";
+    }
+    for(const auto &item : _objectValuesKStr)
+    {
+        ss << sep << item.first << "=" << item.second->toString();
+        sep = ", ";
+    }
+    ss << "}";
+    return(ss.str());
 }
 
 void CStackMap::_remove(const char* key)

@@ -1,4 +1,5 @@
 #include "stackNumber.h"
+#include <sstream>
 
 CStackNumber::CStackNumber(double n)
 {
@@ -8,6 +9,13 @@ CStackNumber::CStackNumber(double n)
 
 CStackNumber::~CStackNumber()
 {
+}
+
+std::string CStackNumber::toString() const
+{
+    std::stringstream ss;
+    ss << _value;
+    return(ss.str());
 }
 
 float CStackNumber::getFloatValue()

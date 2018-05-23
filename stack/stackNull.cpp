@@ -9,6 +9,11 @@ CStackNull::~CStackNull()
 {
 }
 
+std::string CStackNull::toString() const
+{
+    return("nil");
+}
+
 CStackObject* CStackNull::copyYourself()
 {
     CStackNull* retVal=new CStackNull();

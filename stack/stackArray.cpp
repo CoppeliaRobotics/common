@@ -4,6 +4,7 @@
 #include "stackBool.h"
 #include "stackString.h"
 #include "stackMap.h"
+#include <sstream>
 
 CStackArray::CStackArray()
 {
@@ -15,6 +16,26 @@ CStackArray::~CStackArray()
 {
     for (size_t i=0;i<_objectValues.size();i++)
         delete _objectValues[i];
+}
+
+std::string CStackArray::toString() const
+{
+    if(_circularRef) return "...";
+    std::stringstream ss;
+    ss << "{";
+    std::string sep = "";
+    for(double num : _doubleValues)
+    {
+        ss << sep << num;
+        sep = ", ";
+    }
+    for(CStackObject* obj : _objectValues)
+    {
+        ss << sep << obj->toString();
+        sep = ", ";
+    }
+    ss << "}";
+    return(ss.str());
 }
 
 void CStackArray::buildOntoStack(int stackId)

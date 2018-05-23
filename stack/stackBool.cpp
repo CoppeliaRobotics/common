@@ -1,4 +1,5 @@
 #include "stackBool.h"
+#include <sstream>
 
 CStackBool::CStackBool(bool theValue)
 {
@@ -8,6 +9,12 @@ CStackBool::CStackBool(bool theValue)
 
 CStackBool::~CStackBool()
 {
+}
+
+std::string CStackBool::toString() const
+{
+    std::string strVal = _value ? "true" : "false";
+    return(strVal);
 }
 
 bool CStackBool::getValue()
