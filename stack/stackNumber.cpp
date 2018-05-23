@@ -23,6 +23,16 @@ float CStackNumber::getFloatValue()
     return((float)_value);
 }
 
+int CStackNumber::getIntValue()
+{
+    return((int)_value);
+}
+
+long CStackNumber::getLongValue()
+{
+    return((long)_value);
+}
+
 double CStackNumber::getValue()
 {
     return(_value);
@@ -31,6 +41,16 @@ double CStackNumber::getValue()
 void CStackNumber::setFloatValue(float n)
 {
     _value=(double)n;
+}
+
+void CStackNumber::setIntValue(int n)
+{
+    _value=(int)n;
+}
+
+void CStackNumber::setLongValue(long n)
+{
+    _value=(long)n;
 }
 
 void CStackNumber::setValue(double n)
