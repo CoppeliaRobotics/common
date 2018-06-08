@@ -428,6 +428,7 @@ ptrSimSetModuleInfo simSetModuleInfo=0;
 ptrSimGetModuleInfo simGetModuleInfo=0;
 ptrSimIsDeprecated simIsDeprecated=0;
 ptrSimGetPersistentDataTags simGetPersistentDataTags=0;
+ptrSimEventNotification simEventNotification=0;
 
 
 
@@ -1082,6 +1083,7 @@ int getVrepProcAddresses(LIBRARY lib)
     simGetModuleInfo=(ptrSimGetModuleInfo)(_getProcAddress(lib,"simGetModuleInfo"));
     simIsDeprecated=(ptrSimIsDeprecated)(_getProcAddress(lib,"simIsDeprecated"));
     simGetPersistentDataTags=(ptrSimGetPersistentDataTags)(_getProcAddress(lib,"simGetPersistentDataTags"));
+    simEventNotification=(ptrSimEventNotification)(_getProcAddress(lib,"simEventNotification"));
 
 
 
@@ -3367,7 +3369,11 @@ int getVrepProcAddresses(LIBRARY lib)
         printf("%s simGetPersistentDataTags\n",couldNotFind);
         return 0;
     }
-
+    if (simEventNotification==0)
+    {
+        printf("%s simEventNotification\n",couldNotFind);
+        return 0;
+    }
 
 
     if (_simGetContactCallbackCount==0)
