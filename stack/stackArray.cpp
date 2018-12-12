@@ -70,7 +70,7 @@ bool CStackArray::buildFromStack(int stackId)
         // Now read out the stack:
         if (allNumbers)
         {
-            _doubleValues.reserve(s);
+            _doubleValues.resize(s);
             for (int i=0;i<s;i++)
             {
                 simMoveStackItemToTop(stackId,0);
