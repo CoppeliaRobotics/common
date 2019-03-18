@@ -430,8 +430,7 @@ ptrSimIsDeprecated simIsDeprecated=nullptr;
 ptrSimGetPersistentDataTags simGetPersistentDataTags=nullptr;
 ptrSimEventNotification simEventNotification=nullptr;
 ptrSimApplyTexture simApplyTexture=nullptr;
-
-
+ptrSimSetJointDependency simSetJointDependency=nullptr;
 
 
 
@@ -1086,6 +1085,8 @@ int getVrepProcAddresses(LIBRARY lib)
     simGetPersistentDataTags=(ptrSimGetPersistentDataTags)(_getProcAddress(lib,"simGetPersistentDataTags"));
     simEventNotification=(ptrSimEventNotification)(_getProcAddress(lib,"simEventNotification"));
     simApplyTexture=(ptrSimApplyTexture)(_getProcAddress(lib,"simApplyTexture"));
+    simSetJointDependency=(ptrSimSetJointDependency)(_getProcAddress(lib,"simSetJointDependency"));
+
 
 
 
@@ -3379,6 +3380,11 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simApplyTexture==nullptr)
     {
         printf("%s simApplyTexture\n",couldNotFind);
+        return 0;
+    }
+    if (simSetJointDependency==nullptr)
+    {
+        printf("%s simSetJointDependency\n",couldNotFind);
         return 0;
     }
 
