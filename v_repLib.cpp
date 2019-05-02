@@ -432,10 +432,15 @@ ptrSimEventNotification simEventNotification=nullptr;
 ptrSimApplyTexture simApplyTexture=nullptr;
 ptrSimSetJointDependency simSetJointDependency=nullptr;
 
-
-
-
-
+// Following courtesy of Stephen James:
+ptrSimExtLaunchUIThread simExtLaunchUIThread=nullptr;
+ptrSimExtCanInitSimThread simExtCanInitSimThread=nullptr;
+ptrSimExtSimThreadInit simExtSimThreadInit=nullptr;
+ptrSimExtSimThreadDestroy simExtSimThreadDestroy=nullptr;
+ptrSimExtPostExitRequest simExtPostExitRequest=nullptr;
+ptrSimExtGetExitRequest simExtGetExitRequest=nullptr;
+ptrSimExtStep simExtStep=nullptr;
+ptrSimExtCallScriptFunction simExtCallScriptFunction=nullptr;
 
 
 
@@ -1087,8 +1092,15 @@ int getVrepProcAddresses(LIBRARY lib)
     simApplyTexture=(ptrSimApplyTexture)(_getProcAddress(lib,"simApplyTexture"));
     simSetJointDependency=(ptrSimSetJointDependency)(_getProcAddress(lib,"simSetJointDependency"));
 
-
-
+    // Following courtesy of Stephen James:
+    simExtLaunchUIThread=(ptrSimExtLaunchUIThread)(_getProcAddress(lib,"simExtLaunchUIThread"));
+    simExtCanInitSimThread=(ptrSimExtCanInitSimThread)(_getProcAddress(lib,"simExtCanInitSimThread"));
+    simExtSimThreadInit=(ptrSimExtSimThreadInit)(_getProcAddress(lib,"simExtSimThreadInit"));
+    simExtSimThreadDestroy=(ptrSimExtSimThreadDestroy)(_getProcAddress(lib,"simExtSimThreadDestroy"));
+    simExtPostExitRequest=(ptrSimExtPostExitRequest)(_getProcAddress(lib,"simExtPostExitRequest"));
+    simExtGetExitRequest=(ptrSimExtGetExitRequest)(_getProcAddress(lib,"simExtGetExitRequest"));
+    simExtStep=(ptrSimExtStep)(_getProcAddress(lib,"simExtStep"));
+    simExtCallScriptFunction=(ptrSimExtCallScriptFunction)(_getProcAddress(lib,"simExtCallScriptFunction"));
 
     _simGetContactCallbackCount=(ptr_simGetContactCallbackCount)(_getProcAddress(lib,"_simGetContactCallbackCount"));
     _simGetContactCallback=(ptr_simGetContactCallback)(_getProcAddress(lib,"_simGetContactCallback"));
@@ -3385,6 +3397,49 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simSetJointDependency==nullptr)
     {
         printf("%s simSetJointDependency\n",couldNotFind);
+        return 0;
+    }
+
+
+    // Following courtesy of Stephen James:
+    if (simExtLaunchUIThread==nullptr)
+    {
+        printf("%s simExtLaunchUIThread\n",couldNotFind);
+        return 0;
+    }
+    if (simExtCanInitSimThread==nullptr)
+    {
+        printf("%s simExtCanInitSimThread\n",couldNotFind);
+        return 0;
+    }
+    if (simExtSimThreadInit==nullptr)
+    {
+        printf("%s simExtSimThreadInit\n",couldNotFind);
+        return 0;
+    }
+    if (simExtSimThreadDestroy==nullptr)
+    {
+        printf("%s simExtSimThreadDestroy\n",couldNotFind);
+        return 0;
+    }
+    if (simExtPostExitRequest==nullptr)
+    {
+        printf("%s simExtPostExitRequest\n",couldNotFind);
+        return 0;
+    }
+    if (simExtGetExitRequest==nullptr)
+    {
+        printf("%s simExtGetExitRequest\n",couldNotFind);
+        return 0;
+    }
+    if (simExtStep==nullptr)
+    {
+        printf("%s simExtStep\n",couldNotFind);
+        return 0;
+    }
+    if (simExtCallScriptFunction==nullptr)
+    {
+        printf("%s simExtCallScriptFunction\n",couldNotFind);
         return 0;
     }
 
