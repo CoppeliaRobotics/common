@@ -7,6 +7,7 @@
 #ifndef V_REP_LIBRARY
 
 ptrSimRunSimulator simRunSimulator=nullptr;
+ptrSimRunSimulatorEx simRunSimulatorEx=nullptr;
 ptrSimGetSimulatorMessage simGetSimulatorMessage=nullptr;
 ptrSimGetMainWindow simGetMainWindow=nullptr;
 ptrSimGetLastError simGetLastError=nullptr;
@@ -667,6 +668,7 @@ FARPROC _getProcAddress(LIBRARY lib,const char* funcName)
 int getVrepProcAddresses(LIBRARY lib)
 {
     simRunSimulator=(ptrSimRunSimulator)(_getProcAddress(lib,"simRunSimulator"));
+    simRunSimulatorEx=(ptrSimRunSimulatorEx)(_getProcAddress(lib,"simRunSimulatorEx"));
     simGetSimulatorMessage=(ptrSimGetSimulatorMessage)(_getProcAddress(lib,"simGetSimulatorMessage"));
     simGetMainWindow=(ptrSimGetMainWindow)(_getProcAddress(lib,"simGetMainWindow"));
     simGetLastError=(ptrSimGetLastError)(_getProcAddress(lib,"simGetLastError"));
@@ -1277,6 +1279,11 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simRunSimulator==nullptr)
     {
         printf("%s simRunSimulator\n",couldNotFind);
+        return 0;
+    }
+    if (simRunSimulatorEx==nullptr)
+    {
+        printf("%s simRunSimulatorEx\n",couldNotFind);
         return 0;
     }
     if (simGetSimulatorMessage==nullptr)
