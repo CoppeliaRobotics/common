@@ -432,6 +432,9 @@ ptrSimGetPersistentDataTags simGetPersistentDataTags=nullptr;
 ptrSimEventNotification simEventNotification=nullptr;
 ptrSimApplyTexture simApplyTexture=nullptr;
 ptrSimSetJointDependency simSetJointDependency=nullptr;
+ptrSimSetStringNamedParam simSetStringNamedParam=nullptr;
+ptrSimGetStringNamedParam simGetStringNamedParam=nullptr;
+
 
 // Following courtesy of Stephen James:
 ptrSimExtLaunchUIThread simExtLaunchUIThread=nullptr;
@@ -1093,6 +1096,9 @@ int getVrepProcAddresses(LIBRARY lib)
     simEventNotification=(ptrSimEventNotification)(_getProcAddress(lib,"simEventNotification"));
     simApplyTexture=(ptrSimApplyTexture)(_getProcAddress(lib,"simApplyTexture"));
     simSetJointDependency=(ptrSimSetJointDependency)(_getProcAddress(lib,"simSetJointDependency"));
+    simSetStringNamedParam=(ptrSimSetStringNamedParam)(_getProcAddress(lib,"simSetStringNamedParam"));
+    simGetStringNamedParam=(ptrSimGetStringNamedParam)(_getProcAddress(lib,"simGetStringNamedParam"));
+
 
     // Following courtesy of Stephen James:
     simExtLaunchUIThread=(ptrSimExtLaunchUIThread)(_getProcAddress(lib,"simExtLaunchUIThread"));
@@ -3404,6 +3410,16 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simSetJointDependency==nullptr)
     {
         printf("%s simSetJointDependency\n",couldNotFind);
+        return 0;
+    }
+    if (simSetStringNamedParam==nullptr)
+    {
+        printf("%s simSetStringNamedParam\n",couldNotFind);
+        return 0;
+    }
+    if (simGetStringNamedParam==nullptr)
+    {
+        printf("%s simGetStringNamedParam\n",couldNotFind);
         return 0;
     }
 
