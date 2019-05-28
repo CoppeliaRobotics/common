@@ -198,6 +198,9 @@ ptrSimClearIntegerSignal simClearIntegerSignal=nullptr;
 ptrSimSetFloatSignal simSetFloatSignal=nullptr;
 ptrSimGetFloatSignal simGetFloatSignal=nullptr;
 ptrSimClearFloatSignal simClearFloatSignal=nullptr;
+ptrSimSetDoubleSignal simSetDoubleSignal=nullptr;
+ptrSimGetDoubleSignal simGetDoubleSignal=nullptr;
+ptrSimClearDoubleSignal simClearDoubleSignal=nullptr;
 ptrSimSetStringSignal simSetStringSignal=nullptr;
 ptrSimGetStringSignal simGetStringSignal=nullptr;
 ptrSimClearStringSignal simClearStringSignal=nullptr;
@@ -862,6 +865,9 @@ int getVrepProcAddresses(LIBRARY lib)
     simSetFloatSignal=(ptrSimSetFloatSignal)(_getProcAddress(lib,"simSetFloatSignal"));
     simGetFloatSignal=(ptrSimGetFloatSignal)(_getProcAddress(lib,"simGetFloatSignal"));
     simClearFloatSignal=(ptrSimClearFloatSignal)(_getProcAddress(lib,"simClearFloatSignal"));
+    simSetDoubleSignal=(ptrSimSetDoubleSignal)(_getProcAddress(lib,"simSetDoubleSignal"));
+    simGetDoubleSignal=(ptrSimGetDoubleSignal)(_getProcAddress(lib,"simGetDoubleSignal"));
+    simClearDoubleSignal=(ptrSimClearDoubleSignal)(_getProcAddress(lib,"simClearDoubleSignal"));
     simSetStringSignal=(ptrSimSetStringSignal)(_getProcAddress(lib,"simSetStringSignal"));
     simGetStringSignal=(ptrSimGetStringSignal)(_getProcAddress(lib,"simGetStringSignal"));
     simClearStringSignal=(ptrSimClearStringSignal)(_getProcAddress(lib,"simClearStringSignal"));
@@ -2240,6 +2246,21 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simClearFloatSignal==nullptr)
     {
         printf("%s simClearFloatSignal\n",couldNotFind);
+        return 0;
+    }
+    if (simSetDoubleSignal==nullptr)
+    {
+        printf("%s simSetDoubleSignal\n",couldNotFind);
+        return 0;
+    }
+    if (simGetDoubleSignal==nullptr)
+    {
+        printf("%s simGetDoubleSignal\n",couldNotFind);
+        return 0;
+    }
+    if (simClearDoubleSignal==nullptr)
+    {
+        printf("%s simClearDoubleSignal\n",couldNotFind);
         return 0;
     }
     if (simSetStringSignal==nullptr)
