@@ -420,8 +420,6 @@ ptrSimCheckOctreePointOccupancy simCheckOctreePointOccupancy=nullptr;
 ptrSimOpenTextEditor simOpenTextEditor=nullptr;
 ptrSimPackTable simPackTable=nullptr;
 ptrSimUnpackTable simUnpackTable=nullptr;
-ptrSimSetVisionSensorFilter simSetVisionSensorFilter=nullptr;
-ptrSimGetVisionSensorFilter simGetVisionSensorFilter=nullptr;
 ptrSimSetReferencedHandles simSetReferencedHandles=nullptr;
 ptrSimGetReferencedHandles simGetReferencedHandles=nullptr;
 ptrSimGetShapeViz simGetShapeViz=nullptr;
@@ -618,6 +616,8 @@ ptrSimGetMechanismHandle simGetMechanismHandle=nullptr;
 ptrSimHandleMechanism simHandleMechanism=nullptr;
 ptrSimHandleCustomizationScripts simHandleCustomizationScripts=nullptr;
 ptrSimCallScriptFunction simCallScriptFunction=nullptr;
+ptrSimSetVisionSensorFilter simSetVisionSensorFilter=nullptr;
+ptrSimGetVisionSensorFilter simGetVisionSensorFilter=nullptr;
 // Deprecated end
 
 
@@ -1087,8 +1087,6 @@ int getVrepProcAddresses(LIBRARY lib)
     simOpenTextEditor=(ptrSimOpenTextEditor)(_getProcAddress(lib,"simOpenTextEditor"));
     simPackTable=(ptrSimPackTable)(_getProcAddress(lib,"simPackTable"));
     simUnpackTable=(ptrSimUnpackTable)(_getProcAddress(lib,"simUnpackTable"));
-    simSetVisionSensorFilter=(ptrSimSetVisionSensorFilter)(_getProcAddress(lib,"simSetVisionSensorFilter"));
-    simGetVisionSensorFilter=(ptrSimGetVisionSensorFilter)(_getProcAddress(lib,"simGetVisionSensorFilter"));
     simSetReferencedHandles=(ptrSimSetReferencedHandles)(_getProcAddress(lib,"simSetReferencedHandles"));
     simGetReferencedHandles=(ptrSimGetReferencedHandles)(_getProcAddress(lib,"simGetReferencedHandles"));
     simGetShapeViz=(ptrSimGetShapeViz)(_getProcAddress(lib,"simGetShapeViz"));
@@ -1284,6 +1282,8 @@ int getVrepProcAddresses(LIBRARY lib)
     simHandleMechanism=(ptrSimHandleMechanism)(_getProcAddress(lib,"simHandleMechanism"));
     simHandleCustomizationScripts=(ptrSimHandleCustomizationScripts)(_getProcAddress(lib,"simHandleCustomizationScripts"));
     simCallScriptFunction=(ptrSimCallScriptFunction)(_getProcAddress(lib,"simCallScriptFunction"));
+    simSetVisionSensorFilter=(ptrSimSetVisionSensorFilter)(_getProcAddress(lib,"simSetVisionSensorFilter"));
+    simGetVisionSensorFilter=(ptrSimGetVisionSensorFilter)(_getProcAddress(lib,"simGetVisionSensorFilter"));
     // Deprecated end
 
 
@@ -3358,16 +3358,6 @@ int getVrepProcAddresses(LIBRARY lib)
         printf("%s simUnpackTable\n",couldNotFind);
         return 0;
     }
-    if (simSetVisionSensorFilter==nullptr)
-    {
-        printf("%s simSetVisionSensorFilter\n",couldNotFind);
-        return 0;
-    }
-    if (simGetVisionSensorFilter==nullptr)
-    {
-        printf("%s simGetVisionSensorFilter\n",couldNotFind);
-        return 0;
-    }
     if (simSetReferencedHandles==nullptr)
     {
         printf("%s simSetReferencedHandles\n",couldNotFind);
@@ -4311,6 +4301,16 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simCallScriptFunction==nullptr)
     {
         printf("%s simCallScriptFunction\n",couldNotFind);
+        return 0;
+    }
+    if (simSetVisionSensorFilter==nullptr)
+    {
+        printf("%s simSetVisionSensorFilter\n",couldNotFind);
+        return 0;
+    }
+    if (simGetVisionSensorFilter==nullptr)
+    {
+        printf("%s simGetVisionSensorFilter\n",couldNotFind);
         return 0;
     }
     // Deprecated end
