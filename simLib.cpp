@@ -1,10 +1,10 @@
-#include "../include/v_repLib.h"
+#include "../include/simLib.h"
 #include <stdio.h>
 #if defined (__linux) || defined (__APPLE__)
     #include <dlfcn.h>
 #endif
 
-#ifndef V_REP_LIBRARY
+#ifndef SIM_LIBRARY
 
 ptrSimRunSimulator simRunSimulator=nullptr;
 ptrSimRunSimulatorEx simRunSimulatorEx=nullptr;
@@ -148,8 +148,6 @@ ptrSimStopSimulation simStopSimulation=nullptr;
 ptrSimPauseSimulation simPauseSimulation=nullptr;
 ptrSimBroadcastMessage simBroadcastMessage=nullptr;
 ptrSimGetModuleName simGetModuleName=nullptr;
-ptrSimGetScriptSimulationParameter simGetScriptSimulationParameter=nullptr;
-ptrSimSetScriptSimulationParameter simSetScriptSimulationParameter=nullptr;
 ptrSimFloatingViewAdd simFloatingViewAdd=nullptr;
 ptrSimFloatingViewRemove simFloatingViewRemove=nullptr;
 ptrSimAdjustView simAdjustView=nullptr;
@@ -435,6 +433,8 @@ ptrSimApplyTexture simApplyTexture=nullptr;
 ptrSimSetJointDependency simSetJointDependency=nullptr;
 ptrSimSetStringNamedParam simSetStringNamedParam=nullptr;
 ptrSimGetStringNamedParam simGetStringNamedParam=nullptr;
+ptrSimGetUserParameter simGetUserParameter=nullptr;
+ptrSimSetUserParameter simSetUserParameter=nullptr;
 
 
 // Following courtesy of Stephen James:
@@ -618,10 +618,12 @@ ptrSimHandleCustomizationScripts simHandleCustomizationScripts=nullptr;
 ptrSimCallScriptFunction simCallScriptFunction=nullptr;
 ptrSimSetVisionSensorFilter simSetVisionSensorFilter=nullptr;
 ptrSimGetVisionSensorFilter simGetVisionSensorFilter=nullptr;
+ptrSimGetScriptSimulationParameter simGetScriptSimulationParameter=nullptr;
+ptrSimSetScriptSimulationParameter simSetScriptSimulationParameter=nullptr;
 // Deprecated end
 
 
-LIBRARY loadVrepLibrary(const char* pathAndFilename)
+LIBRARY loadSimLibrary(const char* pathAndFilename)
 {
     #ifdef QT_FRAMEWORK
         QLibrary* lib=new QLibrary(pathAndFilename);
@@ -640,7 +642,7 @@ LIBRARY loadVrepLibrary(const char* pathAndFilename)
     #endif // QT_FRAMEWORK
 }
 
-void unloadVrepLibrary(LIBRARY lib)
+void unloadSimLibrary(LIBRARY lib)
 {
     #ifdef QT_FRAMEWORK
         if (lib!=0)
@@ -671,7 +673,7 @@ FARPROC _getProcAddress(LIBRARY lib,const char* funcName)
     #endif // QT_FRAMEWORK
 }
 
-int getVrepProcAddresses(LIBRARY lib)
+int getSimProcAddresses(LIBRARY lib)
 {
     simRunSimulator=(ptrSimRunSimulator)(_getProcAddress(lib,"simRunSimulator"));
     simRunSimulatorEx=(ptrSimRunSimulatorEx)(_getProcAddress(lib,"simRunSimulatorEx"));
@@ -815,8 +817,6 @@ int getVrepProcAddresses(LIBRARY lib)
     simPauseSimulation=(ptrSimPauseSimulation)(_getProcAddress(lib,"simPauseSimulation"));
     simBroadcastMessage=(ptrSimBroadcastMessage)(_getProcAddress(lib,"simBroadcastMessage"));
     simGetModuleName=(ptrSimGetModuleName)(_getProcAddress(lib,"simGetModuleName"));
-    simGetScriptSimulationParameter=(ptrSimGetScriptSimulationParameter)(_getProcAddress(lib,"simGetScriptSimulationParameter"));
-    simSetScriptSimulationParameter=(ptrSimSetScriptSimulationParameter)(_getProcAddress(lib,"simSetScriptSimulationParameter"));
     simFloatingViewAdd=(ptrSimFloatingViewAdd)(_getProcAddress(lib,"simFloatingViewAdd"));
     simFloatingViewRemove=(ptrSimFloatingViewRemove)(_getProcAddress(lib,"simFloatingViewRemove"));
     simAdjustView=(ptrSimAdjustView)(_getProcAddress(lib,"simAdjustView"));
@@ -1102,7 +1102,8 @@ int getVrepProcAddresses(LIBRARY lib)
     simSetJointDependency=(ptrSimSetJointDependency)(_getProcAddress(lib,"simSetJointDependency"));
     simSetStringNamedParam=(ptrSimSetStringNamedParam)(_getProcAddress(lib,"simSetStringNamedParam"));
     simGetStringNamedParam=(ptrSimGetStringNamedParam)(_getProcAddress(lib,"simGetStringNamedParam"));
-
+    simGetUserParameter=(ptrSimGetUserParameter)(_getProcAddress(lib,"simGetUserParameter"));
+    simSetUserParameter=(ptrSimSetUserParameter)(_getProcAddress(lib,"simSetUserParameter"));
 
     // Following courtesy of Stephen James:
     simExtLaunchUIThread=(ptrSimExtLaunchUIThread)(_getProcAddress(lib,"simExtLaunchUIThread"));
@@ -1284,6 +1285,8 @@ int getVrepProcAddresses(LIBRARY lib)
     simCallScriptFunction=(ptrSimCallScriptFunction)(_getProcAddress(lib,"simCallScriptFunction"));
     simSetVisionSensorFilter=(ptrSimSetVisionSensorFilter)(_getProcAddress(lib,"simSetVisionSensorFilter"));
     simGetVisionSensorFilter=(ptrSimGetVisionSensorFilter)(_getProcAddress(lib,"simGetVisionSensorFilter"));
+    simGetScriptSimulationParameter=(ptrSimGetScriptSimulationParameter)(_getProcAddress(lib,"simGetScriptSimulationParameter"));
+    simSetScriptSimulationParameter=(ptrSimSetScriptSimulationParameter)(_getProcAddress(lib,"simSetScriptSimulationParameter"));
     // Deprecated end
 
 
@@ -1996,16 +1999,6 @@ int getVrepProcAddresses(LIBRARY lib)
     if (simGetModuleName==nullptr)
     {
         printf("%s simGetModuleName\n",couldNotFind);
-        return 0;
-    }
-    if (simGetScriptSimulationParameter==nullptr)
-    {
-        printf("%s simGetScriptSimulationParameter\n",couldNotFind);
-        return 0;
-    }
-    if (simSetScriptSimulationParameter==nullptr)
-    {
-        printf("%s simSetScriptSimulationParameter\n",couldNotFind);
         return 0;
     }
     if (simFloatingViewAdd==nullptr)
@@ -3433,6 +3426,16 @@ int getVrepProcAddresses(LIBRARY lib)
         printf("%s simGetStringNamedParam\n",couldNotFind);
         return 0;
     }
+    if (simGetUserParameter==nullptr)
+    {
+        printf("%s simGetUserParameter\n",couldNotFind);
+        return 0;
+    }
+    if (simSetUserParameter==nullptr)
+    {
+        printf("%s simSetUserParameter\n",couldNotFind);
+        return 0;
+    }
 
 
     // Following courtesy of Stephen James:
@@ -4313,9 +4316,19 @@ int getVrepProcAddresses(LIBRARY lib)
         printf("%s simGetVisionSensorFilter\n",couldNotFind);
         return 0;
     }
+    if (simGetScriptSimulationParameter==nullptr)
+    {
+        printf("%s simGetScriptSimulationParameter\n",couldNotFind);
+        return 0;
+    }
+    if (simSetScriptSimulationParameter==nullptr)
+    {
+        printf("%s simSetScriptSimulationParameter\n",couldNotFind);
+        return 0;
+    }
     // Deprecated end
 
     return 1;
 }
 
-#endif // V_REP_LIBRARY
+#endif // SIM_LIBRARY
