@@ -50,7 +50,7 @@ ptrSimGetJointPosition simGetJointPosition=nullptr;
 ptrSimSetJointPosition simSetJointPosition=nullptr;
 ptrSimSetJointTargetPosition simSetJointTargetPosition=nullptr;
 ptrSimGetJointTargetPosition simGetJointTargetPosition=nullptr;
-ptrSimSetJointForce simSetJointForce=nullptr;
+ptrSimSetJointMaxForce simSetJointMaxForce=nullptr;
 ptrSimGetPathPosition simGetPathPosition=nullptr;
 ptrSimSetPathPosition simSetPathPosition=nullptr;
 ptrSimGetPathLength simGetPathLength=nullptr;
@@ -277,6 +277,7 @@ ptrSimSetSimulationPassesPerRenderingPass simSetSimulationPassesPerRenderingPass
 ptrSimGetRotationAxis simGetRotationAxis=nullptr;
 ptrSimRotateAroundAxis simRotateAroundAxis=nullptr;
 ptrSimGetJointForce simGetJointForce=nullptr;
+ptrSimGetJointMaxForce simGetJointMaxForce=nullptr;
 ptrSimSetArrayParameter simSetArrayParameter=nullptr;
 ptrSimGetArrayParameter simGetArrayParameter=nullptr;
 ptrSimSetIkGroupProperties simSetIkGroupProperties=nullptr;
@@ -620,6 +621,7 @@ ptrSimSetVisionSensorFilter simSetVisionSensorFilter=nullptr;
 ptrSimGetVisionSensorFilter simGetVisionSensorFilter=nullptr;
 ptrSimGetScriptSimulationParameter simGetScriptSimulationParameter=nullptr;
 ptrSimSetScriptSimulationParameter simSetScriptSimulationParameter=nullptr;
+ptrSimSetJointForce simSetJointForce=nullptr;
 // Deprecated end
 
 
@@ -719,7 +721,7 @@ int getSimProcAddresses(LIBRARY lib)
     simSetJointPosition=(ptrSimSetJointPosition)(_getProcAddress(lib,"simSetJointPosition"));
     simSetJointTargetPosition=(ptrSimSetJointTargetPosition)(_getProcAddress(lib,"simSetJointTargetPosition"));
     simGetJointTargetPosition=(ptrSimGetJointTargetPosition)(_getProcAddress(lib,"simGetJointTargetPosition"));
-    simSetJointForce=(ptrSimSetJointForce)(_getProcAddress(lib,"simSetJointForce"));
+    simSetJointMaxForce=(ptrSimSetJointMaxForce)(_getProcAddress(lib,"simSetJointMaxForce"));
     simGetPathPosition=(ptrSimGetPathPosition)(_getProcAddress(lib,"simGetPathPosition"));
     simSetPathPosition=(ptrSimSetPathPosition)(_getProcAddress(lib,"simSetPathPosition"));
     simGetPathLength=(ptrSimGetPathLength)(_getProcAddress(lib,"simGetPathLength"));
@@ -946,6 +948,7 @@ int getSimProcAddresses(LIBRARY lib)
     simGetRotationAxis=(ptrSimGetRotationAxis)(_getProcAddress(lib,"simGetRotationAxis"));
     simRotateAroundAxis=(ptrSimRotateAroundAxis)(_getProcAddress(lib,"simRotateAroundAxis"));
     simGetJointForce=(ptrSimGetJointForce)(_getProcAddress(lib,"simGetJointForce"));
+    simGetJointMaxForce=(ptrSimGetJointMaxForce)(_getProcAddress(lib,"simGetJointMaxForce"));
     simSetArrayParameter=(ptrSimSetArrayParameter)(_getProcAddress(lib,"simSetArrayParameter"));
     simGetArrayParameter=(ptrSimGetArrayParameter)(_getProcAddress(lib,"simGetArrayParameter"));
     simSetIkGroupProperties=(ptrSimSetIkGroupProperties)(_getProcAddress(lib,"simSetIkGroupProperties"));
@@ -1287,6 +1290,7 @@ int getSimProcAddresses(LIBRARY lib)
     simGetVisionSensorFilter=(ptrSimGetVisionSensorFilter)(_getProcAddress(lib,"simGetVisionSensorFilter"));
     simGetScriptSimulationParameter=(ptrSimGetScriptSimulationParameter)(_getProcAddress(lib,"simGetScriptSimulationParameter"));
     simSetScriptSimulationParameter=(ptrSimSetScriptSimulationParameter)(_getProcAddress(lib,"simSetScriptSimulationParameter"));
+    simSetJointForce=(ptrSimSetJointForce)(_getProcAddress(lib,"simSetJointForce"));
     // Deprecated end
 
 
@@ -1511,9 +1515,9 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetJointTargetPosition\n",couldNotFind);
         return 0;
     }
-    if (simSetJointForce==nullptr)
+    if (simSetJointMaxForce==nullptr)
     {
-        printf("%s simSetJointForce\n",couldNotFind);
+        printf("%s simSetJointMaxForce\n",couldNotFind);
         return 0;
     }
     if (simGetPathPosition==nullptr)
@@ -2644,6 +2648,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetJointForce==nullptr)
     {
         printf("%s simGetJointForce\n",couldNotFind);
+        return 0;
+    }
+    if (simGetJointMaxForce==nullptr)
+    {
+        printf("%s simGetJointMaxForce\n",couldNotFind);
         return 0;
     }
     if (simSetArrayParameter==nullptr)
@@ -4324,6 +4333,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetScriptSimulationParameter==nullptr)
     {
         printf("%s simSetScriptSimulationParameter\n",couldNotFind);
+        return 0;
+    }
+    if (simSetJointForce==nullptr)
+    {
+        printf("%s simSetJointForce\n",couldNotFind);
         return 0;
     }
     // Deprecated end
