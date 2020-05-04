@@ -98,7 +98,6 @@ ptrSimHandleDistance simHandleDistance=nullptr;
 ptrSimReadDistance simReadDistance=nullptr;
 ptrSimHandleProximitySensor simHandleProximitySensor=nullptr;
 ptrSimReadProximitySensor simReadProximitySensor=nullptr;
-ptrSimHandleMill simHandleMill=nullptr;
 ptrSimHandleIkGroup simHandleIkGroup=nullptr;
 ptrSimCheckIkGroup simCheckIkGroup=nullptr;
 ptrSimHandleDynamics simHandleDynamics=nullptr;
@@ -123,7 +122,6 @@ ptrSimGetIkGroupHandle simGetIkGroupHandle=nullptr;
 ptrSimResetCollision simResetCollision=nullptr;
 ptrSimResetDistance simResetDistance=nullptr;
 ptrSimResetProximitySensor simResetProximitySensor=nullptr;
-ptrSimResetMill simResetMill=nullptr;
 ptrSimCheckProximitySensor simCheckProximitySensor=nullptr;
 ptrSimCheckProximitySensorEx simCheckProximitySensorEx=nullptr;
 ptrSimCheckProximitySensorEx2 simCheckProximitySensorEx2=nullptr;
@@ -188,8 +186,6 @@ ptrSimRemoveParticleObject simRemoveParticleObject=nullptr;
 ptrSimAddParticleObjectItem simAddParticleObjectItem=nullptr;
 ptrSimGetObjectSizeFactor simGetObjectSizeFactor=nullptr;
 ptrSimAnnounceSceneContentChange simAnnounceSceneContentChange=nullptr;
-ptrSimResetMilling simResetMilling=nullptr;
-ptrSimApplyMilling simApplyMilling=nullptr;
 ptrSimSetIntegerSignal simSetIntegerSignal=nullptr;
 ptrSimGetIntegerSignal simGetIntegerSignal=nullptr;
 ptrSimClearIntegerSignal simClearIntegerSignal=nullptr;
@@ -492,7 +488,6 @@ ptr_simGetDynamicsFullRefreshFlag _simGetDynamicsFullRefreshFlag=nullptr;
 ptr_simSetDynamicsFullRefreshFlag _simSetDynamicsFullRefreshFlag=nullptr;
 ptr_simSetGeomProxyDynamicsFullRefreshFlag _simSetGeomProxyDynamicsFullRefreshFlag=nullptr;
 ptr_simGetGeomProxyDynamicsFullRefreshFlag _simGetGeomProxyDynamicsFullRefreshFlag=nullptr;
-ptr_simGetParentFollowsDynamic _simGetParentFollowsDynamic=nullptr;
 ptr_simSetShapeDynamicVelocity _simSetShapeDynamicVelocity=nullptr;
 ptr_simGetAdditionalForceAndTorque _simGetAdditionalForceAndTorque=nullptr;
 ptr_simClearAdditionalForceAndTorque _simClearAdditionalForceAndTorque=nullptr;
@@ -622,6 +617,11 @@ ptrSimGetVisionSensorFilter simGetVisionSensorFilter=nullptr;
 ptrSimGetScriptSimulationParameter simGetScriptSimulationParameter=nullptr;
 ptrSimSetScriptSimulationParameter simSetScriptSimulationParameter=nullptr;
 ptrSimSetJointForce simSetJointForce=nullptr;
+ptrSimHandleMill simHandleMill=nullptr;
+ptrSimResetMill simResetMill=nullptr;
+ptrSimResetMilling simResetMilling=nullptr;
+ptrSimApplyMilling simApplyMilling=nullptr;
+ptr_simGetParentFollowsDynamic _simGetParentFollowsDynamic=nullptr;
 // Deprecated end
 
 
@@ -769,7 +769,6 @@ int getSimProcAddresses(LIBRARY lib)
     simReadDistance=(ptrSimReadDistance)(_getProcAddress(lib,"simReadDistance"));
     simHandleProximitySensor=(ptrSimHandleProximitySensor)(_getProcAddress(lib,"simHandleProximitySensor"));
     simReadProximitySensor=(ptrSimReadProximitySensor)(_getProcAddress(lib,"simReadProximitySensor"));
-    simHandleMill=(ptrSimHandleMill)(_getProcAddress(lib,"simHandleMill"));
     simHandleIkGroup=(ptrSimHandleIkGroup)(_getProcAddress(lib,"simHandleIkGroup"));
     simCheckIkGroup=(ptrSimCheckIkGroup)(_getProcAddress(lib,"simCheckIkGroup"));
     simHandleDynamics=(ptrSimHandleDynamics)(_getProcAddress(lib,"simHandleDynamics"));
@@ -794,7 +793,6 @@ int getSimProcAddresses(LIBRARY lib)
     simResetCollision=(ptrSimResetCollision)(_getProcAddress(lib,"simResetCollision"));
     simResetDistance=(ptrSimResetDistance)(_getProcAddress(lib,"simResetDistance"));
     simResetProximitySensor=(ptrSimResetProximitySensor)(_getProcAddress(lib,"simResetProximitySensor"));
-    simResetMill=(ptrSimResetMill)(_getProcAddress(lib,"simResetMill"));
     simCheckProximitySensor=(ptrSimCheckProximitySensor)(_getProcAddress(lib,"simCheckProximitySensor"));
     simCheckProximitySensorEx=(ptrSimCheckProximitySensorEx)(_getProcAddress(lib,"simCheckProximitySensorEx"));
     simCheckProximitySensorEx2=(ptrSimCheckProximitySensorEx2)(_getProcAddress(lib,"simCheckProximitySensorEx2"));
@@ -859,8 +857,6 @@ int getSimProcAddresses(LIBRARY lib)
     simAddParticleObjectItem=(ptrSimAddParticleObjectItem)(_getProcAddress(lib,"simAddParticleObjectItem"));
     simGetObjectSizeFactor=(ptrSimGetObjectSizeFactor)(_getProcAddress(lib,"simGetObjectSizeFactor"));
     simAnnounceSceneContentChange=(ptrSimAnnounceSceneContentChange)(_getProcAddress(lib,"simAnnounceSceneContentChange"));
-    simResetMilling=(ptrSimResetMilling)(_getProcAddress(lib,"simResetMilling"));
-    simApplyMilling=(ptrSimApplyMilling)(_getProcAddress(lib,"simApplyMilling"));
     simSetIntegerSignal=(ptrSimSetIntegerSignal)(_getProcAddress(lib,"simSetIntegerSignal"));
     simGetIntegerSignal=(ptrSimGetIntegerSignal)(_getProcAddress(lib,"simGetIntegerSignal"));
     simClearIntegerSignal=(ptrSimClearIntegerSignal)(_getProcAddress(lib,"simClearIntegerSignal"));
@@ -1160,7 +1156,6 @@ int getSimProcAddresses(LIBRARY lib)
     _simSetDynamicsFullRefreshFlag=(ptr_simSetDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simSetDynamicsFullRefreshFlag"));
     _simSetGeomProxyDynamicsFullRefreshFlag=(ptr_simSetGeomProxyDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simSetGeomProxyDynamicsFullRefreshFlag"));
     _simGetGeomProxyDynamicsFullRefreshFlag=(ptr_simGetGeomProxyDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simGetGeomProxyDynamicsFullRefreshFlag"));
-    _simGetParentFollowsDynamic=(ptr_simGetParentFollowsDynamic)(_getProcAddress(lib,"_simGetParentFollowsDynamic"));
     _simSetShapeDynamicVelocity=(ptr_simSetShapeDynamicVelocity)(_getProcAddress(lib,"_simSetShapeDynamicVelocity"));
     _simGetAdditionalForceAndTorque=(ptr_simGetAdditionalForceAndTorque)(_getProcAddress(lib,"_simGetAdditionalForceAndTorque"));
     _simClearAdditionalForceAndTorque=(ptr_simClearAdditionalForceAndTorque)(_getProcAddress(lib,"_simClearAdditionalForceAndTorque"));
@@ -1291,6 +1286,11 @@ int getSimProcAddresses(LIBRARY lib)
     simGetScriptSimulationParameter=(ptrSimGetScriptSimulationParameter)(_getProcAddress(lib,"simGetScriptSimulationParameter"));
     simSetScriptSimulationParameter=(ptrSimSetScriptSimulationParameter)(_getProcAddress(lib,"simSetScriptSimulationParameter"));
     simSetJointForce=(ptrSimSetJointForce)(_getProcAddress(lib,"simSetJointForce"));
+    simHandleMill=(ptrSimHandleMill)(_getProcAddress(lib,"simHandleMill"));
+    simResetMill=(ptrSimResetMill)(_getProcAddress(lib,"simResetMill"));
+    simResetMilling=(ptrSimResetMilling)(_getProcAddress(lib,"simResetMilling"));
+    simApplyMilling=(ptrSimApplyMilling)(_getProcAddress(lib,"simApplyMilling"));
+    _simGetParentFollowsDynamic=(ptr_simGetParentFollowsDynamic)(_getProcAddress(lib,"_simGetParentFollowsDynamic"));
     // Deprecated end
 
 
@@ -1755,11 +1755,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simReadProximitySensor\n",couldNotFind);
         return 0;
     }
-    if (simHandleMill==nullptr)
-    {
-        printf("%s simHandleMill\n",couldNotFind);
-        return 0;
-    }
     if (simHandleIkGroup==nullptr)
     {
         printf("%s simHandleIkGroup\n",couldNotFind);
@@ -1878,11 +1873,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simResetProximitySensor==nullptr)
     {
         printf("%s simResetProximitySensor\n",couldNotFind);
-        return 0;
-    }
-    if (simResetMill==nullptr)
-    {
-        printf("%s simResetMill\n",couldNotFind);
         return 0;
     }
     if (simCheckProximitySensor==nullptr)
@@ -2203,16 +2193,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simAnnounceSceneContentChange==nullptr)
     {
         printf("%s simAnnounceSceneContentChange\n",couldNotFind);
-        return 0;
-    }
-    if (simResetMilling==nullptr)
-    {
-        printf("%s simResetMilling\n",couldNotFind);
-        return 0;
-    }
-    if (simApplyMilling==nullptr)
-    {
-        printf("%s simApplyMilling\n",couldNotFind);
         return 0;
     }
     if (simSetIntegerSignal==nullptr)
@@ -3700,11 +3680,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s _simGetGeomProxyDynamicsFullRefreshFlag\n",couldNotFind);
         return 0;
     }
-    if (_simGetParentFollowsDynamic==nullptr)
-    {
-        printf("%s _simGetParentFollowsDynamic\n",couldNotFind);
-        return 0;
-    }
     if (_simSetShapeDynamicVelocity==nullptr)
     {
         printf("%s _simSetShapeDynamicVelocity\n",couldNotFind);
@@ -4338,6 +4313,31 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetJointForce==nullptr)
     {
         printf("%s simSetJointForce\n",couldNotFind);
+        return 0;
+    }
+    if (simHandleMill==nullptr)
+    {
+        printf("%s simHandleMill\n",couldNotFind);
+        return 0;
+    }
+    if (simResetMill==nullptr)
+    {
+        printf("%s simResetMill\n",couldNotFind);
+        return 0;
+    }
+    if (simResetMilling==nullptr)
+    {
+        printf("%s simResetMilling\n",couldNotFind);
+        return 0;
+    }
+    if (simApplyMilling==nullptr)
+    {
+        printf("%s simApplyMilling\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetParentFollowsDynamic==nullptr)
+    {
+        printf("%s _simGetParentFollowsDynamic\n",couldNotFind);
         return 0;
     }
     // Deprecated end
