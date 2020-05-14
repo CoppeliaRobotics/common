@@ -432,6 +432,8 @@ ptrSimSetStringNamedParam simSetStringNamedParam=nullptr;
 ptrSimGetStringNamedParam simGetStringNamedParam=nullptr;
 ptrSimGetUserParameter simGetUserParameter=nullptr;
 ptrSimSetUserParameter simSetUserParameter=nullptr;
+ptrSimAddLog simAddLog=nullptr;
+
 
 
 // Following courtesy of Stephen James:
@@ -1103,6 +1105,8 @@ int getSimProcAddresses(LIBRARY lib)
     simGetStringNamedParam=(ptrSimGetStringNamedParam)(_getProcAddress(lib,"simGetStringNamedParam"));
     simGetUserParameter=(ptrSimGetUserParameter)(_getProcAddress(lib,"simGetUserParameter"));
     simSetUserParameter=(ptrSimSetUserParameter)(_getProcAddress(lib,"simSetUserParameter"));
+    simAddLog=(ptrSimAddLog)(_getProcAddress(lib,"simAddLog"));
+
 
     // Following courtesy of Stephen James:
     simExtLaunchUIThread=(ptrSimExtLaunchUIThread)(_getProcAddress(lib,"simExtLaunchUIThread"));
@@ -3423,6 +3427,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetUserParameter==nullptr)
     {
         printf("%s simSetUserParameter\n",couldNotFind);
+        return 0;
+    }
+    if (simAddLog==nullptr)
+    {
+        printf("%s simAddLog\n",couldNotFind);
         return 0;
     }
 
