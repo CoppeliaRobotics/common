@@ -6,6 +6,12 @@
 
 #ifndef SIM_LIBRARY
 
+static simInt _simAddLog(const simChar* pluginName,simInt verbosity,const simChar* msg)
+{
+    printf("* simExt%s: %s\n",pluginName,msg);
+    return(1);
+}
+
 ptrSimRunSimulator simRunSimulator=nullptr;
 ptrSimRunSimulatorEx simRunSimulatorEx=nullptr;
 ptrSimGetSimulatorMessage simGetSimulatorMessage=nullptr;
@@ -432,8 +438,7 @@ ptrSimSetStringNamedParam simSetStringNamedParam=nullptr;
 ptrSimGetStringNamedParam simGetStringNamedParam=nullptr;
 ptrSimGetUserParameter simGetUserParameter=nullptr;
 ptrSimSetUserParameter simSetUserParameter=nullptr;
-ptrSimAddLog simAddLog=nullptr;
-
+ptrSimAddLog simAddLog=_simAddLog;
 
 
 // Following courtesy of Stephen James:
