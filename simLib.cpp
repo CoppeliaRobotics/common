@@ -3434,11 +3434,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simSetUserParameter\n",couldNotFind);
         return 0;
     }
-    if (simAddLog==nullptr)
-    {
-        printf("%s simAddLog\n",couldNotFind);
-        return 0;
-    }
 
 
     // Following courtesy of Stephen James:
