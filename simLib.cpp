@@ -8,7 +8,30 @@
 
 static simInt _simAddLog(const simChar* pluginName,simInt verbosity,const simChar* msg)
 {
-    printf("* simExt%s: %s\n",pluginName,msg);
+    std::string m("[");
+    if (strcmp(pluginName,"CoppeliaSimClient")!=0)
+        m+="simExt";
+    m+=pluginName;
+    if (verbosity==sim_verbosity_errors)
+        m+=":error]   ";
+    if (verbosity==sim_verbosity_warnings)
+        m+=":warning]   ";
+    if (verbosity==sim_verbosity_loadinfos)
+        m+=":loadinfo]   ";
+    if (verbosity==sim_verbosity_msgs)
+        m+=":msg]   ";
+    if (verbosity==sim_verbosity_infos)
+        m+=":info]   ";
+    if (verbosity==sim_verbosity_debug)
+        m+=":debug]   ";
+    if (verbosity==sim_verbosity_trace)
+        m+=":trace]   ";
+    if (verbosity==sim_verbosity_tracelua)
+        m+=":tracelua]   ";
+    if (verbosity==sim_verbosity_traceall)
+        m+=":traceall]   ";
+    m+=msg;
+    printf("%s\n",m.c_str());
     return(1);
 }
 
@@ -179,11 +202,9 @@ ptrSimScaleSelectedObjects simScaleSelectedObjects=nullptr;
 ptrSimScaleObjects simScaleObjects=nullptr;
 ptrSimDeleteSelectedObjects simDeleteSelectedObjects=nullptr;
 ptrSimGetObjectUniqueIdentifier simGetObjectUniqueIdentifier=nullptr;
-ptrSimGetNameSuffix simGetNameSuffix=nullptr;
 ptrSimSendData simSendData=nullptr;
 ptrSimReceiveData simReceiveData=nullptr;
 ptrSimSetGraphUserData simSetGraphUserData=nullptr;
-ptrSimSetNameSuffix simSetNameSuffix=nullptr;
 ptrSimAddDrawingObject simAddDrawingObject=nullptr;
 ptrSimRemoveDrawingObject simRemoveDrawingObject=nullptr;
 ptrSimAddDrawingObjectItem simAddDrawingObjectItem=nullptr;
@@ -629,6 +650,8 @@ ptrSimResetMill simResetMill=nullptr;
 ptrSimResetMilling simResetMilling=nullptr;
 ptrSimApplyMilling simApplyMilling=nullptr;
 ptr_simGetParentFollowsDynamic _simGetParentFollowsDynamic=nullptr;
+ptrSimGetNameSuffix simGetNameSuffix=nullptr;
+ptrSimSetNameSuffix simSetNameSuffix=nullptr;
 // Deprecated end
 
 
@@ -851,11 +874,9 @@ int getSimProcAddresses(LIBRARY lib)
     simScaleObjects=(ptrSimScaleObjects)(_getProcAddress(lib,"simScaleObjects"));
     simDeleteSelectedObjects=(ptrSimDeleteSelectedObjects)(_getProcAddress(lib,"simDeleteSelectedObjects"));
     simGetObjectUniqueIdentifier=(ptrSimGetObjectUniqueIdentifier)(_getProcAddress(lib,"simGetObjectUniqueIdentifier"));
-    simGetNameSuffix=(ptrSimGetNameSuffix)(_getProcAddress(lib,"simGetNameSuffix"));
     simSendData=(ptrSimSendData)(_getProcAddress(lib,"simSendData"));
     simReceiveData=(ptrSimReceiveData)(_getProcAddress(lib,"simReceiveData"));
     simSetGraphUserData=(ptrSimSetGraphUserData)(_getProcAddress(lib,"simSetGraphUserData"));
-    simSetNameSuffix=(ptrSimSetNameSuffix)(_getProcAddress(lib,"simSetNameSuffix"));
     simAddDrawingObject=(ptrSimAddDrawingObject)(_getProcAddress(lib,"simAddDrawingObject"));
     simRemoveDrawingObject=(ptrSimRemoveDrawingObject)(_getProcAddress(lib,"simRemoveDrawingObject"));
     simAddDrawingObjectItem=(ptrSimAddDrawingObjectItem)(_getProcAddress(lib,"simAddDrawingObjectItem"));
@@ -1300,6 +1321,8 @@ int getSimProcAddresses(LIBRARY lib)
     simResetMilling=(ptrSimResetMilling)(_getProcAddress(lib,"simResetMilling"));
     simApplyMilling=(ptrSimApplyMilling)(_getProcAddress(lib,"simApplyMilling"));
     _simGetParentFollowsDynamic=(ptr_simGetParentFollowsDynamic)(_getProcAddress(lib,"_simGetParentFollowsDynamic"));
+    simGetNameSuffix=(ptrSimGetNameSuffix)(_getProcAddress(lib,"simGetNameSuffix"));
+    simSetNameSuffix=(ptrSimSetNameSuffix)(_getProcAddress(lib,"simSetNameSuffix"));
     // Deprecated end
 
 
@@ -2139,11 +2162,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetObjectUniqueIdentifier\n",couldNotFind);
         return 0;
     }
-    if (simGetNameSuffix==nullptr)
-    {
-        printf("%s simGetNameSuffix\n",couldNotFind);
-        return 0;
-    }
     if (simSendData==nullptr)
     {
         printf("%s simSendData\n",couldNotFind);
@@ -2157,11 +2175,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetGraphUserData==nullptr)
     {
         printf("%s simSetGraphUserData\n",couldNotFind);
-        return 0;
-    }
-    if (simSetNameSuffix==nullptr)
-    {
-        printf("%s simSetNameSuffix\n",couldNotFind);
         return 0;
     }
     if (simAddDrawingObject==nullptr)
@@ -4347,6 +4360,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (_simGetParentFollowsDynamic==nullptr)
     {
         printf("%s _simGetParentFollowsDynamic\n",couldNotFind);
+        return 0;
+    }
+    if (simGetNameSuffix==nullptr)
+    {
+        printf("%s simGetNameSuffix\n",couldNotFind);
+        return 0;
+    }
+    if (simSetNameSuffix==nullptr)
+    {
+        printf("%s simSetNameSuffix\n",couldNotFind);
         return 0;
     }
     // Deprecated end
