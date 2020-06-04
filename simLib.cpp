@@ -1,5 +1,5 @@
 #include "../include/simLib.h"
-#include <stdio.h>
+#include <cstdio>
 #include <string>
 #include <cstring>
 #if defined (__linux) || defined (__APPLE__)
