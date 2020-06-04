@@ -111,7 +111,6 @@ ptrSimCloseScene simCloseScene=nullptr;
 ptrSimSaveScene simSaveScene=nullptr;
 ptrSimLoadModel simLoadModel=nullptr;
 ptrSimSaveModel simSaveModel=nullptr;
-ptrSimAddStatusbarMessage simAddStatusbarMessage=nullptr;
 ptrSimAddModuleMenuEntry simAddModuleMenuEntry=nullptr;
 ptrSimSetModuleMenuItemState simSetModuleMenuItemState=nullptr;
 ptrSimDoesFileExist simDoesFileExist=nullptr;
@@ -652,6 +651,7 @@ ptrSimApplyMilling simApplyMilling=nullptr;
 ptr_simGetParentFollowsDynamic _simGetParentFollowsDynamic=nullptr;
 ptrSimGetNameSuffix simGetNameSuffix=nullptr;
 ptrSimSetNameSuffix simSetNameSuffix=nullptr;
+ptrSimAddStatusbarMessage simAddStatusbarMessage=nullptr;
 // Deprecated end
 
 
@@ -783,7 +783,6 @@ int getSimProcAddresses(LIBRARY lib)
     simSaveScene=(ptrSimSaveScene)(_getProcAddress(lib,"simSaveScene"));
     simLoadModel=(ptrSimLoadModel)(_getProcAddress(lib,"simLoadModel"));
     simSaveModel=(ptrSimSaveModel)(_getProcAddress(lib,"simSaveModel"));
-    simAddStatusbarMessage=(ptrSimAddStatusbarMessage)(_getProcAddress(lib,"simAddStatusbarMessage"));
     simAddModuleMenuEntry=(ptrSimAddModuleMenuEntry)(_getProcAddress(lib,"simAddModuleMenuEntry"));
     simSetModuleMenuItemState=(ptrSimSetModuleMenuItemState)(_getProcAddress(lib,"simSetModuleMenuItemState"));
     simDoesFileExist=(ptrSimDoesFileExist)(_getProcAddress(lib,"simDoesFileExist"));
@@ -1323,6 +1322,7 @@ int getSimProcAddresses(LIBRARY lib)
     _simGetParentFollowsDynamic=(ptr_simGetParentFollowsDynamic)(_getProcAddress(lib,"_simGetParentFollowsDynamic"));
     simGetNameSuffix=(ptrSimGetNameSuffix)(_getProcAddress(lib,"simGetNameSuffix"));
     simSetNameSuffix=(ptrSimSetNameSuffix)(_getProcAddress(lib,"simSetNameSuffix"));
+    simAddStatusbarMessage=(ptrSimAddStatusbarMessage)(_getProcAddress(lib,"simAddStatusbarMessage"));
     // Deprecated end
 
 
@@ -1705,11 +1705,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSaveModel==nullptr)
     {
         printf("%s simSaveModel\n",couldNotFind);
-        return 0;
-    }
-    if (simAddStatusbarMessage==nullptr)
-    {
-        printf("%s simAddStatusbarMessage\n",couldNotFind);
         return 0;
     }
     if (simAddModuleMenuEntry==nullptr)
@@ -4370,6 +4365,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetNameSuffix==nullptr)
     {
         printf("%s simSetNameSuffix\n",couldNotFind);
+        return 0;
+    }
+    if (simAddStatusbarMessage==nullptr)
+    {
+        printf("%s simAddStatusbarMessage\n",couldNotFind);
         return 0;
     }
     // Deprecated end
