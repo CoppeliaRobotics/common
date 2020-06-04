@@ -1,6 +1,7 @@
 #include "../include/simLib.h"
 #include <stdio.h>
 #include <string>
+#include <cstring>
 #if defined (__linux) || defined (__APPLE__)
     #include <dlfcn.h>
 #endif
