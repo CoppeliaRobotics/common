@@ -195,9 +195,6 @@ ptrSimRegisterScriptVariable simRegisterScriptVariable=nullptr;
 ptrSimSetJointTargetVelocity simSetJointTargetVelocity=nullptr;
 ptrSimGetJointTargetVelocity simGetJointTargetVelocity=nullptr;
 ptrSimSetPathTargetNominalVelocity simSetPathTargetNominalVelocity=nullptr;
-ptrSimGetScriptRawBuffer simGetScriptRawBuffer=nullptr;
-ptrSimSetScriptRawBuffer simSetScriptRawBuffer=nullptr;
-ptrSimReleaseScriptRawBuffer simReleaseScriptRawBuffer=nullptr;
 ptrSimCopyPasteObjects simCopyPasteObjects=nullptr;
 ptrSimScaleSelectedObjects simScaleSelectedObjects=nullptr;
 ptrSimScaleObjects simScaleObjects=nullptr;
@@ -654,6 +651,9 @@ ptr_simGetParentFollowsDynamic _simGetParentFollowsDynamic=nullptr;
 ptrSimGetNameSuffix simGetNameSuffix=nullptr;
 ptrSimSetNameSuffix simSetNameSuffix=nullptr;
 ptrSimAddStatusbarMessage simAddStatusbarMessage=nullptr;
+ptrSimGetScriptRawBuffer simGetScriptRawBuffer=nullptr;
+ptrSimSetScriptRawBuffer simSetScriptRawBuffer=nullptr;
+ptrSimReleaseScriptRawBuffer simReleaseScriptRawBuffer=nullptr;
 // Deprecated end
 
 
@@ -867,9 +867,6 @@ int getSimProcAddresses(LIBRARY lib)
     simSetJointTargetVelocity=(ptrSimSetJointTargetVelocity)(_getProcAddress(lib,"simSetJointTargetVelocity"));
     simGetJointTargetVelocity=(ptrSimGetJointTargetVelocity)(_getProcAddress(lib,"simGetJointTargetVelocity"));
     simSetPathTargetNominalVelocity=(ptrSimSetPathTargetNominalVelocity)(_getProcAddress(lib,"simSetPathTargetNominalVelocity"));
-    simGetScriptRawBuffer=(ptrSimGetScriptRawBuffer)(_getProcAddress(lib,"simGetScriptRawBuffer"));
-    simSetScriptRawBuffer=(ptrSimSetScriptRawBuffer)(_getProcAddress(lib,"simSetScriptRawBuffer"));
-    simReleaseScriptRawBuffer=(ptrSimReleaseScriptRawBuffer)(_getProcAddress(lib,"simReleaseScriptRawBuffer"));
     simCopyPasteObjects=(ptrSimCopyPasteObjects)(_getProcAddress(lib,"simCopyPasteObjects"));
     simScaleSelectedObjects=(ptrSimScaleSelectedObjects)(_getProcAddress(lib,"simScaleSelectedObjects"));
     simScaleObjects=(ptrSimScaleObjects)(_getProcAddress(lib,"simScaleObjects"));
@@ -1325,6 +1322,9 @@ int getSimProcAddresses(LIBRARY lib)
     simGetNameSuffix=(ptrSimGetNameSuffix)(_getProcAddress(lib,"simGetNameSuffix"));
     simSetNameSuffix=(ptrSimSetNameSuffix)(_getProcAddress(lib,"simSetNameSuffix"));
     simAddStatusbarMessage=(ptrSimAddStatusbarMessage)(_getProcAddress(lib,"simAddStatusbarMessage"));
+    simGetScriptRawBuffer=(ptrSimGetScriptRawBuffer)(_getProcAddress(lib,"simGetScriptRawBuffer"));
+    simSetScriptRawBuffer=(ptrSimSetScriptRawBuffer)(_getProcAddress(lib,"simSetScriptRawBuffer"));
+    simReleaseScriptRawBuffer=(ptrSimReleaseScriptRawBuffer)(_getProcAddress(lib,"simReleaseScriptRawBuffer"));
     // Deprecated end
 
 
@@ -2117,21 +2117,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetPathTargetNominalVelocity==nullptr)
     {
         printf("%s simSetPathTargetNominalVelocity\n",couldNotFind);
-        return 0;
-    }
-    if (simGetScriptRawBuffer==nullptr)
-    {
-        printf("%s simGetScriptRawBuffer\n",couldNotFind);
-        return 0;
-    }
-    if (simSetScriptRawBuffer==nullptr)
-    {
-        printf("%s simSetScriptRawBuffer\n",couldNotFind);
-        return 0;
-    }
-    if (simReleaseScriptRawBuffer==nullptr)
-    {
-        printf("%s simReleaseScriptRawBuffer\n",couldNotFind);
         return 0;
     }
     if (simCopyPasteObjects==nullptr)
@@ -4372,6 +4357,21 @@ int getSimProcAddresses(LIBRARY lib)
     if (simAddStatusbarMessage==nullptr)
     {
         printf("%s simAddStatusbarMessage\n",couldNotFind);
+        return 0;
+    }
+    if (simGetScriptRawBuffer==nullptr)
+    {
+        printf("%s simGetScriptRawBuffer\n",couldNotFind);
+        return 0;
+    }
+    if (simSetScriptRawBuffer==nullptr)
+    {
+        printf("%s simSetScriptRawBuffer\n",couldNotFind);
+        return 0;
+    }
+    if (simReleaseScriptRawBuffer==nullptr)
+    {
+        printf("%s simReleaseScriptRawBuffer\n",couldNotFind);
         return 0;
     }
     // Deprecated end
