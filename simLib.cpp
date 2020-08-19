@@ -330,8 +330,6 @@ ptrSimBuildMatrixQ simBuildMatrixQ=nullptr;
 ptrSimGetQuaternionFromMatrix simGetQuaternionFromMatrix=nullptr;
 ptrSimFileDialog simFileDialog=nullptr;
 ptrSimMsgBox simMsgBox=nullptr;
-ptrSimSetShapeMassAndInertia simSetShapeMassAndInertia=nullptr;
-ptrSimGetShapeMassAndInertia simGetShapeMassAndInertia=nullptr;
 ptrSimGroupShapes simGroupShapes=nullptr;
 ptrSimUngroupShape simUngroupShape=nullptr;
 ptrSimConvexDecompose simConvexDecompose=nullptr;
@@ -458,6 +456,10 @@ ptrSimGetStringNamedParam simGetStringNamedParam=nullptr;
 ptrSimGetUserParameter simGetUserParameter=nullptr;
 ptrSimSetUserParameter simSetUserParameter=nullptr;
 ptrSimAddLog simAddLog=_simAddLog;
+ptrSimGetShapeMass simGetShapeMass=nullptr;
+ptrSimSetShapeMass simSetShapeMass=nullptr;
+ptrSimGetShapeInertia simGetShapeInertia=nullptr;
+ptrSimSetShapeInertia simSetShapeInertia=nullptr;
 
 
 // Following courtesy of Stephen James:
@@ -654,6 +656,8 @@ ptrSimAddStatusbarMessage simAddStatusbarMessage=nullptr;
 ptrSimGetScriptRawBuffer simGetScriptRawBuffer=nullptr;
 ptrSimSetScriptRawBuffer simSetScriptRawBuffer=nullptr;
 ptrSimReleaseScriptRawBuffer simReleaseScriptRawBuffer=nullptr;
+ptrSimSetShapeMassAndInertia simSetShapeMassAndInertia=nullptr;
+ptrSimGetShapeMassAndInertia simGetShapeMassAndInertia=nullptr;
 // Deprecated end
 
 
@@ -1002,8 +1006,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetQuaternionFromMatrix=(ptrSimGetQuaternionFromMatrix)(_getProcAddress(lib,"simGetQuaternionFromMatrix"));
     simFileDialog=(ptrSimFileDialog)(_getProcAddress(lib,"simFileDialog"));
     simMsgBox=(ptrSimMsgBox)(_getProcAddress(lib,"simMsgBox"));
-    simSetShapeMassAndInertia=(ptrSimSetShapeMassAndInertia)(_getProcAddress(lib,"simSetShapeMassAndInertia"));
-    simGetShapeMassAndInertia=(ptrSimGetShapeMassAndInertia)(_getProcAddress(lib,"simGetShapeMassAndInertia"));
     simGroupShapes=(ptrSimGroupShapes)(_getProcAddress(lib,"simGroupShapes"));
     simUngroupShape=(ptrSimUngroupShape)(_getProcAddress(lib,"simUngroupShape"));
     simConvexDecompose=(ptrSimConvexDecompose)(_getProcAddress(lib,"simConvexDecompose"));
@@ -1130,6 +1132,10 @@ int getSimProcAddresses(LIBRARY lib)
     simGetUserParameter=(ptrSimGetUserParameter)(_getProcAddress(lib,"simGetUserParameter"));
     simSetUserParameter=(ptrSimSetUserParameter)(_getProcAddress(lib,"simSetUserParameter"));
     simAddLog=(ptrSimAddLog)(_getProcAddress(lib,"simAddLog"));
+    simGetShapeMass=(ptrSimGetShapeMass)(_getProcAddress(lib,"simGetShapeMass"));
+    simSetShapeMass=(ptrSimSetShapeMass)(_getProcAddress(lib,"simSetShapeMass"));
+    simGetShapeInertia=(ptrSimGetShapeInertia)(_getProcAddress(lib,"simGetShapeInertia"));
+    simSetShapeInertia=(ptrSimSetShapeInertia)(_getProcAddress(lib,"simSetShapeInertia"));
 
 
     // Following courtesy of Stephen James:
@@ -1325,6 +1331,8 @@ int getSimProcAddresses(LIBRARY lib)
     simGetScriptRawBuffer=(ptrSimGetScriptRawBuffer)(_getProcAddress(lib,"simGetScriptRawBuffer"));
     simSetScriptRawBuffer=(ptrSimSetScriptRawBuffer)(_getProcAddress(lib,"simSetScriptRawBuffer"));
     simReleaseScriptRawBuffer=(ptrSimReleaseScriptRawBuffer)(_getProcAddress(lib,"simReleaseScriptRawBuffer"));
+    simSetShapeMassAndInertia=(ptrSimSetShapeMassAndInertia)(_getProcAddress(lib,"simSetShapeMassAndInertia"));
+    simGetShapeMassAndInertia=(ptrSimGetShapeMassAndInertia)(_getProcAddress(lib,"simGetShapeMassAndInertia"));
     // Deprecated end
 
 
@@ -2794,16 +2802,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simMsgBox\n",couldNotFind);
         return 0;
     }
-    if (simSetShapeMassAndInertia==nullptr)
-    {
-        printf("%s simSetShapeMassAndInertia\n",couldNotFind);
-        return 0;
-    }
-    if (simGetShapeMassAndInertia==nullptr)
-    {
-        printf("%s simGetShapeMassAndInertia\n",couldNotFind);
-        return 0;
-    }
     if (simGroupShapes==nullptr)
     {
         printf("%s simGroupShapes\n",couldNotFind);
@@ -3427,6 +3425,26 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetUserParameter==nullptr)
     {
         printf("%s simSetUserParameter\n",couldNotFind);
+        return 0;
+    }
+    if (simGetShapeMass==nullptr)
+    {
+        printf("%s simGetShapeMass\n",couldNotFind);
+        return 0;
+    }
+    if (simSetShapeMass==nullptr)
+    {
+        printf("%s simSetShapeMass\n",couldNotFind);
+        return 0;
+    }
+    if (simGetShapeInertia==nullptr)
+    {
+        printf("%s simGetShapeInertia\n",couldNotFind);
+        return 0;
+    }
+    if (simSetShapeInertia==nullptr)
+    {
+        printf("%s simSetShapeInertia\n",couldNotFind);
         return 0;
     }
 
@@ -4372,6 +4390,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simReleaseScriptRawBuffer==nullptr)
     {
         printf("%s simReleaseScriptRawBuffer\n",couldNotFind);
+        return 0;
+    }
+    if (simSetShapeMassAndInertia==nullptr)
+    {
+        printf("%s simSetShapeMassAndInertia\n",couldNotFind);
+        return 0;
+    }
+    if (simGetShapeMassAndInertia==nullptr)
+    {
+        printf("%s simGetShapeMassAndInertia\n",couldNotFind);
         return 0;
     }
     // Deprecated end
