@@ -451,6 +451,7 @@ ptrSimGetPersistentDataTags simGetPersistentDataTags=nullptr;
 ptrSimEventNotification simEventNotification=nullptr;
 ptrSimApplyTexture simApplyTexture=nullptr;
 ptrSimSetJointDependency simSetJointDependency=nullptr;
+ptrSimGetJointDependency simGetJointDependency=nullptr;
 ptrSimSetStringNamedParam simSetStringNamedParam=nullptr;
 ptrSimGetStringNamedParam simGetStringNamedParam=nullptr;
 ptrSimGetUserParameter simGetUserParameter=nullptr;
@@ -460,6 +461,7 @@ ptrSimGetShapeMass simGetShapeMass=nullptr;
 ptrSimSetShapeMass simSetShapeMass=nullptr;
 ptrSimGetShapeInertia simGetShapeInertia=nullptr;
 ptrSimSetShapeInertia simSetShapeInertia=nullptr;
+ptrSimIsDynamicallyEnabled simIsDynamicallyEnabled=nullptr;
 
 
 // Following courtesy of Stephen James:
@@ -668,7 +670,7 @@ LIBRARY loadSimLibrary(const char* pathAndFilename)
         if (!lib->load())
         {
             delete lib;
-            lib=NULL;
+            lib=nullptr;
         }
         return lib;
     #else
@@ -1127,6 +1129,7 @@ int getSimProcAddresses(LIBRARY lib)
     simEventNotification=(ptrSimEventNotification)(_getProcAddress(lib,"simEventNotification"));
     simApplyTexture=(ptrSimApplyTexture)(_getProcAddress(lib,"simApplyTexture"));
     simSetJointDependency=(ptrSimSetJointDependency)(_getProcAddress(lib,"simSetJointDependency"));
+    simGetJointDependency=(ptrSimGetJointDependency)(_getProcAddress(lib,"simGetJointDependency"));
     simSetStringNamedParam=(ptrSimSetStringNamedParam)(_getProcAddress(lib,"simSetStringNamedParam"));
     simGetStringNamedParam=(ptrSimGetStringNamedParam)(_getProcAddress(lib,"simGetStringNamedParam"));
     simGetUserParameter=(ptrSimGetUserParameter)(_getProcAddress(lib,"simGetUserParameter"));
@@ -1136,6 +1139,7 @@ int getSimProcAddresses(LIBRARY lib)
     simSetShapeMass=(ptrSimSetShapeMass)(_getProcAddress(lib,"simSetShapeMass"));
     simGetShapeInertia=(ptrSimGetShapeInertia)(_getProcAddress(lib,"simGetShapeInertia"));
     simSetShapeInertia=(ptrSimSetShapeInertia)(_getProcAddress(lib,"simSetShapeInertia"));
+    simIsDynamicallyEnabled=(ptrSimIsDynamicallyEnabled)(_getProcAddress(lib,"simIsDynamicallyEnabled"));
 
 
     // Following courtesy of Stephen James:
@@ -3407,6 +3411,11 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simSetJointDependency\n",couldNotFind);
         return 0;
     }
+    if (simGetJointDependency==nullptr)
+    {
+        printf("%s simGetJointDependency\n",couldNotFind);
+        return 0;
+    }
     if (simSetStringNamedParam==nullptr)
     {
         printf("%s simSetStringNamedParam\n",couldNotFind);
@@ -3445,6 +3454,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetShapeInertia==nullptr)
     {
         printf("%s simSetShapeInertia\n",couldNotFind);
+        return 0;
+    }
+    if (simIsDynamicallyEnabled==nullptr)
+    {
+        printf("%s simIsDynamicallyEnabled\n",couldNotFind);
         return 0;
     }
 
