@@ -188,7 +188,6 @@ ptrSimRegisterScriptCallbackFunction simRegisterScriptCallbackFunction=nullptr;
 ptrSimRegisterScriptVariable simRegisterScriptVariable=nullptr;
 ptrSimSetJointTargetVelocity simSetJointTargetVelocity=nullptr;
 ptrSimGetJointTargetVelocity simGetJointTargetVelocity=nullptr;
-ptrSimSetPathTargetNominalVelocity simSetPathTargetNominalVelocity=nullptr;
 ptrSimCopyPasteObjects simCopyPasteObjects=nullptr;
 ptrSimScaleSelectedObjects simScaleSelectedObjects=nullptr;
 ptrSimScaleObjects simScaleObjects=nullptr;
@@ -660,6 +659,7 @@ ptrSimLockResources simLockResources=nullptr;
 ptrSimUnlockResources simUnlockResources=nullptr;
 ptrSimGetUserParameter simGetUserParameter=nullptr;
 ptrSimSetUserParameter simSetUserParameter=nullptr;
+ptrSimSetPathTargetNominalVelocity simSetPathTargetNominalVelocity=nullptr;
 // Deprecated end
 
 
@@ -866,7 +866,6 @@ int getSimProcAddresses(LIBRARY lib)
     simRegisterScriptVariable=(ptrSimRegisterScriptVariable)(_getProcAddress(lib,"simRegisterScriptVariable"));
     simSetJointTargetVelocity=(ptrSimSetJointTargetVelocity)(_getProcAddress(lib,"simSetJointTargetVelocity"));
     simGetJointTargetVelocity=(ptrSimGetJointTargetVelocity)(_getProcAddress(lib,"simGetJointTargetVelocity"));
-    simSetPathTargetNominalVelocity=(ptrSimSetPathTargetNominalVelocity)(_getProcAddress(lib,"simSetPathTargetNominalVelocity"));
     simCopyPasteObjects=(ptrSimCopyPasteObjects)(_getProcAddress(lib,"simCopyPasteObjects"));
     simScaleSelectedObjects=(ptrSimScaleSelectedObjects)(_getProcAddress(lib,"simScaleSelectedObjects"));
     simScaleObjects=(ptrSimScaleObjects)(_getProcAddress(lib,"simScaleObjects"));
@@ -1337,6 +1336,7 @@ int getSimProcAddresses(LIBRARY lib)
     simUnlockResources=(ptrSimUnlockResources)(_getProcAddress(lib,"simUnlockResources"));
     simGetUserParameter=(ptrSimGetUserParameter)(_getProcAddress(lib,"simGetUserParameter"));
     simSetUserParameter=(ptrSimSetUserParameter)(_getProcAddress(lib,"simSetUserParameter"));
+    simSetPathTargetNominalVelocity=(ptrSimSetPathTargetNominalVelocity)(_getProcAddress(lib,"simSetPathTargetNominalVelocity"));
     // Deprecated end
 
 
@@ -2094,11 +2094,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetJointTargetVelocity==nullptr)
     {
         printf("%s simGetJointTargetVelocity\n",couldNotFind);
-        return 0;
-    }
-    if (simSetPathTargetNominalVelocity==nullptr)
-    {
-        printf("%s simSetPathTargetNominalVelocity\n",couldNotFind);
         return 0;
     }
     if (simCopyPasteObjects==nullptr)
@@ -4414,6 +4409,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetUserParameter==nullptr)
     {
         printf("%s simSetUserParameter\n",couldNotFind);
+        return 0;
+    }
+    if (simSetPathTargetNominalVelocity==nullptr)
+    {
+        printf("%s simSetPathTargetNominalVelocity\n",couldNotFind);
         return 0;
     }
     // Deprecated end
