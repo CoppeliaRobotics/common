@@ -66,11 +66,6 @@ ptrSimRemoveModel simRemoveModel=nullptr;
 ptrSimGetObjectName simGetObjectName=nullptr;
 ptrSimGetObjects simGetObjects=nullptr;
 ptrSimSetObjectName simSetObjectName=nullptr;
-ptrSimGetCollectionHandle simGetCollectionHandle=nullptr;
-ptrSimRemoveCollection simRemoveCollection=nullptr;
-ptrSimEmptyCollection simEmptyCollection=nullptr;
-ptrSimGetCollectionName simGetCollectionName=nullptr;
-ptrSimSetCollectionName simSetCollectionName=nullptr;
 ptrSimGetObjectMatrix simGetObjectMatrix=nullptr;
 ptrSimSetObjectMatrix simSetObjectMatrix=nullptr;
 ptrSimGetObjectPosition simGetObjectPosition=nullptr;
@@ -330,12 +325,13 @@ ptrSimGetObjectSizeValues simGetObjectSizeValues=nullptr;
 ptrSimScaleObject simScaleObject=nullptr;
 ptrSimSetShapeTexture simSetShapeTexture=nullptr;
 ptrSimGetShapeTextureId simGetShapeTextureId=nullptr;
+ptrSimAddCollection simAddCollection=nullptr;
+ptrSimAddItemToCollection simAddItemToCollection=nullptr;
+ptrSimDestroyCollection simDestroyCollection=nullptr;
 ptrSimGetCollectionObjects simGetCollectionObjects=nullptr;
 ptrSimSetScriptAttribute simSetScriptAttribute=nullptr;
 ptrSimGetScriptAttribute simGetScriptAttribute=nullptr;
 ptrSimReorientShapeBoundingBox simReorientShapeBoundingBox=nullptr;
-ptrSimCreateCollection simCreateCollection=nullptr;
-ptrSimAddObjectToCollection simAddObjectToCollection=nullptr;
 ptrSimSaveImage simSaveImage=nullptr;
 ptrSimLoadImage simLoadImage=nullptr;
 ptrSimGetScaledImage simGetScaledImage=nullptr;
@@ -660,6 +656,13 @@ ptrSimUnlockResources simUnlockResources=nullptr;
 ptrSimGetUserParameter simGetUserParameter=nullptr;
 ptrSimSetUserParameter simSetUserParameter=nullptr;
 ptrSimSetPathTargetNominalVelocity simSetPathTargetNominalVelocity=nullptr;
+ptrSimGetCollectionHandle simGetCollectionHandle=nullptr;
+ptrSimRemoveCollection simRemoveCollection=nullptr;
+ptrSimEmptyCollection simEmptyCollection=nullptr;
+ptrSimGetCollectionName simGetCollectionName=nullptr;
+ptrSimSetCollectionName simSetCollectionName=nullptr;
+ptrSimCreateCollection simCreateCollection=nullptr;
+ptrSimAddObjectToCollection simAddObjectToCollection=nullptr;
 // Deprecated end
 
 
@@ -744,11 +747,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetObjectName=(ptrSimGetObjectName)(_getProcAddress(lib,"simGetObjectName"));
     simGetObjects=(ptrSimGetObjects)(_getProcAddress(lib,"simGetObjects"));
     simSetObjectName=(ptrSimSetObjectName)(_getProcAddress(lib,"simSetObjectName"));
-    simGetCollectionHandle=(ptrSimGetCollectionHandle)(_getProcAddress(lib,"simGetCollectionHandle"));
-    simRemoveCollection=(ptrSimRemoveCollection)(_getProcAddress(lib,"simRemoveCollection"));
-    simEmptyCollection=(ptrSimEmptyCollection)(_getProcAddress(lib,"simEmptyCollection"));
-    simGetCollectionName=(ptrSimGetCollectionName)(_getProcAddress(lib,"simGetCollectionName"));
-    simSetCollectionName=(ptrSimSetCollectionName)(_getProcAddress(lib,"simSetCollectionName"));
     simGetObjectMatrix=(ptrSimGetObjectMatrix)(_getProcAddress(lib,"simGetObjectMatrix"));
     simSetObjectMatrix=(ptrSimSetObjectMatrix)(_getProcAddress(lib,"simSetObjectMatrix"));
     simGetObjectPosition=(ptrSimGetObjectPosition)(_getProcAddress(lib,"simGetObjectPosition"));
@@ -1008,12 +1006,13 @@ int getSimProcAddresses(LIBRARY lib)
     simScaleObject=(ptrSimScaleObject)(_getProcAddress(lib,"simScaleObject"));
     simSetShapeTexture=(ptrSimSetShapeTexture)(_getProcAddress(lib,"simSetShapeTexture"));
     simGetShapeTextureId=(ptrSimGetShapeTextureId)(_getProcAddress(lib,"simGetShapeTextureId"));
+    simAddCollection=(ptrSimAddCollection)(_getProcAddress(lib,"simAddCollection"));
+    simAddItemToCollection=(ptrSimAddItemToCollection)(_getProcAddress(lib,"simAddItemToCollection"));
+    simDestroyCollection=(ptrSimDestroyCollection)(_getProcAddress(lib,"simDestroyCollection"));
     simGetCollectionObjects=(ptrSimGetCollectionObjects)(_getProcAddress(lib,"simGetCollectionObjects"));
     simSetScriptAttribute=(ptrSimSetScriptAttribute)(_getProcAddress(lib,"simSetScriptAttribute"));
     simGetScriptAttribute=(ptrSimGetScriptAttribute)(_getProcAddress(lib,"simGetScriptAttribute"));
     simReorientShapeBoundingBox=(ptrSimReorientShapeBoundingBox)(_getProcAddress(lib,"simReorientShapeBoundingBox"));
-    simCreateCollection=(ptrSimCreateCollection)(_getProcAddress(lib,"simCreateCollection"));
-    simAddObjectToCollection=(ptrSimAddObjectToCollection)(_getProcAddress(lib,"simAddObjectToCollection"));
     simSaveImage=(ptrSimSaveImage)(_getProcAddress(lib,"simSaveImage"));
     simLoadImage=(ptrSimLoadImage)(_getProcAddress(lib,"simLoadImage"));
     simGetScaledImage=(ptrSimGetScaledImage)(_getProcAddress(lib,"simGetScaledImage"));
@@ -1337,6 +1336,13 @@ int getSimProcAddresses(LIBRARY lib)
     simGetUserParameter=(ptrSimGetUserParameter)(_getProcAddress(lib,"simGetUserParameter"));
     simSetUserParameter=(ptrSimSetUserParameter)(_getProcAddress(lib,"simSetUserParameter"));
     simSetPathTargetNominalVelocity=(ptrSimSetPathTargetNominalVelocity)(_getProcAddress(lib,"simSetPathTargetNominalVelocity"));
+    simGetCollectionHandle=(ptrSimGetCollectionHandle)(_getProcAddress(lib,"simGetCollectionHandle"));
+    simRemoveCollection=(ptrSimRemoveCollection)(_getProcAddress(lib,"simRemoveCollection"));
+    simEmptyCollection=(ptrSimEmptyCollection)(_getProcAddress(lib,"simEmptyCollection"));
+    simGetCollectionName=(ptrSimGetCollectionName)(_getProcAddress(lib,"simGetCollectionName"));
+    simSetCollectionName=(ptrSimSetCollectionName)(_getProcAddress(lib,"simSetCollectionName"));
+    simCreateCollection=(ptrSimCreateCollection)(_getProcAddress(lib,"simCreateCollection"));
+    simAddObjectToCollection=(ptrSimAddObjectToCollection)(_getProcAddress(lib,"simAddObjectToCollection"));
     // Deprecated end
 
 
@@ -1484,31 +1490,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetObjectName==nullptr)
     {
         printf("%s simSetObjectName\n",couldNotFind);
-        return 0;
-    }
-    if (simGetCollectionHandle==nullptr)
-    {
-        printf("%s simGetCollectionHandle\n",couldNotFind);
-        return 0;
-    }
-    if (simRemoveCollection==nullptr)
-    {
-        printf("%s simRemoveCollection\n",couldNotFind);
-        return 0;
-    }
-    if (simEmptyCollection==nullptr)
-    {
-        printf("%s simEmptyCollection\n",couldNotFind);
-        return 0;
-    }
-    if (simGetCollectionName==nullptr)
-    {
-        printf("%s simGetCollectionName\n",couldNotFind);
-        return 0;
-    }
-    if (simSetCollectionName==nullptr)
-    {
-        printf("%s simSetCollectionName\n",couldNotFind);
         return 0;
     }
     if (simGetObjectMatrix==nullptr)
@@ -2806,6 +2787,21 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetShapeTextureId\n",couldNotFind);
         return 0;
     }
+    if (simAddCollection==nullptr)
+    {
+        printf("%s simAddCollection\n",couldNotFind);
+        return 0;
+    }
+    if (simAddItemToCollection==nullptr)
+    {
+        printf("%s simAddItemToCollection\n",couldNotFind);
+        return 0;
+    }
+    if (simDestroyCollection==nullptr)
+    {
+        printf("%s simDestroyCollection\n",couldNotFind);
+        return 0;
+    }
     if (simGetCollectionObjects==nullptr)
     {
         printf("%s simGetCollectionObjects\n",couldNotFind);
@@ -2824,16 +2820,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simReorientShapeBoundingBox==nullptr)
     {
         printf("%s simReorientShapeBoundingBox\n",couldNotFind);
-        return 0;
-    }
-    if (simCreateCollection==nullptr)
-    {
-        printf("%s simCreateCollection\n",couldNotFind);
-        return 0;
-    }
-    if (simAddObjectToCollection==nullptr)
-    {
-        printf("%s simAddObjectToCollection\n",couldNotFind);
         return 0;
     }
     if (simSaveImage==nullptr)
@@ -4414,6 +4400,41 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetPathTargetNominalVelocity==nullptr)
     {
         printf("%s simSetPathTargetNominalVelocity\n",couldNotFind);
+        return 0;
+    }
+    if (simGetCollectionHandle==nullptr)
+    {
+        printf("%s simGetCollectionHandle\n",couldNotFind);
+        return 0;
+    }
+    if (simRemoveCollection==nullptr)
+    {
+        printf("%s simRemoveCollection\n",couldNotFind);
+        return 0;
+    }
+    if (simEmptyCollection==nullptr)
+    {
+        printf("%s simEmptyCollection\n",couldNotFind);
+        return 0;
+    }
+    if (simGetCollectionName==nullptr)
+    {
+        printf("%s simGetCollectionName\n",couldNotFind);
+        return 0;
+    }
+    if (simSetCollectionName==nullptr)
+    {
+        printf("%s simSetCollectionName\n",couldNotFind);
+        return 0;
+    }
+    if (simCreateCollection==nullptr)
+    {
+        printf("%s simCreateCollection\n",couldNotFind);
+        return 0;
+    }
+    if (simAddObjectToCollection==nullptr)
+    {
+        printf("%s simAddObjectToCollection\n",couldNotFind);
         return 0;
     }
     // Deprecated end
