@@ -114,10 +114,6 @@ ptrSimRemoveObjectFromSelection simRemoveObjectFromSelection=nullptr;
 ptrSimGetObjectSelectionSize simGetObjectSelectionSize=nullptr;
 ptrSimGetObjectLastSelection simGetObjectLastSelection=nullptr;
 ptrSimGetObjectSelection simGetObjectSelection=nullptr;
-ptrSimHandleCollision simHandleCollision=nullptr;
-ptrSimReadCollision simReadCollision=nullptr;
-ptrSimHandleDistance simHandleDistance=nullptr;
-ptrSimReadDistance simReadDistance=nullptr;
 ptrSimHandleProximitySensor simHandleProximitySensor=nullptr;
 ptrSimReadProximitySensor simReadProximitySensor=nullptr;
 ptrSimHandleDynamics simHandleDynamics=nullptr;
@@ -136,10 +132,6 @@ ptrSimResetScript simResetScript=nullptr;
 ptrSimAddScript simAddScript=nullptr;
 ptrSimRemoveScript simRemoveScript=nullptr;
 ptrSimRefreshDialogs simRefreshDialogs=nullptr;
-ptrSimGetCollisionHandle simGetCollisionHandle=nullptr;
-ptrSimGetDistanceHandle simGetDistanceHandle=nullptr;
-ptrSimResetCollision simResetCollision=nullptr;
-ptrSimResetDistance simResetDistance=nullptr;
 ptrSimResetProximitySensor simResetProximitySensor=nullptr;
 ptrSimCheckProximitySensor simCheckProximitySensor=nullptr;
 ptrSimCheckProximitySensorEx simCheckProximitySensorEx=nullptr;
@@ -663,6 +655,14 @@ ptrSimGetCollectionName simGetCollectionName=nullptr;
 ptrSimSetCollectionName simSetCollectionName=nullptr;
 ptrSimCreateCollection simCreateCollection=nullptr;
 ptrSimAddObjectToCollection simAddObjectToCollection=nullptr;
+ptrSimGetCollisionHandle simGetCollisionHandle=nullptr;
+ptrSimGetDistanceHandle simGetDistanceHandle=nullptr;
+ptrSimResetCollision simResetCollision=nullptr;
+ptrSimResetDistance simResetDistance=nullptr;
+ptrSimHandleCollision simHandleCollision=nullptr;
+ptrSimReadCollision simReadCollision=nullptr;
+ptrSimHandleDistance simHandleDistance=nullptr;
+ptrSimReadDistance simReadDistance=nullptr;
 // Deprecated end
 
 
@@ -795,10 +795,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetObjectSelectionSize=(ptrSimGetObjectSelectionSize)(_getProcAddress(lib,"simGetObjectSelectionSize"));
     simGetObjectLastSelection=(ptrSimGetObjectLastSelection)(_getProcAddress(lib,"simGetObjectLastSelection"));
     simGetObjectSelection=(ptrSimGetObjectSelection)(_getProcAddress(lib,"simGetObjectSelection"));
-    simHandleCollision=(ptrSimHandleCollision)(_getProcAddress(lib,"simHandleCollision"));
-    simReadCollision=(ptrSimReadCollision)(_getProcAddress(lib,"simReadCollision"));
-    simHandleDistance=(ptrSimHandleDistance)(_getProcAddress(lib,"simHandleDistance"));
-    simReadDistance=(ptrSimReadDistance)(_getProcAddress(lib,"simReadDistance"));
     simHandleProximitySensor=(ptrSimHandleProximitySensor)(_getProcAddress(lib,"simHandleProximitySensor"));
     simReadProximitySensor=(ptrSimReadProximitySensor)(_getProcAddress(lib,"simReadProximitySensor"));
     simHandleDynamics=(ptrSimHandleDynamics)(_getProcAddress(lib,"simHandleDynamics"));
@@ -817,10 +813,6 @@ int getSimProcAddresses(LIBRARY lib)
     simAddScript=(ptrSimAddScript)(_getProcAddress(lib,"simAddScript"));
     simRemoveScript=(ptrSimRemoveScript)(_getProcAddress(lib,"simRemoveScript"));
     simRefreshDialogs=(ptrSimRefreshDialogs)(_getProcAddress(lib,"simRefreshDialogs"));
-    simGetCollisionHandle=(ptrSimGetCollisionHandle)(_getProcAddress(lib,"simGetCollisionHandle"));
-    simGetDistanceHandle=(ptrSimGetDistanceHandle)(_getProcAddress(lib,"simGetDistanceHandle"));
-    simResetCollision=(ptrSimResetCollision)(_getProcAddress(lib,"simResetCollision"));
-    simResetDistance=(ptrSimResetDistance)(_getProcAddress(lib,"simResetDistance"));
     simResetProximitySensor=(ptrSimResetProximitySensor)(_getProcAddress(lib,"simResetProximitySensor"));
     simCheckProximitySensor=(ptrSimCheckProximitySensor)(_getProcAddress(lib,"simCheckProximitySensor"));
     simCheckProximitySensorEx=(ptrSimCheckProximitySensorEx)(_getProcAddress(lib,"simCheckProximitySensorEx"));
@@ -1343,6 +1335,14 @@ int getSimProcAddresses(LIBRARY lib)
     simSetCollectionName=(ptrSimSetCollectionName)(_getProcAddress(lib,"simSetCollectionName"));
     simCreateCollection=(ptrSimCreateCollection)(_getProcAddress(lib,"simCreateCollection"));
     simAddObjectToCollection=(ptrSimAddObjectToCollection)(_getProcAddress(lib,"simAddObjectToCollection"));
+    simGetCollisionHandle=(ptrSimGetCollisionHandle)(_getProcAddress(lib,"simGetCollisionHandle"));
+    simGetDistanceHandle=(ptrSimGetDistanceHandle)(_getProcAddress(lib,"simGetDistanceHandle"));
+    simResetCollision=(ptrSimResetCollision)(_getProcAddress(lib,"simResetCollision"));
+    simResetDistance=(ptrSimResetDistance)(_getProcAddress(lib,"simResetDistance"));
+    simHandleCollision=(ptrSimHandleCollision)(_getProcAddress(lib,"simHandleCollision"));
+    simReadCollision=(ptrSimReadCollision)(_getProcAddress(lib,"simReadCollision"));
+    simHandleDistance=(ptrSimHandleDistance)(_getProcAddress(lib,"simHandleDistance"));
+    simReadDistance=(ptrSimReadDistance)(_getProcAddress(lib,"simReadDistance"));
     // Deprecated end
 
 
@@ -1732,26 +1732,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetObjectSelection\n",couldNotFind);
         return 0;
     }
-    if (simHandleCollision==nullptr)
-    {
-        printf("%s simHandleCollision\n",couldNotFind);
-        return 0;
-    }
-    if (simReadCollision==nullptr)
-    {
-        printf("%s simReadCollision\n",couldNotFind);
-        return 0;
-    }
-    if (simHandleDistance==nullptr)
-    {
-        printf("%s simHandleDistance\n",couldNotFind);
-        return 0;
-    }
-    if (simReadDistance==nullptr)
-    {
-        printf("%s simReadDistance\n",couldNotFind);
-        return 0;
-    }
     if (simHandleProximitySensor==nullptr)
     {
         printf("%s simHandleProximitySensor\n",couldNotFind);
@@ -1840,26 +1820,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simRefreshDialogs==nullptr)
     {
         printf("%s simRefreshDialogs\n",couldNotFind);
-        return 0;
-    }
-    if (simGetCollisionHandle==nullptr)
-    {
-        printf("%s simGetCollisionHandle\n",couldNotFind);
-        return 0;
-    }
-    if (simGetDistanceHandle==nullptr)
-    {
-        printf("%s simGetDistanceHandle\n",couldNotFind);
-        return 0;
-    }
-    if (simResetCollision==nullptr)
-    {
-        printf("%s simResetCollision\n",couldNotFind);
-        return 0;
-    }
-    if (simResetDistance==nullptr)
-    {
-        printf("%s simResetDistance\n",couldNotFind);
         return 0;
     }
     if (simResetProximitySensor==nullptr)
@@ -4435,6 +4395,46 @@ int getSimProcAddresses(LIBRARY lib)
     if (simAddObjectToCollection==nullptr)
     {
         printf("%s simAddObjectToCollection\n",couldNotFind);
+        return 0;
+    }
+    if (simHandleCollision==nullptr)
+    {
+        printf("%s simHandleCollision\n",couldNotFind);
+        return 0;
+    }
+    if (simReadCollision==nullptr)
+    {
+        printf("%s simReadCollision\n",couldNotFind);
+        return 0;
+    }
+    if (simHandleDistance==nullptr)
+    {
+        printf("%s simHandleDistance\n",couldNotFind);
+        return 0;
+    }
+    if (simReadDistance==nullptr)
+    {
+        printf("%s simReadDistance\n",couldNotFind);
+        return 0;
+    }
+    if (simGetCollisionHandle==nullptr)
+    {
+        printf("%s simGetCollisionHandle\n",couldNotFind);
+        return 0;
+    }
+    if (simGetDistanceHandle==nullptr)
+    {
+        printf("%s simGetDistanceHandle\n",couldNotFind);
+        return 0;
+    }
+    if (simResetCollision==nullptr)
+    {
+        printf("%s simResetCollision\n",couldNotFind);
+        return 0;
+    }
+    if (simResetDistance==nullptr)
+    {
+        printf("%s simResetDistance\n",couldNotFind);
         return 0;
     }
     // Deprecated end
