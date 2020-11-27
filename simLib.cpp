@@ -163,6 +163,12 @@ ptrSimAdjustView simAdjustView=nullptr;
 ptrSimSetLastError simSetLastError=nullptr;
 ptrSimHandleGraph simHandleGraph=nullptr;
 ptrSimResetGraph simResetGraph=nullptr;
+ptrSimAddGraphDataStream simAddGraphDataStream=nullptr;
+ptrSimDestroyGraphCurve simDestroyGraphCurve=nullptr;
+ptrSimSetGraphDataStreamTransformation simSetGraphDataStreamTransformation=nullptr;
+ptrSimDuplicateGraphCurveToStatic simDuplicateGraphCurveToStatic=nullptr;
+ptrSimAddGraphCurve simAddGraphCurve=nullptr;
+ptrSimSetGraphDataStreamValue simSetGraphDataStreamValue=nullptr;
 ptrSimSetNavigationMode simSetNavigationMode=nullptr;
 ptrSimGetNavigationMode simGetNavigationMode=nullptr;
 ptrSimSetPage simSetPage=nullptr;
@@ -180,7 +186,6 @@ ptrSimScaleSelectedObjects simScaleSelectedObjects=nullptr;
 ptrSimScaleObjects simScaleObjects=nullptr;
 ptrSimDeleteSelectedObjects simDeleteSelectedObjects=nullptr;
 ptrSimGetObjectUniqueIdentifier simGetObjectUniqueIdentifier=nullptr;
-ptrSimSetGraphUserData simSetGraphUserData=nullptr;
 ptrSimAddDrawingObject simAddDrawingObject=nullptr;
 ptrSimRemoveDrawingObject simRemoveDrawingObject=nullptr;
 ptrSimAddDrawingObjectItem simAddDrawingObjectItem=nullptr;
@@ -244,8 +249,6 @@ ptrSimCreateMeshShape simCreateMeshShape=nullptr;
 ptrSimCreatePureShape simCreatePureShape=nullptr;
 ptrSimCreateHeightfieldShape simCreateHeightfieldShape=nullptr;
 ptrSimGetShapeMesh simGetShapeMesh=nullptr;
-ptrSimAddBanner simAddBanner=nullptr;
-ptrSimRemoveBanner simRemoveBanner=nullptr;
 ptrSimCreateJoint simCreateJoint=nullptr;
 ptrSimCreateDummy simCreateDummy=nullptr;
 ptrSimCreateProximitySensor simCreateProximitySensor=nullptr;
@@ -296,8 +299,6 @@ ptrSimMsgBox simMsgBox=nullptr;
 ptrSimGroupShapes simGroupShapes=nullptr;
 ptrSimUngroupShape simUngroupShape=nullptr;
 ptrSimConvexDecompose simConvexDecompose=nullptr;
-ptrSimAddGhost simAddGhost=nullptr;
-ptrSimModifyGhost simModifyGhost=nullptr;
 ptrSimQuitSimulator simQuitSimulator=nullptr;
 ptrSimEnableEventCallback simEnableEventCallback=nullptr;
 ptrSimSetShapeMaterial simSetShapeMaterial=nullptr;
@@ -308,8 +309,6 @@ ptrSimCreateTexture simCreateTexture=nullptr;
 ptrSimWriteCustomDataBlock simWriteCustomDataBlock=nullptr;
 ptrSimReadCustomDataBlock simReadCustomDataBlock=nullptr;
 ptrSimReadCustomDataBlockTags simReadCustomDataBlockTags=nullptr;
-ptrSimAddPointCloud simAddPointCloud=nullptr;
-ptrSimModifyPointCloud simModifyPointCloud=nullptr;
 ptrSimGetShapeGeomInfo simGetShapeGeomInfo=nullptr;
 ptrSimGetObjectsInTree simGetObjectsInTree=nullptr;
 ptrSimSetObjectSizeValues simSetObjectSizeValues=nullptr;
@@ -663,6 +662,13 @@ ptrSimHandleCollision simHandleCollision=nullptr;
 ptrSimReadCollision simReadCollision=nullptr;
 ptrSimHandleDistance simHandleDistance=nullptr;
 ptrSimReadDistance simReadDistance=nullptr;
+ptrSimAddBanner simAddBanner=nullptr;
+ptrSimRemoveBanner simRemoveBanner=nullptr;
+ptrSimAddGhost simAddGhost=nullptr;
+ptrSimModifyGhost simModifyGhost=nullptr;
+ptrSimSetGraphUserData simSetGraphUserData=nullptr;
+ptrSimAddPointCloud simAddPointCloud=nullptr;
+ptrSimModifyPointCloud simModifyPointCloud=nullptr;
 // Deprecated end
 
 
@@ -844,6 +850,12 @@ int getSimProcAddresses(LIBRARY lib)
     simSetLastError=(ptrSimSetLastError)(_getProcAddress(lib,"simSetLastError"));
     simHandleGraph=(ptrSimHandleGraph)(_getProcAddress(lib,"simHandleGraph"));
     simResetGraph=(ptrSimResetGraph)(_getProcAddress(lib,"simResetGraph"));
+    simAddGraphDataStream=(ptrSimAddGraphDataStream)(_getProcAddress(lib,"simAddGraphDataStream"));
+    simDestroyGraphCurve=(ptrSimDestroyGraphCurve)(_getProcAddress(lib,"simDestroyGraphCurve"));
+    simSetGraphDataStreamTransformation=(ptrSimSetGraphDataStreamTransformation)(_getProcAddress(lib,"simSetGraphDataStreamTransformation"));
+    simDuplicateGraphCurveToStatic=(ptrSimDuplicateGraphCurveToStatic)(_getProcAddress(lib,"simDuplicateGraphCurveToStatic"));
+    simAddGraphCurve=(ptrSimAddGraphCurve)(_getProcAddress(lib,"simAddGraphCurve"));
+    simSetGraphDataStreamValue=(ptrSimSetGraphDataStreamValue)(_getProcAddress(lib,"simSetGraphDataStreamValue"));
     simSetNavigationMode=(ptrSimSetNavigationMode)(_getProcAddress(lib,"simSetNavigationMode"));
     simGetNavigationMode=(ptrSimGetNavigationMode)(_getProcAddress(lib,"simGetNavigationMode"));
     simSetPage=(ptrSimSetPage)(_getProcAddress(lib,"simSetPage"));
@@ -861,7 +873,6 @@ int getSimProcAddresses(LIBRARY lib)
     simScaleObjects=(ptrSimScaleObjects)(_getProcAddress(lib,"simScaleObjects"));
     simDeleteSelectedObjects=(ptrSimDeleteSelectedObjects)(_getProcAddress(lib,"simDeleteSelectedObjects"));
     simGetObjectUniqueIdentifier=(ptrSimGetObjectUniqueIdentifier)(_getProcAddress(lib,"simGetObjectUniqueIdentifier"));
-    simSetGraphUserData=(ptrSimSetGraphUserData)(_getProcAddress(lib,"simSetGraphUserData"));
     simAddDrawingObject=(ptrSimAddDrawingObject)(_getProcAddress(lib,"simAddDrawingObject"));
     simRemoveDrawingObject=(ptrSimRemoveDrawingObject)(_getProcAddress(lib,"simRemoveDrawingObject"));
     simAddDrawingObjectItem=(ptrSimAddDrawingObjectItem)(_getProcAddress(lib,"simAddDrawingObjectItem"));
@@ -925,8 +936,6 @@ int getSimProcAddresses(LIBRARY lib)
     simCreatePureShape=(ptrSimCreatePureShape)(_getProcAddress(lib,"simCreatePureShape"));
     simCreateHeightfieldShape=(ptrSimCreateHeightfieldShape)(_getProcAddress(lib,"simCreateHeightfieldShape"));
     simGetShapeMesh=(ptrSimGetShapeMesh)(_getProcAddress(lib,"simGetShapeMesh"));
-    simAddBanner=(ptrSimAddBanner)(_getProcAddress(lib,"simAddBanner"));
-    simRemoveBanner=(ptrSimRemoveBanner)(_getProcAddress(lib,"simRemoveBanner"));
     simCreateJoint=(ptrSimCreateJoint)(_getProcAddress(lib,"simCreateJoint"));
     simCreateDummy=(ptrSimCreateDummy)(_getProcAddress(lib,"simCreateDummy"));
     simCreateProximitySensor=(ptrSimCreateProximitySensor)(_getProcAddress(lib,"simCreateProximitySensor"));
@@ -977,8 +986,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGroupShapes=(ptrSimGroupShapes)(_getProcAddress(lib,"simGroupShapes"));
     simUngroupShape=(ptrSimUngroupShape)(_getProcAddress(lib,"simUngroupShape"));
     simConvexDecompose=(ptrSimConvexDecompose)(_getProcAddress(lib,"simConvexDecompose"));
-    simAddGhost=(ptrSimAddGhost)(_getProcAddress(lib,"simAddGhost"));
-    simModifyGhost=(ptrSimModifyGhost)(_getProcAddress(lib,"simModifyGhost"));
     simQuitSimulator=(ptrSimQuitSimulator)(_getProcAddress(lib,"simQuitSimulator"));
     simEnableEventCallback=(ptrSimEnableEventCallback)(_getProcAddress(lib,"simEnableEventCallback"));
     simSetShapeMaterial=(ptrSimSetShapeMaterial)(_getProcAddress(lib,"simSetShapeMaterial"));
@@ -989,8 +996,6 @@ int getSimProcAddresses(LIBRARY lib)
     simWriteCustomDataBlock=(ptrSimWriteCustomDataBlock)(_getProcAddress(lib,"simWriteCustomDataBlock"));
     simReadCustomDataBlock=(ptrSimReadCustomDataBlock)(_getProcAddress(lib,"simReadCustomDataBlock"));
     simReadCustomDataBlockTags=(ptrSimReadCustomDataBlockTags)(_getProcAddress(lib,"simReadCustomDataBlockTags"));
-    simAddPointCloud=(ptrSimAddPointCloud)(_getProcAddress(lib,"simAddPointCloud"));
-    simModifyPointCloud=(ptrSimModifyPointCloud)(_getProcAddress(lib,"simModifyPointCloud"));
     simGetShapeGeomInfo=(ptrSimGetShapeGeomInfo)(_getProcAddress(lib,"simGetShapeGeomInfo"));
     simGetObjectsInTree=(ptrSimGetObjectsInTree)(_getProcAddress(lib,"simGetObjectsInTree"));
     simSetObjectSizeValues=(ptrSimSetObjectSizeValues)(_getProcAddress(lib,"simSetObjectSizeValues"));
@@ -1343,6 +1348,13 @@ int getSimProcAddresses(LIBRARY lib)
     simReadCollision=(ptrSimReadCollision)(_getProcAddress(lib,"simReadCollision"));
     simHandleDistance=(ptrSimHandleDistance)(_getProcAddress(lib,"simHandleDistance"));
     simReadDistance=(ptrSimReadDistance)(_getProcAddress(lib,"simReadDistance"));
+    simAddBanner=(ptrSimAddBanner)(_getProcAddress(lib,"simAddBanner"));
+    simRemoveBanner=(ptrSimRemoveBanner)(_getProcAddress(lib,"simRemoveBanner"));
+    simAddGhost=(ptrSimAddGhost)(_getProcAddress(lib,"simAddGhost"));
+    simModifyGhost=(ptrSimModifyGhost)(_getProcAddress(lib,"simModifyGhost"));
+    simSetGraphUserData=(ptrSimSetGraphUserData)(_getProcAddress(lib,"simSetGraphUserData"));
+    simAddPointCloud=(ptrSimAddPointCloud)(_getProcAddress(lib,"simAddPointCloud"));
+    simModifyPointCloud=(ptrSimModifyPointCloud)(_getProcAddress(lib,"simModifyPointCloud"));
     // Deprecated end
 
 
@@ -1977,6 +1989,36 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simResetGraph\n",couldNotFind);
         return 0;
     }
+    if (simAddGraphDataStream==nullptr)
+    {
+        printf("%s simAddGraphDataStream\n",couldNotFind);
+        return 0;
+    }
+    if (simDestroyGraphCurve==nullptr)
+    {
+        printf("%s simDestroyGraphCurve\n",couldNotFind);
+        return 0;
+    }
+    if (simSetGraphDataStreamTransformation==nullptr)
+    {
+        printf("%s simSetGraphDataStreamTransformation\n",couldNotFind);
+        return 0;
+    }
+    if (simDuplicateGraphCurveToStatic==nullptr)
+    {
+        printf("%s simDuplicateGraphCurveToStatic\n",couldNotFind);
+        return 0;
+    }
+    if (simAddGraphCurve==nullptr)
+    {
+        printf("%s simAddGraphCurve\n",couldNotFind);
+        return 0;
+    }
+    if (simSetGraphDataStreamValue==nullptr)
+    {
+        printf("%s simSetGraphDataStreamValue\n",couldNotFind);
+        return 0;
+    }
     if (simSetNavigationMode==nullptr)
     {
         printf("%s simSetNavigationMode\n",couldNotFind);
@@ -2060,11 +2102,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetObjectUniqueIdentifier==nullptr)
     {
         printf("%s simGetObjectUniqueIdentifier\n",couldNotFind);
-        return 0;
-    }
-    if (simSetGraphUserData==nullptr)
-    {
-        printf("%s simSetGraphUserData\n",couldNotFind);
         return 0;
     }
     if (simAddDrawingObject==nullptr)
@@ -2382,16 +2419,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetShapeMesh\n",couldNotFind);
         return 0;
     }
-    if (simAddBanner==nullptr)
-    {
-        printf("%s simAddBanner\n",couldNotFind);
-        return 0;
-    }
-    if (simRemoveBanner==nullptr)
-    {
-        printf("%s simRemoveBanner\n",couldNotFind);
-        return 0;
-    }
     if (simCreateJoint==nullptr)
     {
         printf("%s simCreateJoint\n",couldNotFind);
@@ -2642,16 +2669,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simConvexDecompose\n",couldNotFind);
         return 0;
     }
-    if (simAddGhost==nullptr)
-    {
-        printf("%s simAddGhost\n",couldNotFind);
-        return 0;
-    }
-    if (simModifyGhost==nullptr)
-    {
-        printf("%s simModifyGhost\n",couldNotFind);
-        return 0;
-    }
     if (simQuitSimulator==nullptr)
     {
         printf("%s simQuitSimulator\n",couldNotFind);
@@ -2700,16 +2717,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simReadCustomDataBlockTags==nullptr)
     {
         printf("%s simReadCustomDataBlockTags\n",couldNotFind);
-        return 0;
-    }
-    if (simAddPointCloud==nullptr)
-    {
-        printf("%s simAddPointCloud\n",couldNotFind);
-        return 0;
-    }
-    if (simModifyPointCloud==nullptr)
-    {
-        printf("%s simModifyPointCloud\n",couldNotFind);
         return 0;
     }
     if (simGetShapeGeomInfo==nullptr)
@@ -4435,6 +4442,41 @@ int getSimProcAddresses(LIBRARY lib)
     if (simResetDistance==nullptr)
     {
         printf("%s simResetDistance\n",couldNotFind);
+        return 0;
+    }
+    if (simAddBanner==nullptr)
+    {
+        printf("%s simAddBanner\n",couldNotFind);
+        return 0;
+    }
+    if (simRemoveBanner==nullptr)
+    {
+        printf("%s simRemoveBanner\n",couldNotFind);
+        return 0;
+    }
+    if (simAddGhost==nullptr)
+    {
+        printf("%s simAddGhost\n",couldNotFind);
+        return 0;
+    }
+    if (simModifyGhost==nullptr)
+    {
+        printf("%s simModifyGhost\n",couldNotFind);
+        return 0;
+    }
+    if (simSetGraphUserData==nullptr)
+    {
+        printf("%s simSetGraphUserData\n",couldNotFind);
+        return 0;
+    }
+    if (simAddPointCloud==nullptr)
+    {
+        printf("%s simAddPointCloud\n",couldNotFind);
+        return 0;
+    }
+    if (simModifyPointCloud==nullptr)
+    {
+        printf("%s simModifyPointCloud\n",couldNotFind);
         return 0;
     }
     // Deprecated end
