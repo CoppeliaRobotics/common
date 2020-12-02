@@ -163,12 +163,12 @@ ptrSimAdjustView simAdjustView=nullptr;
 ptrSimSetLastError simSetLastError=nullptr;
 ptrSimHandleGraph simHandleGraph=nullptr;
 ptrSimResetGraph simResetGraph=nullptr;
-ptrSimAddGraphDataStream simAddGraphDataStream=nullptr;
+ptrSimAddGraphStream simAddGraphStream=nullptr;
 ptrSimDestroyGraphCurve simDestroyGraphCurve=nullptr;
-ptrSimSetGraphDataStreamTransformation simSetGraphDataStreamTransformation=nullptr;
+ptrSimSetGraphStreamTransformation simSetGraphStreamTransformation=nullptr;
 ptrSimDuplicateGraphCurveToStatic simDuplicateGraphCurveToStatic=nullptr;
 ptrSimAddGraphCurve simAddGraphCurve=nullptr;
-ptrSimSetGraphDataStreamValue simSetGraphDataStreamValue=nullptr;
+ptrSimSetGraphStreamValue simSetGraphStreamValue=nullptr;
 ptrSimSetNavigationMode simSetNavigationMode=nullptr;
 ptrSimGetNavigationMode simGetNavigationMode=nullptr;
 ptrSimSetPage simSetPage=nullptr;
@@ -219,6 +219,7 @@ ptrSimSetLightParameters simSetLightParameters=nullptr;
 ptrSimGetLightParameters simGetLightParameters=nullptr;
 ptrSimGetVelocity simGetVelocity=nullptr;
 ptrSimGetObjectVelocity simGetObjectVelocity=nullptr;
+ptrSimGetJointVelocity simGetJointVelocity=nullptr;
 ptrSimAddForceAndTorque simAddForceAndTorque=nullptr;
 ptrSimAddForce simAddForce=nullptr;
 ptrSimSetExplicitHandling simSetExplicitHandling=nullptr;
@@ -850,12 +851,12 @@ int getSimProcAddresses(LIBRARY lib)
     simSetLastError=(ptrSimSetLastError)(_getProcAddress(lib,"simSetLastError"));
     simHandleGraph=(ptrSimHandleGraph)(_getProcAddress(lib,"simHandleGraph"));
     simResetGraph=(ptrSimResetGraph)(_getProcAddress(lib,"simResetGraph"));
-    simAddGraphDataStream=(ptrSimAddGraphDataStream)(_getProcAddress(lib,"simAddGraphDataStream"));
+    simAddGraphStream=(ptrSimAddGraphStream)(_getProcAddress(lib,"simAddGraphStream"));
     simDestroyGraphCurve=(ptrSimDestroyGraphCurve)(_getProcAddress(lib,"simDestroyGraphCurve"));
-    simSetGraphDataStreamTransformation=(ptrSimSetGraphDataStreamTransformation)(_getProcAddress(lib,"simSetGraphDataStreamTransformation"));
+    simSetGraphStreamTransformation=(ptrSimSetGraphStreamTransformation)(_getProcAddress(lib,"simSetGraphStreamTransformation"));
     simDuplicateGraphCurveToStatic=(ptrSimDuplicateGraphCurveToStatic)(_getProcAddress(lib,"simDuplicateGraphCurveToStatic"));
     simAddGraphCurve=(ptrSimAddGraphCurve)(_getProcAddress(lib,"simAddGraphCurve"));
-    simSetGraphDataStreamValue=(ptrSimSetGraphDataStreamValue)(_getProcAddress(lib,"simSetGraphDataStreamValue"));
+    simSetGraphStreamValue=(ptrSimSetGraphStreamValue)(_getProcAddress(lib,"simSetGraphStreamValue"));
     simSetNavigationMode=(ptrSimSetNavigationMode)(_getProcAddress(lib,"simSetNavigationMode"));
     simGetNavigationMode=(ptrSimGetNavigationMode)(_getProcAddress(lib,"simGetNavigationMode"));
     simSetPage=(ptrSimSetPage)(_getProcAddress(lib,"simSetPage"));
@@ -906,6 +907,7 @@ int getSimProcAddresses(LIBRARY lib)
     simGetLightParameters=(ptrSimGetLightParameters)(_getProcAddress(lib,"simGetLightParameters"));
     simGetVelocity=(ptrSimGetVelocity)(_getProcAddress(lib,"simGetVelocity"));
     simGetObjectVelocity=(ptrSimGetObjectVelocity)(_getProcAddress(lib,"simGetObjectVelocity"));
+    simGetJointVelocity=(ptrSimGetJointVelocity)(_getProcAddress(lib,"simGetJointVelocity"));
     simAddForceAndTorque=(ptrSimAddForceAndTorque)(_getProcAddress(lib,"simAddForceAndTorque"));
     simAddForce=(ptrSimAddForce)(_getProcAddress(lib,"simAddForce"));
     simSetExplicitHandling=(ptrSimSetExplicitHandling)(_getProcAddress(lib,"simSetExplicitHandling"));
@@ -1989,9 +1991,9 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simResetGraph\n",couldNotFind);
         return 0;
     }
-    if (simAddGraphDataStream==nullptr)
+    if (simAddGraphStream==nullptr)
     {
-        printf("%s simAddGraphDataStream\n",couldNotFind);
+        printf("%s simAddGraphStream\n",couldNotFind);
         return 0;
     }
     if (simDestroyGraphCurve==nullptr)
@@ -1999,9 +2001,9 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simDestroyGraphCurve\n",couldNotFind);
         return 0;
     }
-    if (simSetGraphDataStreamTransformation==nullptr)
+    if (simSetGraphStreamTransformation==nullptr)
     {
-        printf("%s simSetGraphDataStreamTransformation\n",couldNotFind);
+        printf("%s simSetGraphStreamTransformation\n",couldNotFind);
         return 0;
     }
     if (simDuplicateGraphCurveToStatic==nullptr)
@@ -2014,9 +2016,9 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simAddGraphCurve\n",couldNotFind);
         return 0;
     }
-    if (simSetGraphDataStreamValue==nullptr)
+    if (simSetGraphStreamValue==nullptr)
     {
-        printf("%s simSetGraphDataStreamValue\n",couldNotFind);
+        printf("%s simSetGraphStreamValue\n",couldNotFind);
         return 0;
     }
     if (simSetNavigationMode==nullptr)
@@ -2267,6 +2269,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetObjectVelocity==nullptr)
     {
         printf("%s simGetObjectVelocity\n",couldNotFind);
+        return 0;
+    }
+    if (simGetJointVelocity==nullptr)
+    {
+        printf("%s simGetJointVelocity\n",couldNotFind);
         return 0;
     }
     if (simAddForceAndTorque==nullptr)
