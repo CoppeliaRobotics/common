@@ -87,7 +87,6 @@ ptrSimSetObjectParent simSetObjectParent=nullptr;
 ptrSimGetObjectType simGetObjectType=nullptr;
 ptrSimGetJointType simGetJointType=nullptr;
 ptrSimBuildIdentityMatrix simBuildIdentityMatrix=nullptr;
-ptrSimCopyMatrix simCopyMatrix=nullptr;
 ptrSimBuildMatrix simBuildMatrix=nullptr;
 ptrSimGetEulerAnglesFromMatrix simGetEulerAnglesFromMatrix=nullptr;
 ptrSimInvertMatrix simInvertMatrix=nullptr;
@@ -339,11 +338,13 @@ ptrSimCopyStack simCopyStack=nullptr;
 ptrSimPushNullOntoStack simPushNullOntoStack=nullptr;
 ptrSimPushBoolOntoStack simPushBoolOntoStack=nullptr;
 ptrSimPushInt32OntoStack simPushInt32OntoStack=nullptr;
+ptrSimPushInt64OntoStack simPushInt64OntoStack=nullptr;
 ptrSimPushFloatOntoStack simPushFloatOntoStack=nullptr;
 ptrSimPushDoubleOntoStack simPushDoubleOntoStack=nullptr;
 ptrSimPushStringOntoStack simPushStringOntoStack=nullptr;
 ptrSimPushUInt8TableOntoStack simPushUInt8TableOntoStack=nullptr;
 ptrSimPushInt32TableOntoStack simPushInt32TableOntoStack=nullptr;
+ptrSimPushInt64TableOntoStack simPushInt64TableOntoStack=nullptr;
 ptrSimPushFloatTableOntoStack simPushFloatTableOntoStack=nullptr;
 ptrSimPushDoubleTableOntoStack simPushDoubleTableOntoStack=nullptr;
 ptrSimPushTableOntoStack simPushTableOntoStack=nullptr;
@@ -354,12 +355,14 @@ ptrSimMoveStackItemToTop simMoveStackItemToTop=nullptr;
 ptrSimIsStackValueNull simIsStackValueNull=nullptr;
 ptrSimGetStackBoolValue simGetStackBoolValue=nullptr;
 ptrSimGetStackInt32Value simGetStackInt32Value=nullptr;
+ptrSimGetStackInt64Value simGetStackInt64Value=nullptr;
 ptrSimGetStackFloatValue simGetStackFloatValue=nullptr;
 ptrSimGetStackDoubleValue simGetStackDoubleValue=nullptr;
 ptrSimGetStackStringValue simGetStackStringValue=nullptr;
 ptrSimGetStackTableInfo simGetStackTableInfo=nullptr;
 ptrSimGetStackUInt8Table simGetStackUInt8Table=nullptr;
 ptrSimGetStackInt32Table simGetStackInt32Table=nullptr;
+ptrSimGetStackInt64Table simGetStackInt64Table=nullptr;
 ptrSimGetStackFloatTable simGetStackFloatTable=nullptr;
 ptrSimGetStackDoubleTable simGetStackDoubleTable=nullptr;
 ptrSimUnfoldStackTable simUnfoldStackTable=nullptr;
@@ -412,6 +415,7 @@ ptrSimSetShapeMass simSetShapeMass=nullptr;
 ptrSimGetShapeInertia simGetShapeInertia=nullptr;
 ptrSimSetShapeInertia simSetShapeInertia=nullptr;
 ptrSimIsDynamicallyEnabled simIsDynamicallyEnabled=nullptr;
+ptrSimGenerateShapeFromPath simGenerateShapeFromPath=nullptr;
 
 
 // Following courtesy of Stephen James:
@@ -670,6 +674,7 @@ ptrSimModifyGhost simModifyGhost=nullptr;
 ptrSimSetGraphUserData simSetGraphUserData=nullptr;
 ptrSimAddPointCloud simAddPointCloud=nullptr;
 ptrSimModifyPointCloud simModifyPointCloud=nullptr;
+ptrSimCopyMatrix simCopyMatrix=nullptr;
 // Deprecated end
 
 
@@ -775,7 +780,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetObjectType=(ptrSimGetObjectType)(_getProcAddress(lib,"simGetObjectType"));
     simGetJointType=(ptrSimGetJointType)(_getProcAddress(lib,"simGetJointType"));
     simBuildIdentityMatrix=(ptrSimBuildIdentityMatrix)(_getProcAddress(lib,"simBuildIdentityMatrix"));
-    simCopyMatrix=(ptrSimCopyMatrix)(_getProcAddress(lib,"simCopyMatrix"));
     simBuildMatrix=(ptrSimBuildMatrix)(_getProcAddress(lib,"simBuildMatrix"));
     simGetEulerAnglesFromMatrix=(ptrSimGetEulerAnglesFromMatrix)(_getProcAddress(lib,"simGetEulerAnglesFromMatrix"));
     simInvertMatrix=(ptrSimInvertMatrix)(_getProcAddress(lib,"simInvertMatrix"));
@@ -1027,11 +1031,13 @@ int getSimProcAddresses(LIBRARY lib)
     simPushNullOntoStack=(ptrSimPushNullOntoStack)(_getProcAddress(lib,"simPushNullOntoStack"));
     simPushBoolOntoStack=(ptrSimPushBoolOntoStack)(_getProcAddress(lib,"simPushBoolOntoStack"));
     simPushInt32OntoStack=(ptrSimPushInt32OntoStack)(_getProcAddress(lib,"simPushInt32OntoStack"));
+    simPushInt64OntoStack=(ptrSimPushInt64OntoStack)(_getProcAddress(lib,"simPushInt64OntoStack"));
     simPushFloatOntoStack=(ptrSimPushFloatOntoStack)(_getProcAddress(lib,"simPushFloatOntoStack"));
     simPushDoubleOntoStack=(ptrSimPushDoubleOntoStack)(_getProcAddress(lib,"simPushDoubleOntoStack"));
     simPushStringOntoStack=(ptrSimPushStringOntoStack)(_getProcAddress(lib,"simPushStringOntoStack"));
     simPushUInt8TableOntoStack=(ptrSimPushUInt8TableOntoStack)(_getProcAddress(lib,"simPushUInt8TableOntoStack"));
     simPushInt32TableOntoStack=(ptrSimPushInt32TableOntoStack)(_getProcAddress(lib,"simPushInt32TableOntoStack"));
+    simPushInt64TableOntoStack=(ptrSimPushInt64TableOntoStack)(_getProcAddress(lib,"simPushInt64TableOntoStack"));
     simPushFloatTableOntoStack=(ptrSimPushFloatTableOntoStack)(_getProcAddress(lib,"simPushFloatTableOntoStack"));
     simPushDoubleTableOntoStack=(ptrSimPushDoubleTableOntoStack)(_getProcAddress(lib,"simPushDoubleTableOntoStack"));
     simPushTableOntoStack=(ptrSimPushTableOntoStack)(_getProcAddress(lib,"simPushTableOntoStack"));
@@ -1042,12 +1048,14 @@ int getSimProcAddresses(LIBRARY lib)
     simIsStackValueNull=(ptrSimIsStackValueNull)(_getProcAddress(lib,"simIsStackValueNull"));
     simGetStackBoolValue=(ptrSimGetStackBoolValue)(_getProcAddress(lib,"simGetStackBoolValue"));
     simGetStackInt32Value=(ptrSimGetStackInt32Value)(_getProcAddress(lib,"simGetStackInt32Value"));
+    simGetStackInt64Value=(ptrSimGetStackInt64Value)(_getProcAddress(lib,"simGetStackInt64Value"));
     simGetStackFloatValue=(ptrSimGetStackFloatValue)(_getProcAddress(lib,"simGetStackFloatValue"));
     simGetStackDoubleValue=(ptrSimGetStackDoubleValue)(_getProcAddress(lib,"simGetStackDoubleValue"));
     simGetStackStringValue=(ptrSimGetStackStringValue)(_getProcAddress(lib,"simGetStackStringValue"));
     simGetStackTableInfo=(ptrSimGetStackTableInfo)(_getProcAddress(lib,"simGetStackTableInfo"));
     simGetStackUInt8Table=(ptrSimGetStackUInt8Table)(_getProcAddress(lib,"simGetStackUInt8Table"));
     simGetStackInt32Table=(ptrSimGetStackInt32Table)(_getProcAddress(lib,"simGetStackInt32Table"));
+    simGetStackInt64Table=(ptrSimGetStackInt64Table)(_getProcAddress(lib,"simGetStackInt64Table"));
     simGetStackFloatTable=(ptrSimGetStackFloatTable)(_getProcAddress(lib,"simGetStackFloatTable"));
     simGetStackDoubleTable=(ptrSimGetStackDoubleTable)(_getProcAddress(lib,"simGetStackDoubleTable"));
     simUnfoldStackTable=(ptrSimUnfoldStackTable)(_getProcAddress(lib,"simUnfoldStackTable"));
@@ -1100,6 +1108,7 @@ int getSimProcAddresses(LIBRARY lib)
     simGetShapeInertia=(ptrSimGetShapeInertia)(_getProcAddress(lib,"simGetShapeInertia"));
     simSetShapeInertia=(ptrSimSetShapeInertia)(_getProcAddress(lib,"simSetShapeInertia"));
     simIsDynamicallyEnabled=(ptrSimIsDynamicallyEnabled)(_getProcAddress(lib,"simIsDynamicallyEnabled"));
+    simGenerateShapeFromPath=(ptrSimGenerateShapeFromPath)(_getProcAddress(lib,"simGenerateShapeFromPath"));
 
 
     // Following courtesy of Stephen James:
@@ -1357,6 +1366,7 @@ int getSimProcAddresses(LIBRARY lib)
     simSetGraphUserData=(ptrSimSetGraphUserData)(_getProcAddress(lib,"simSetGraphUserData"));
     simAddPointCloud=(ptrSimAddPointCloud)(_getProcAddress(lib,"simAddPointCloud"));
     simModifyPointCloud=(ptrSimModifyPointCloud)(_getProcAddress(lib,"simModifyPointCloud"));
+    simCopyMatrix=(ptrSimCopyMatrix)(_getProcAddress(lib,"simCopyMatrix"));
     // Deprecated end
 
 
@@ -1609,11 +1619,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simBuildIdentityMatrix==nullptr)
     {
         printf("%s simBuildIdentityMatrix\n",couldNotFind);
-        return 0;
-    }
-    if (simCopyMatrix==nullptr)
-    {
-        printf("%s simCopyMatrix\n",couldNotFind);
         return 0;
     }
     if (simBuildMatrix==nullptr)
@@ -2871,6 +2876,11 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simPushInt32OntoStack\n",couldNotFind);
         return 0;
     }
+    if (simPushInt64OntoStack==nullptr)
+    {
+        printf("%s simPushInt64OntoStack\n",couldNotFind);
+        return 0;
+    }
     if (simPushFloatOntoStack==nullptr)
     {
         printf("%s simPushFloatOntoStack\n",couldNotFind);
@@ -2894,6 +2904,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simPushInt32TableOntoStack==nullptr)
     {
         printf("%s simPushInt32TableOntoStack\n",couldNotFind);
+        return 0;
+    }
+    if (simPushInt64TableOntoStack==nullptr)
+    {
+        printf("%s simPushInt64TableOntoStack\n",couldNotFind);
         return 0;
     }
     if (simPushFloatTableOntoStack==nullptr)
@@ -2946,6 +2961,11 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetStackInt32Value\n",couldNotFind);
         return 0;
     }
+    if (simGetStackInt64Value==nullptr)
+    {
+        printf("%s simGetStackInt64Value\n",couldNotFind);
+        return 0;
+    }
     if (simGetStackFloatValue==nullptr)
     {
         printf("%s simGetStackFloatValue\n",couldNotFind);
@@ -2974,6 +2994,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetStackInt32Table==nullptr)
     {
         printf("%s simGetStackInt32Table\n",couldNotFind);
+        return 0;
+    }
+    if (simGetStackInt64Table==nullptr)
+    {
+        printf("%s simGetStackInt64Table\n",couldNotFind);
         return 0;
     }
     if (simGetStackFloatTable==nullptr)
@@ -3229,6 +3254,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simIsDynamicallyEnabled==nullptr)
     {
         printf("%s simIsDynamicallyEnabled\n",couldNotFind);
+        return 0;
+    }
+    if (simGenerateShapeFromPath==nullptr)
+    {
+        printf("%s simGenerateShapeFromPath\n",couldNotFind);
         return 0;
     }
 
@@ -4484,6 +4514,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simModifyPointCloud==nullptr)
     {
         printf("%s simModifyPointCloud\n",couldNotFind);
+        return 0;
+    }
+    if (simCopyMatrix==nullptr)
+    {
+        printf("%s simCopyMatrix\n",couldNotFind);
         return 0;
     }
     // Deprecated end
