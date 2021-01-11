@@ -316,7 +316,7 @@ ptrSimGetObjectSizeValues simGetObjectSizeValues=nullptr;
 ptrSimScaleObject simScaleObject=nullptr;
 ptrSimSetShapeTexture simSetShapeTexture=nullptr;
 ptrSimGetShapeTextureId simGetShapeTextureId=nullptr;
-ptrSimAddCollection simAddCollection=nullptr;
+ptrSimCreateCollectionEx simCreateCollectionEx=nullptr;
 ptrSimAddItemToCollection simAddItemToCollection=nullptr;
 ptrSimDestroyCollection simDestroyCollection=nullptr;
 ptrSimGetCollectionObjects simGetCollectionObjects=nullptr;
@@ -416,6 +416,7 @@ ptrSimGetShapeInertia simGetShapeInertia=nullptr;
 ptrSimSetShapeInertia simSetShapeInertia=nullptr;
 ptrSimIsDynamicallyEnabled simIsDynamicallyEnabled=nullptr;
 ptrSimGenerateShapeFromPath simGenerateShapeFromPath=nullptr;
+ptrSimInitScript simInitScript=nullptr;
 
 
 // Following courtesy of Stephen James:
@@ -1009,7 +1010,7 @@ int getSimProcAddresses(LIBRARY lib)
     simScaleObject=(ptrSimScaleObject)(_getProcAddress(lib,"simScaleObject"));
     simSetShapeTexture=(ptrSimSetShapeTexture)(_getProcAddress(lib,"simSetShapeTexture"));
     simGetShapeTextureId=(ptrSimGetShapeTextureId)(_getProcAddress(lib,"simGetShapeTextureId"));
-    simAddCollection=(ptrSimAddCollection)(_getProcAddress(lib,"simAddCollection"));
+    simCreateCollectionEx=(ptrSimCreateCollectionEx)(_getProcAddress(lib,"simCreateCollectionEx"));
     simAddItemToCollection=(ptrSimAddItemToCollection)(_getProcAddress(lib,"simAddItemToCollection"));
     simDestroyCollection=(ptrSimDestroyCollection)(_getProcAddress(lib,"simDestroyCollection"));
     simGetCollectionObjects=(ptrSimGetCollectionObjects)(_getProcAddress(lib,"simGetCollectionObjects"));
@@ -1109,6 +1110,7 @@ int getSimProcAddresses(LIBRARY lib)
     simSetShapeInertia=(ptrSimSetShapeInertia)(_getProcAddress(lib,"simSetShapeInertia"));
     simIsDynamicallyEnabled=(ptrSimIsDynamicallyEnabled)(_getProcAddress(lib,"simIsDynamicallyEnabled"));
     simGenerateShapeFromPath=(ptrSimGenerateShapeFromPath)(_getProcAddress(lib,"simGenerateShapeFromPath"));
+    simInitScript=(ptrSimInitScript)(_getProcAddress(lib,"simInitScript"));
 
 
     // Following courtesy of Stephen James:
@@ -2766,9 +2768,9 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetShapeTextureId\n",couldNotFind);
         return 0;
     }
-    if (simAddCollection==nullptr)
+    if (simCreateCollectionEx==nullptr)
     {
-        printf("%s simAddCollection\n",couldNotFind);
+        printf("%s simCreateCollectionEx\n",couldNotFind);
         return 0;
     }
     if (simAddItemToCollection==nullptr)
@@ -3259,6 +3261,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGenerateShapeFromPath==nullptr)
     {
         printf("%s simGenerateShapeFromPath\n",couldNotFind);
+        return 0;
+    }
+    if (simInitScript==nullptr)
+    {
+        printf("%s simInitScript\n",couldNotFind);
         return 0;
     }
 
