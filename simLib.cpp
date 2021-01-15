@@ -68,6 +68,8 @@ ptrSimGetObjects simGetObjects=nullptr;
 ptrSimSetObjectName simSetObjectName=nullptr;
 ptrSimGetObjectMatrix simGetObjectMatrix=nullptr;
 ptrSimSetObjectMatrix simSetObjectMatrix=nullptr;
+ptrSimGetObjectPose simGetObjectPose=nullptr;
+ptrSimSetObjectPose simSetObjectPose=nullptr;
 ptrSimGetObjectPosition simGetObjectPosition=nullptr;
 ptrSimSetObjectPosition simSetObjectPosition=nullptr;
 ptrSimGetObjectOrientation simGetObjectOrientation=nullptr;
@@ -762,6 +764,8 @@ int getSimProcAddresses(LIBRARY lib)
     simSetObjectName=(ptrSimSetObjectName)(_getProcAddress(lib,"simSetObjectName"));
     simGetObjectMatrix=(ptrSimGetObjectMatrix)(_getProcAddress(lib,"simGetObjectMatrix"));
     simSetObjectMatrix=(ptrSimSetObjectMatrix)(_getProcAddress(lib,"simSetObjectMatrix"));
+    simGetObjectPose=(ptrSimGetObjectPose)(_getProcAddress(lib,"simGetObjectPose"));
+    simSetObjectPose=(ptrSimSetObjectPose)(_getProcAddress(lib,"simSetObjectPose"));
     simGetObjectPosition=(ptrSimGetObjectPosition)(_getProcAddress(lib,"simGetObjectPosition"));
     simSetObjectPosition=(ptrSimSetObjectPosition)(_getProcAddress(lib,"simSetObjectPosition"));
     simGetObjectOrientation=(ptrSimGetObjectOrientation)(_getProcAddress(lib,"simGetObjectOrientation"));
@@ -1526,6 +1530,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetObjectMatrix==nullptr)
     {
         printf("%s simSetObjectMatrix\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectPose==nullptr)
+    {
+        printf("%s simGetObjectPose\n",couldNotFind);
+        return 0;
+    }
+    if (simSetObjectPose==nullptr)
+    {
+        printf("%s simSetObjectPose\n",couldNotFind);
         return 0;
     }
     if (simGetObjectPosition==nullptr)
