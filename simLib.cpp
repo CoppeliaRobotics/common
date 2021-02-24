@@ -418,6 +418,7 @@ ptrSimGetShapeInertia simGetShapeInertia=nullptr;
 ptrSimSetShapeInertia simSetShapeInertia=nullptr;
 ptrSimIsDynamicallyEnabled simIsDynamicallyEnabled=nullptr;
 ptrSimGenerateShapeFromPath simGenerateShapeFromPath=nullptr;
+ptrSimGetClosestPosOnPath simGetClosestPosOnPath=nullptr;
 ptrSimInitScript simInitScript=nullptr;
 
 
@@ -1114,6 +1115,7 @@ int getSimProcAddresses(LIBRARY lib)
     simSetShapeInertia=(ptrSimSetShapeInertia)(_getProcAddress(lib,"simSetShapeInertia"));
     simIsDynamicallyEnabled=(ptrSimIsDynamicallyEnabled)(_getProcAddress(lib,"simIsDynamicallyEnabled"));
     simGenerateShapeFromPath=(ptrSimGenerateShapeFromPath)(_getProcAddress(lib,"simGenerateShapeFromPath"));
+    simGetClosestPosOnPath=(ptrSimGetClosestPosOnPath)(_getProcAddress(lib,"simGetClosestPosOnPath"));
     simInitScript=(ptrSimInitScript)(_getProcAddress(lib,"simInitScript"));
 
 
@@ -3275,6 +3277,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGenerateShapeFromPath==nullptr)
     {
         printf("%s simGenerateShapeFromPath\n",couldNotFind);
+        return 0;
+    }
+    if (simGetClosestPosOnPath==nullptr)
+    {
+        printf("%s simGetClosestPosOnPath\n",couldNotFind);
         return 0;
     }
     if (simInitScript==nullptr)
