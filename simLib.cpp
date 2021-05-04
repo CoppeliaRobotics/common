@@ -104,8 +104,6 @@ ptrSimCloseScene simCloseScene=nullptr;
 ptrSimSaveScene simSaveScene=nullptr;
 ptrSimLoadModel simLoadModel=nullptr;
 ptrSimSaveModel simSaveModel=nullptr;
-ptrSimAddModuleMenuEntry simAddModuleMenuEntry=nullptr;
-ptrSimSetModuleMenuItemState simSetModuleMenuItemState=nullptr;
 ptrSimDoesFileExist simDoesFileExist=nullptr;
 ptrSimIsObjectInSelection simIsObjectInSelection=nullptr;
 ptrSimAddObjectToSelection simAddObjectToSelection=nullptr;
@@ -703,6 +701,8 @@ ptrSimSetEngineFloatParam simSetEngineFloatParameter=nullptr;
 ptrSimSetEngineInt32Param simSetEngineInt32Parameter=nullptr;
 ptrSimSetEngineBoolParam simSetEngineBoolParameter=nullptr;
 ptrSimIsHandle simIsHandleValid=nullptr;
+ptrSimAddModuleMenuEntry simAddModuleMenuEntry=nullptr;
+ptrSimSetModuleMenuItemState simSetModuleMenuItemState=nullptr;
 // Deprecated end
 
 
@@ -825,8 +825,6 @@ int getSimProcAddresses(LIBRARY lib)
     simSaveScene=(ptrSimSaveScene)(_getProcAddress(lib,"simSaveScene"));
     simLoadModel=(ptrSimLoadModel)(_getProcAddress(lib,"simLoadModel"));
     simSaveModel=(ptrSimSaveModel)(_getProcAddress(lib,"simSaveModel"));
-    simAddModuleMenuEntry=(ptrSimAddModuleMenuEntry)(_getProcAddress(lib,"simAddModuleMenuEntry"));
-    simSetModuleMenuItemState=(ptrSimSetModuleMenuItemState)(_getProcAddress(lib,"simSetModuleMenuItemState"));
     simDoesFileExist=(ptrSimDoesFileExist)(_getProcAddress(lib,"simDoesFileExist"));
     simIsObjectInSelection=(ptrSimIsObjectInSelection)(_getProcAddress(lib,"simIsObjectInSelection"));
     simAddObjectToSelection=(ptrSimAddObjectToSelection)(_getProcAddress(lib,"simAddObjectToSelection"));
@@ -1423,6 +1421,8 @@ int getSimProcAddresses(LIBRARY lib)
     simSetEngineInt32Parameter=(ptrSimSetEngineInt32Param)(_getProcAddress(lib,"simSetEngineInt32Param"));
     simSetEngineBoolParameter=(ptrSimSetEngineBoolParam)(_getProcAddress(lib,"simSetEngineBoolParam"));
     simIsHandleValid=(ptrSimIsHandle)(_getProcAddress(lib,"simIsHandle"));
+    simAddModuleMenuEntry=(ptrSimAddModuleMenuEntry)(_getProcAddress(lib,"simAddModuleMenuEntry"));
+    simSetModuleMenuItemState=(ptrSimSetModuleMenuItemState)(_getProcAddress(lib,"simSetModuleMenuItemState"));
     // Deprecated end
 
 
@@ -1760,16 +1760,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSaveModel==nullptr)
     {
         printf("%s simSaveModel\n",couldNotFind);
-        return 0;
-    }
-    if (simAddModuleMenuEntry==nullptr)
-    {
-        printf("%s simAddModuleMenuEntry\n",couldNotFind);
-        return 0;
-    }
-    if (simSetModuleMenuItemState==nullptr)
-    {
-        printf("%s simSetModuleMenuItemState\n",couldNotFind);
         return 0;
     }
     if (simDoesFileExist==nullptr)
@@ -4715,6 +4705,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simIsHandleValid==nullptr)
     {
         printf("%s simIsHandleValid\n",couldNotFind);
+        return 0;
+    }
+    if (simAddModuleMenuEntry==nullptr)
+    {
+        printf("%s simAddModuleMenuEntry\n",couldNotFind);
+        return 0;
+    }
+    if (simSetModuleMenuItemState==nullptr)
+    {
+        printf("%s simSetModuleMenuItemState\n",couldNotFind);
         return 0;
     }
     // Deprecated end
