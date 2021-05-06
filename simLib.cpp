@@ -191,9 +191,9 @@ ptrSimRemoveParticleObject simRemoveParticleObject=nullptr;
 ptrSimAddParticleObjectItem simAddParticleObjectItem=nullptr;
 ptrSimGetObjectSizeFactor simGetObjectSizeFactor=nullptr;
 ptrSimAnnounceSceneContentChange simAnnounceSceneContentChange=nullptr;
-ptrSimSetIntegerSignal simSetIntegerSignal=nullptr;
-ptrSimGetIntegerSignal simGetIntegerSignal=nullptr;
-ptrSimClearIntegerSignal simClearIntegerSignal=nullptr;
+ptrSimSetInt32Signal simSetInt32Signal=nullptr;
+ptrSimGetInt32Signal simGetInt32Signal=nullptr;
+ptrSimClearInt32Signal simClearInt32Signal=nullptr;
 ptrSimSetFloatSignal simSetFloatSignal=nullptr;
 ptrSimGetFloatSignal simGetFloatSignal=nullptr;
 ptrSimClearFloatSignal simClearFloatSignal=nullptr;
@@ -703,6 +703,9 @@ ptrSimSetEngineBoolParam simSetEngineBoolParameter=nullptr;
 ptrSimIsHandle simIsHandleValid=nullptr;
 ptrSimAddModuleMenuEntry simAddModuleMenuEntry=nullptr;
 ptrSimSetModuleMenuItemState simSetModuleMenuItemState=nullptr;
+ptrSimSetInt32Signal simSetIntegerSignal=nullptr;
+ptrSimGetInt32Signal simGetIntegerSignal=nullptr;
+ptrSimClearInt32Signal simClearIntegerSignal=nullptr;
 // Deprecated end
 
 
@@ -912,9 +915,9 @@ int getSimProcAddresses(LIBRARY lib)
     simAddParticleObjectItem=(ptrSimAddParticleObjectItem)(_getProcAddress(lib,"simAddParticleObjectItem"));
     simGetObjectSizeFactor=(ptrSimGetObjectSizeFactor)(_getProcAddress(lib,"simGetObjectSizeFactor"));
     simAnnounceSceneContentChange=(ptrSimAnnounceSceneContentChange)(_getProcAddress(lib,"simAnnounceSceneContentChange"));
-    simSetIntegerSignal=(ptrSimSetIntegerSignal)(_getProcAddress(lib,"simSetIntegerSignal"));
-    simGetIntegerSignal=(ptrSimGetIntegerSignal)(_getProcAddress(lib,"simGetIntegerSignal"));
-    simClearIntegerSignal=(ptrSimClearIntegerSignal)(_getProcAddress(lib,"simClearIntegerSignal"));
+    simSetInt32Signal=(ptrSimSetInt32Signal)(_getProcAddress(lib,"simSetInt32Signal"));
+    simGetInt32Signal=(ptrSimGetInt32Signal)(_getProcAddress(lib,"simGetInt32Signal"));
+    simClearInt32Signal=(ptrSimClearInt32Signal)(_getProcAddress(lib,"simClearInt32Signal"));
     simSetFloatSignal=(ptrSimSetFloatSignal)(_getProcAddress(lib,"simSetFloatSignal"));
     simGetFloatSignal=(ptrSimGetFloatSignal)(_getProcAddress(lib,"simGetFloatSignal"));
     simClearFloatSignal=(ptrSimClearFloatSignal)(_getProcAddress(lib,"simClearFloatSignal"));
@@ -1423,6 +1426,9 @@ int getSimProcAddresses(LIBRARY lib)
     simIsHandleValid=(ptrSimIsHandle)(_getProcAddress(lib,"simIsHandle"));
     simAddModuleMenuEntry=(ptrSimAddModuleMenuEntry)(_getProcAddress(lib,"simAddModuleMenuEntry"));
     simSetModuleMenuItemState=(ptrSimSetModuleMenuItemState)(_getProcAddress(lib,"simSetModuleMenuItemState"));
+    simSetIntegerSignal=(ptrSimSetInt32Signal)(_getProcAddress(lib,"simSetInt32Signal"));
+    simGetIntegerSignal=(ptrSimGetInt32Signal)(_getProcAddress(lib,"simGetInt32Signal"));
+    simClearIntegerSignal=(ptrSimClearInt32Signal)(_getProcAddress(lib,"simClearInt32Signal"));
     // Deprecated end
 
 
@@ -2197,19 +2203,19 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simAnnounceSceneContentChange\n",couldNotFind);
         return 0;
     }
-    if (simSetIntegerSignal==nullptr)
+    if (simSetInt32Signal==nullptr)
     {
-        printf("%s simSetIntegerSignal\n",couldNotFind);
+        printf("%s simSetInt32Signal\n",couldNotFind);
         return 0;
     }
-    if (simGetIntegerSignal==nullptr)
+    if (simGetInt32Signal==nullptr)
     {
-        printf("%s simGetIntegerSignal\n",couldNotFind);
+        printf("%s simGetInt32Signal\n",couldNotFind);
         return 0;
     }
-    if (simClearIntegerSignal==nullptr)
+    if (simClearInt32Signal==nullptr)
     {
-        printf("%s simClearIntegerSignal\n",couldNotFind);
+        printf("%s simClearInt32Signal\n",couldNotFind);
         return 0;
     }
     if (simSetFloatSignal==nullptr)
@@ -4715,6 +4721,21 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetModuleMenuItemState==nullptr)
     {
         printf("%s simSetModuleMenuItemState\n",couldNotFind);
+        return 0;
+    }
+    if (simSetIntegerSignal==nullptr)
+    {
+        printf("%s simSetIntegerSignal\n",couldNotFind);
+        return 0;
+    }
+    if (simGetIntegerSignal==nullptr)
+    {
+        printf("%s simGetIntegerSignal\n",couldNotFind);
+        return 0;
+    }
+    if (simClearIntegerSignal==nullptr)
+    {
+        printf("%s simClearIntegerSignal\n",couldNotFind);
         return 0;
     }
     // Deprecated end
