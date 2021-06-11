@@ -59,11 +59,12 @@ ptrSimGetArrayParam simGetArrayParam=nullptr;
 ptrSimSetStringNamedParam simSetStringNamedParam=nullptr;
 ptrSimGetStringNamedParam simGetStringNamedParam=nullptr;
 ptrSimGetObjectHandle simGetObjectHandle=nullptr;
+ptrSimGetObjectHandleEx simGetObjectHandleEx=nullptr;
 ptrSimRemoveObject simRemoveObject=nullptr;
 ptrSimRemoveModel simRemoveModel=nullptr;
-ptrSimGetObjectName simGetObjectName=nullptr;
 ptrSimGetObjects simGetObjects=nullptr;
-ptrSimSetObjectName simSetObjectName=nullptr;
+ptrSimGetObjectAlias simGetObjectAlias=nullptr;
+ptrSimSetObjectAlias simSetObjectAlias=nullptr;
 ptrSimGetObjectMatrix simGetObjectMatrix=nullptr;
 ptrSimSetObjectMatrix simSetObjectMatrix=nullptr;
 ptrSimGetObjectPose simGetObjectPose=nullptr;
@@ -706,6 +707,8 @@ ptrSimSetModuleMenuItemState simSetModuleMenuItemState=nullptr;
 ptrSimSetInt32Signal simSetIntegerSignal=nullptr;
 ptrSimGetInt32Signal simGetIntegerSignal=nullptr;
 ptrSimClearInt32Signal simClearIntegerSignal=nullptr;
+ptrSimGetObjectName simGetObjectName=nullptr;
+ptrSimSetObjectName simSetObjectName=nullptr;
 // Deprecated end
 
 
@@ -783,11 +786,12 @@ int getSimProcAddresses(LIBRARY lib)
     simSetStringNamedParam=(ptrSimSetStringNamedParam)(_getProcAddress(lib,"simSetStringNamedParam"));
     simGetStringNamedParam=(ptrSimGetStringNamedParam)(_getProcAddress(lib,"simGetStringNamedParam"));
     simGetObjectHandle=(ptrSimGetObjectHandle)(_getProcAddress(lib,"simGetObjectHandle"));
+    simGetObjectHandleEx=(ptrSimGetObjectHandleEx)(_getProcAddress(lib,"simGetObjectHandleEx"));
     simRemoveObject=(ptrSimRemoveObject)(_getProcAddress(lib,"simRemoveObject"));
     simRemoveModel=(ptrSimRemoveModel)(_getProcAddress(lib,"simRemoveModel"));
-    simGetObjectName=(ptrSimGetObjectName)(_getProcAddress(lib,"simGetObjectName"));
     simGetObjects=(ptrSimGetObjects)(_getProcAddress(lib,"simGetObjects"));
-    simSetObjectName=(ptrSimSetObjectName)(_getProcAddress(lib,"simSetObjectName"));
+    simGetObjectAlias=(ptrSimGetObjectAlias)(_getProcAddress(lib,"simGetObjectAlias"));
+    simSetObjectAlias=(ptrSimSetObjectAlias)(_getProcAddress(lib,"simSetObjectAlias"));
     simGetObjectMatrix=(ptrSimGetObjectMatrix)(_getProcAddress(lib,"simGetObjectMatrix"));
     simSetObjectMatrix=(ptrSimSetObjectMatrix)(_getProcAddress(lib,"simSetObjectMatrix"));
     simGetObjectPose=(ptrSimGetObjectPose)(_getProcAddress(lib,"simGetObjectPose"));
@@ -1429,6 +1433,8 @@ int getSimProcAddresses(LIBRARY lib)
     simSetIntegerSignal=(ptrSimSetInt32Signal)(_getProcAddress(lib,"simSetInt32Signal"));
     simGetIntegerSignal=(ptrSimGetInt32Signal)(_getProcAddress(lib,"simGetInt32Signal"));
     simClearIntegerSignal=(ptrSimClearInt32Signal)(_getProcAddress(lib,"simClearInt32Signal"));
+    simGetObjectName=(ptrSimGetObjectName)(_getProcAddress(lib,"simGetObjectName"));
+    simSetObjectName=(ptrSimSetObjectName)(_getProcAddress(lib,"simSetObjectName"));
     // Deprecated end
 
 
@@ -1543,6 +1549,11 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetObjectHandle\n",couldNotFind);
         return 0;
     }
+    if (simGetObjectHandleEx==nullptr)
+    {
+        printf("%s simGetObjectHandleEx\n",couldNotFind);
+        return 0;
+    }
     if (simRemoveObject==nullptr)
     {
         printf("%s simRemoveObject\n",couldNotFind);
@@ -1553,19 +1564,19 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simRemoveModel\n",couldNotFind);
         return 0;
     }
-    if (simGetObjectName==nullptr)
-    {
-        printf("%s simGetObjectName\n",couldNotFind);
-        return 0;
-    }
     if (simGetObjects==nullptr)
     {
         printf("%s simGetObjects\n",couldNotFind);
         return 0;
     }
-    if (simSetObjectName==nullptr)
+    if (simGetObjectAlias==nullptr)
     {
-        printf("%s simSetObjectName\n",couldNotFind);
+        printf("%s simGetObjectAlias\n",couldNotFind);
+        return 0;
+    }
+    if (simSetObjectAlias==nullptr)
+    {
+        printf("%s simSetObjectAlias\n",couldNotFind);
         return 0;
     }
     if (simGetObjectMatrix==nullptr)
@@ -4736,6 +4747,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simClearIntegerSignal==nullptr)
     {
         printf("%s simClearIntegerSignal\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectName==nullptr)
+    {
+        printf("%s simGetObjectName\n",couldNotFind);
+        return 0;
+    }
+    if (simSetObjectName==nullptr)
+    {
+        printf("%s simSetObjectName\n",couldNotFind);
         return 0;
     }
     // Deprecated end
