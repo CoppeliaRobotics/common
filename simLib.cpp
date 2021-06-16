@@ -115,7 +115,6 @@ ptrSimGetObjectSelection simGetObjectSelection=nullptr;
 ptrSimHandleProximitySensor simHandleProximitySensor=nullptr;
 ptrSimReadProximitySensor simReadProximitySensor=nullptr;
 ptrSimHandleDynamics simHandleDynamics=nullptr;
-ptrSimGetScriptHandle simGetScriptHandle=nullptr;
 ptrSimSetScriptText simSetScriptText=nullptr;
 ptrSimGetScriptText simGetScriptText=nullptr;
 ptrSimGetScriptProperty simGetScriptProperty=nullptr;
@@ -124,7 +123,6 @@ ptrSimGetScript simGetScript=nullptr;
 ptrSimGetScriptAssociatedWithObject simGetScriptAssociatedWithObject=nullptr;
 ptrSimGetCustomizationScriptAssociatedWithObject simGetCustomizationScriptAssociatedWithObject=nullptr;
 ptrSimGetObjectAssociatedWithScript simGetObjectAssociatedWithScript=nullptr;
-ptrSimGetScriptName simGetScriptName=nullptr;
 ptrSimHandleMainScript simHandleMainScript=nullptr;
 ptrSimResetScript simResetScript=nullptr;
 ptrSimAddScript simAddScript=nullptr;
@@ -362,7 +360,6 @@ ptrSimGetStackFloatTable simGetStackFloatTable=nullptr;
 ptrSimGetStackDoubleTable simGetStackDoubleTable=nullptr;
 ptrSimUnfoldStackTable simUnfoldStackTable=nullptr;
 ptrSimDebugStack simDebugStack=nullptr;
-ptrSimSetScriptVariable simSetScriptVariable=nullptr;
 ptrSimGetEngineFloatParam simGetEngineFloatParam=nullptr;
 ptrSimGetEngineInt32Param simGetEngineInt32Param=nullptr;
 ptrSimGetEngineBoolParam simGetEngineBoolParam=nullptr;
@@ -709,6 +706,9 @@ ptrSimGetInt32Signal simGetIntegerSignal=nullptr;
 ptrSimClearInt32Signal simClearIntegerSignal=nullptr;
 ptrSimGetObjectName simGetObjectName=nullptr;
 ptrSimSetObjectName simSetObjectName=nullptr;
+ptrSimGetScriptName simGetScriptName=nullptr;
+ptrSimGetScriptHandle simGetScriptHandle=nullptr;
+ptrSimSetScriptVariable simSetScriptVariable=nullptr;
 // Deprecated end
 
 
@@ -842,7 +842,6 @@ int getSimProcAddresses(LIBRARY lib)
     simHandleProximitySensor=(ptrSimHandleProximitySensor)(_getProcAddress(lib,"simHandleProximitySensor"));
     simReadProximitySensor=(ptrSimReadProximitySensor)(_getProcAddress(lib,"simReadProximitySensor"));
     simHandleDynamics=(ptrSimHandleDynamics)(_getProcAddress(lib,"simHandleDynamics"));
-    simGetScriptHandle=(ptrSimGetScriptHandle)(_getProcAddress(lib,"simGetScriptHandle"));
     simSetScriptText=(ptrSimSetScriptText)(_getProcAddress(lib,"simSetScriptText"));
     simGetScriptText=(ptrSimGetScriptText)(_getProcAddress(lib,"simGetScriptText"));
     simGetScriptProperty=(ptrSimGetScriptProperty)(_getProcAddress(lib,"simGetScriptProperty"));
@@ -851,7 +850,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetScriptAssociatedWithObject=(ptrSimGetScriptAssociatedWithObject)(_getProcAddress(lib,"simGetScriptAssociatedWithObject"));
     simGetCustomizationScriptAssociatedWithObject=(ptrSimGetCustomizationScriptAssociatedWithObject)(_getProcAddress(lib,"simGetCustomizationScriptAssociatedWithObject"));
     simGetObjectAssociatedWithScript=(ptrSimGetObjectAssociatedWithScript)(_getProcAddress(lib,"simGetObjectAssociatedWithScript"));
-    simGetScriptName=(ptrSimGetScriptName)(_getProcAddress(lib,"simGetScriptName"));
     simHandleMainScript=(ptrSimHandleMainScript)(_getProcAddress(lib,"simHandleMainScript"));
     simResetScript=(ptrSimResetScript)(_getProcAddress(lib,"simResetScript"));
     simAddScript=(ptrSimAddScript)(_getProcAddress(lib,"simAddScript"));
@@ -1089,7 +1087,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetStackDoubleTable=(ptrSimGetStackDoubleTable)(_getProcAddress(lib,"simGetStackDoubleTable"));
     simUnfoldStackTable=(ptrSimUnfoldStackTable)(_getProcAddress(lib,"simUnfoldStackTable"));
     simDebugStack=(ptrSimDebugStack)(_getProcAddress(lib,"simDebugStack"));
-    simSetScriptVariable=(ptrSimSetScriptVariable)(_getProcAddress(lib,"simSetScriptVariable"));
     simGetEngineFloatParam=(ptrSimGetEngineFloatParam)(_getProcAddress(lib,"simGetEngineFloatParam"));
     simGetEngineInt32Param=(ptrSimGetEngineInt32Param)(_getProcAddress(lib,"simGetEngineInt32Param"));
     simGetEngineBoolParam=(ptrSimGetEngineBoolParam)(_getProcAddress(lib,"simGetEngineBoolParam"));
@@ -1435,6 +1432,9 @@ int getSimProcAddresses(LIBRARY lib)
     simClearIntegerSignal=(ptrSimClearInt32Signal)(_getProcAddress(lib,"simClearInt32Signal"));
     simGetObjectName=(ptrSimGetObjectName)(_getProcAddress(lib,"simGetObjectName"));
     simSetObjectName=(ptrSimSetObjectName)(_getProcAddress(lib,"simSetObjectName"));
+    simGetScriptName=(ptrSimGetScriptName)(_getProcAddress(lib,"simGetScriptName"));
+    simGetScriptHandle=(ptrSimGetScriptHandle)(_getProcAddress(lib,"simGetScriptHandle"));
+    simSetScriptVariable=(ptrSimSetScriptVariable)(_getProcAddress(lib,"simSetScriptVariable"));
     // Deprecated end
 
 
@@ -1829,11 +1829,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simHandleDynamics\n",couldNotFind);
         return 0;
     }
-    if (simGetScriptHandle==nullptr)
-    {
-        printf("%s simGetScriptHandle\n",couldNotFind);
-        return 0;
-    }
     if (simSetScriptText==nullptr)
     {
         printf("%s simSetScriptText\n",couldNotFind);
@@ -1872,11 +1867,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetObjectAssociatedWithScript==nullptr)
     {
         printf("%s simGetObjectAssociatedWithScript\n",couldNotFind);
-        return 0;
-    }
-    if (simGetScriptName==nullptr)
-    {
-        printf("%s simGetScriptName\n",couldNotFind);
         return 0;
     }
     if (simHandleMainScript==nullptr)
@@ -3062,11 +3052,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simDebugStack==nullptr)
     {
         printf("%s simDebugStack\n",couldNotFind);
-        return 0;
-    }
-    if (simSetScriptVariable==nullptr)
-    {
-        printf("%s simSetScriptVariable\n",couldNotFind);
         return 0;
     }
     if (simGetEngineFloatParam==nullptr)
@@ -4757,6 +4742,21 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetObjectName==nullptr)
     {
         printf("%s simSetObjectName\n",couldNotFind);
+        return 0;
+    }
+    if (simGetScriptName==nullptr)
+    {
+        printf("%s simGetScriptName\n",couldNotFind);
+        return 0;
+    }
+    if (simGetScriptHandle==nullptr)
+    {
+        printf("%s simGetScriptHandle\n",couldNotFind);
+        return 0;
+    }
+    if (simSetScriptVariable==nullptr)
+    {
+        printf("%s simSetScriptVariable\n",couldNotFind);
         return 0;
     }
     // Deprecated end
