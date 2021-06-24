@@ -284,7 +284,6 @@ ptrSimGroupShapes simGroupShapes=nullptr;
 ptrSimUngroupShape simUngroupShape=nullptr;
 ptrSimConvexDecompose simConvexDecompose=nullptr;
 ptrSimQuitSimulator simQuitSimulator=nullptr;
-ptrSimEnableEventCallback simEnableEventCallback=nullptr;
 ptrSimSetShapeMaterial simSetShapeMaterial=nullptr;
 ptrSimGetTextureId simGetTextureId=nullptr;
 ptrSimReadTexture simReadTexture=nullptr;
@@ -710,6 +709,7 @@ ptrSimGetObjectConfiguration simGetObjectConfiguration=nullptr;
 ptrSimSetObjectConfiguration simSetObjectConfiguration=nullptr;
 ptrSimGetConfigurationTree simGetConfigurationTree=nullptr;
 ptrSimSetConfigurationTree simSetConfigurationTree=nullptr;
+ptrSimEnableEventCallback simEnableEventCallback=nullptr;
 // Deprecated end
 
 
@@ -1012,7 +1012,6 @@ int getSimProcAddresses(LIBRARY lib)
     simUngroupShape=(ptrSimUngroupShape)(_getProcAddress(lib,"simUngroupShape"));
     simConvexDecompose=(ptrSimConvexDecompose)(_getProcAddress(lib,"simConvexDecompose"));
     simQuitSimulator=(ptrSimQuitSimulator)(_getProcAddress(lib,"simQuitSimulator"));
-    simEnableEventCallback=(ptrSimEnableEventCallback)(_getProcAddress(lib,"simEnableEventCallback"));
     simSetShapeMaterial=(ptrSimSetShapeMaterial)(_getProcAddress(lib,"simSetShapeMaterial"));
     simGetTextureId=(ptrSimGetTextureId)(_getProcAddress(lib,"simGetTextureId"));
     simReadTexture=(ptrSimReadTexture)(_getProcAddress(lib,"simReadTexture"));
@@ -1437,6 +1436,7 @@ int getSimProcAddresses(LIBRARY lib)
     simSetObjectConfiguration=(ptrSimSetObjectConfiguration)(_getProcAddress(lib,"simSetObjectConfiguration"));
     simGetConfigurationTree=(ptrSimGetConfigurationTree)(_getProcAddress(lib,"simGetConfigurationTree"));
     simSetConfigurationTree=(ptrSimSetConfigurationTree)(_getProcAddress(lib,"simSetConfigurationTree"));
+    simEnableEventCallback=(ptrSimEnableEventCallback)(_getProcAddress(lib,"simEnableEventCallback"));
     // Deprecated end
 
 
@@ -2674,11 +2674,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simQuitSimulator==nullptr)
     {
         printf("%s simQuitSimulator\n",couldNotFind);
-        return 0;
-    }
-    if (simEnableEventCallback==nullptr)
-    {
-        printf("%s simEnableEventCallback\n",couldNotFind);
         return 0;
     }
     if (simSetShapeMaterial==nullptr)
@@ -4764,6 +4759,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetConfigurationTree==nullptr)
     {
         printf("%s simSetConfigurationTree\n",couldNotFind);
+        return 0;
+    }
+    if (simEnableEventCallback==nullptr)
+    {
+        printf("%s simEnableEventCallback\n",couldNotFind);
         return 0;
     }
     // Deprecated end
