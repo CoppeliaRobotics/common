@@ -295,8 +295,6 @@ ptrSimReadCustomDataBlockTags simReadCustomDataBlockTags=nullptr;
 ptrSimGetShapeGeomInfo simGetShapeGeomInfo=nullptr;
 ptrSimGetObjects simGetObjects=nullptr;
 ptrSimGetObjectsInTree simGetObjectsInTree=nullptr;
-ptrSimSetObjectSizeValues simSetObjectSizeValues=nullptr;
-ptrSimGetObjectSizeValues simGetObjectSizeValues=nullptr;
 ptrSimScaleObject simScaleObject=nullptr;
 ptrSimSetShapeTexture simSetShapeTexture=nullptr;
 ptrSimGetShapeTextureId simGetShapeTextureId=nullptr;
@@ -710,6 +708,8 @@ ptrSimSetObjectConfiguration simSetObjectConfiguration=nullptr;
 ptrSimGetConfigurationTree simGetConfigurationTree=nullptr;
 ptrSimSetConfigurationTree simSetConfigurationTree=nullptr;
 ptrSimEnableEventCallback simEnableEventCallback=nullptr;
+ptrSimSetObjectSizeValues simSetObjectSizeValues=nullptr;
+ptrSimGetObjectSizeValues simGetObjectSizeValues=nullptr;
 // Deprecated end
 
 
@@ -1023,8 +1023,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetShapeGeomInfo=(ptrSimGetShapeGeomInfo)(_getProcAddress(lib,"simGetShapeGeomInfo"));
     simGetObjects=(ptrSimGetObjects)(_getProcAddress(lib,"simGetObjects"));
     simGetObjectsInTree=(ptrSimGetObjectsInTree)(_getProcAddress(lib,"simGetObjectsInTree"));
-    simSetObjectSizeValues=(ptrSimSetObjectSizeValues)(_getProcAddress(lib,"simSetObjectSizeValues"));
-    simGetObjectSizeValues=(ptrSimGetObjectSizeValues)(_getProcAddress(lib,"simGetObjectSizeValues"));
     simScaleObject=(ptrSimScaleObject)(_getProcAddress(lib,"simScaleObject"));
     simSetShapeTexture=(ptrSimSetShapeTexture)(_getProcAddress(lib,"simSetShapeTexture"));
     simGetShapeTextureId=(ptrSimGetShapeTextureId)(_getProcAddress(lib,"simGetShapeTextureId"));
@@ -1437,6 +1435,8 @@ int getSimProcAddresses(LIBRARY lib)
     simGetConfigurationTree=(ptrSimGetConfigurationTree)(_getProcAddress(lib,"simGetConfigurationTree"));
     simSetConfigurationTree=(ptrSimSetConfigurationTree)(_getProcAddress(lib,"simSetConfigurationTree"));
     simEnableEventCallback=(ptrSimEnableEventCallback)(_getProcAddress(lib,"simEnableEventCallback"));
+    simSetObjectSizeValues=(ptrSimSetObjectSizeValues)(_getProcAddress(lib,"simSetObjectSizeValues"));
+    simGetObjectSizeValues=(ptrSimGetObjectSizeValues)(_getProcAddress(lib,"simGetObjectSizeValues"));
     // Deprecated end
 
 
@@ -2729,16 +2729,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetObjectsInTree==nullptr)
     {
         printf("%s simGetObjectsInTree\n",couldNotFind);
-        return 0;
-    }
-    if (simSetObjectSizeValues==nullptr)
-    {
-        printf("%s simSetObjectSizeValues\n",couldNotFind);
-        return 0;
-    }
-    if (simGetObjectSizeValues==nullptr)
-    {
-        printf("%s simGetObjectSizeValues\n",couldNotFind);
         return 0;
     }
     if (simScaleObject==nullptr)
@@ -4764,6 +4754,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simEnableEventCallback==nullptr)
     {
         printf("%s simEnableEventCallback\n",couldNotFind);
+        return 0;
+    }
+    if (simSetObjectSizeValues==nullptr)
+    {
+        printf("%s simSetObjectSizeValues\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectSizeValues==nullptr)
+    {
+        printf("%s simGetObjectSizeValues\n",couldNotFind);
         return 0;
     }
     // Deprecated end
