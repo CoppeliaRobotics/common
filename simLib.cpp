@@ -166,6 +166,7 @@ ptrSimGetDialogInput simGetDialogInput=nullptr;
 ptrSimEndDialog simEndDialog=nullptr;
 ptrSimRegisterScriptCallbackFunction simRegisterScriptCallbackFunction=nullptr;
 ptrSimRegisterScriptVariable simRegisterScriptVariable=nullptr;
+ptrSimRegisterScriptFuncHook simRegisterScriptFuncHook=nullptr;
 ptrSimSetJointTargetVelocity simSetJointTargetVelocity=nullptr;
 ptrSimGetJointTargetVelocity simGetJointTargetVelocity=nullptr;
 ptrSimCopyPasteObjects simCopyPasteObjects=nullptr;
@@ -894,6 +895,7 @@ int getSimProcAddresses(LIBRARY lib)
     simEndDialog=(ptrSimEndDialog)(_getProcAddress(lib,"simEndDialog"));
     simRegisterScriptCallbackFunction=(ptrSimRegisterScriptCallbackFunction)(_getProcAddress(lib,"simRegisterScriptCallbackFunction"));
     simRegisterScriptVariable=(ptrSimRegisterScriptVariable)(_getProcAddress(lib,"simRegisterScriptVariable"));
+    simRegisterScriptFuncHook=(ptrSimRegisterScriptFuncHook)(_getProcAddress(lib,"simRegisterScriptFuncHook"));
     simSetJointTargetVelocity=(ptrSimSetJointTargetVelocity)(_getProcAddress(lib,"simSetJointTargetVelocity"));
     simGetJointTargetVelocity=(ptrSimGetJointTargetVelocity)(_getProcAddress(lib,"simGetJointTargetVelocity"));
     simCopyPasteObjects=(ptrSimCopyPasteObjects)(_getProcAddress(lib,"simCopyPasteObjects"));
@@ -2084,6 +2086,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simRegisterScriptVariable==nullptr)
     {
         printf("%s simRegisterScriptVariable\n",couldNotFind);
+        return 0;
+    }
+    if (simRegisterScriptFuncHook==nullptr)
+    {
+        printf("%s simRegisterScriptFuncHook\n",couldNotFind);
         return 0;
     }
     if (simSetJointTargetVelocity==nullptr)
