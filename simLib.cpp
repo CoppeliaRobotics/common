@@ -271,12 +271,10 @@ ptrSimSetVisionSensorCharImage simSetVisionSensorCharImage=nullptr;
 ptrSimGetVisionSensorDepthBuffer simGetVisionSensorDepthBuffer=nullptr;
 ptrSimGetObjectQuaternion simGetObjectQuaternion=nullptr;
 ptrSimSetObjectQuaternion simSetObjectQuaternion=nullptr;
-ptrSimRMLPosition simRMLPosition=nullptr;
-ptrSimRMLVelocity simRMLVelocity=nullptr;
-ptrSimRMLPos simRMLPos=nullptr;
-ptrSimRMLVel simRMLVel=nullptr;
-ptrSimRMLStep simRMLStep=nullptr;
-ptrSimRMLRemove simRMLRemove=nullptr;
+ptrSimRuckigPos simRuckigPos=nullptr;
+ptrSimRuckigVel simRuckigVel=nullptr;
+ptrSimRuckigStep simRuckigStep=nullptr;
+ptrSimRuckigRemove simRuckigRemove=nullptr;
 ptrSimBuildMatrixQ simBuildMatrixQ=nullptr;
 ptrSimGetQuaternionFromMatrix simGetQuaternionFromMatrix=nullptr;
 ptrSimFileDialog simFileDialog=nullptr;
@@ -711,6 +709,12 @@ ptrSimSetConfigurationTree simSetConfigurationTree=nullptr;
 ptrSimEnableEventCallback simEnableEventCallback=nullptr;
 ptrSimSetObjectSizeValues simSetObjectSizeValues=nullptr;
 ptrSimGetObjectSizeValues simGetObjectSizeValues=nullptr;
+ptrSimRMLPosition simRMLPosition=nullptr;
+ptrSimRMLVelocity simRMLVelocity=nullptr;
+ptrSimRMLPos simRMLPos=nullptr;
+ptrSimRMLVel simRMLVel=nullptr;
+ptrSimRMLStep simRMLStep=nullptr;
+ptrSimRMLRemove simRMLRemove=nullptr;
 // Deprecated end
 
 
@@ -1000,12 +1004,10 @@ int getSimProcAddresses(LIBRARY lib)
     simGetVisionSensorDepthBuffer=(ptrSimGetVisionSensorDepthBuffer)(_getProcAddress(lib,"simGetVisionSensorDepthBuffer"));
     simGetObjectQuaternion=(ptrSimGetObjectQuaternion)(_getProcAddress(lib,"simGetObjectQuaternion"));
     simSetObjectQuaternion=(ptrSimSetObjectQuaternion)(_getProcAddress(lib,"simSetObjectQuaternion"));
-    simRMLPosition=(ptrSimRMLPosition)(_getProcAddress(lib,"simRMLPosition"));
-    simRMLVelocity=(ptrSimRMLVelocity)(_getProcAddress(lib,"simRMLVelocity"));
-    simRMLPos=(ptrSimRMLPos)(_getProcAddress(lib,"simRMLPos"));
-    simRMLVel=(ptrSimRMLVel)(_getProcAddress(lib,"simRMLVel"));
-    simRMLStep=(ptrSimRMLStep)(_getProcAddress(lib,"simRMLStep"));
-    simRMLRemove=(ptrSimRMLRemove)(_getProcAddress(lib,"simRMLRemove"));
+    simRuckigPos=(ptrSimRuckigPos)(_getProcAddress(lib,"simRuckigPos"));
+    simRuckigVel=(ptrSimRuckigVel)(_getProcAddress(lib,"simRuckigVel"));
+    simRuckigStep=(ptrSimRuckigStep)(_getProcAddress(lib,"simRuckigStep"));
+    simRuckigRemove=(ptrSimRuckigRemove)(_getProcAddress(lib,"simRuckigRemove"));
     simBuildMatrixQ=(ptrSimBuildMatrixQ)(_getProcAddress(lib,"simBuildMatrixQ"));
     simGetQuaternionFromMatrix=(ptrSimGetQuaternionFromMatrix)(_getProcAddress(lib,"simGetQuaternionFromMatrix"));
     simFileDialog=(ptrSimFileDialog)(_getProcAddress(lib,"simFileDialog"));
@@ -1439,6 +1441,12 @@ int getSimProcAddresses(LIBRARY lib)
     simEnableEventCallback=(ptrSimEnableEventCallback)(_getProcAddress(lib,"simEnableEventCallback"));
     simSetObjectSizeValues=(ptrSimSetObjectSizeValues)(_getProcAddress(lib,"simSetObjectSizeValues"));
     simGetObjectSizeValues=(ptrSimGetObjectSizeValues)(_getProcAddress(lib,"simGetObjectSizeValues"));
+    simRMLPosition=(ptrSimRMLPosition)(_getProcAddress(lib,"simRMLPosition"));
+    simRMLVelocity=(ptrSimRMLVelocity)(_getProcAddress(lib,"simRMLVelocity"));
+    simRMLPos=(ptrSimRMLPos)(_getProcAddress(lib,"simRMLPos"));
+    simRMLVel=(ptrSimRMLVel)(_getProcAddress(lib,"simRMLVel"));
+    simRMLStep=(ptrSimRMLStep)(_getProcAddress(lib,"simRMLStep"));
+    simRMLRemove=(ptrSimRMLRemove)(_getProcAddress(lib,"simRMLRemove"));
     // Deprecated end
 
 
@@ -2613,34 +2621,24 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simSetObjectQuaternion\n",couldNotFind);
         return 0;
     }
-    if (simRMLPosition==nullptr)
+    if (simRuckigPos==nullptr)
     {
-        printf("%s simRMLPosition\n",couldNotFind);
+        printf("%s simRuckigPos\n",couldNotFind);
         return 0;
     }
-    if (simRMLVelocity==nullptr)
+    if (simRuckigVel==nullptr)
     {
-        printf("%s simRMLVelocity\n",couldNotFind);
+        printf("%s simRuckigVel\n",couldNotFind);
         return 0;
     }
-    if (simRMLPos==nullptr)
+    if (simRuckigStep==nullptr)
     {
-        printf("%s simRMLPos\n",couldNotFind);
+        printf("%s simRuckigStep\n",couldNotFind);
         return 0;
     }
-    if (simRMLVel==nullptr)
+    if (simRuckigRemove==nullptr)
     {
-        printf("%s simRMLVel\n",couldNotFind);
-        return 0;
-    }
-    if (simRMLStep==nullptr)
-    {
-        printf("%s simRMLStep\n",couldNotFind);
-        return 0;
-    }
-    if (simRMLRemove==nullptr)
-    {
-        printf("%s simRMLRemove\n",couldNotFind);
+        printf("%s simRuckigRemove\n",couldNotFind);
         return 0;
     }
     if (simBuildMatrixQ==nullptr)
@@ -4771,6 +4769,36 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetObjectSizeValues==nullptr)
     {
         printf("%s simGetObjectSizeValues\n",couldNotFind);
+        return 0;
+    }
+    if (simRMLPosition==nullptr)
+    {
+        printf("%s simRMLPosition\n",couldNotFind);
+        return 0;
+    }
+    if (simRMLVelocity==nullptr)
+    {
+        printf("%s simRMLVelocity\n",couldNotFind);
+        return 0;
+    }
+    if (simRMLPos==nullptr)
+    {
+        printf("%s simRMLPos\n",couldNotFind);
+        return 0;
+    }
+    if (simRMLVel==nullptr)
+    {
+        printf("%s simRMLVel\n",couldNotFind);
+        return 0;
+    }
+    if (simRMLStep==nullptr)
+    {
+        printf("%s simRMLStep\n",couldNotFind);
+        return 0;
+    }
+    if (simRMLRemove==nullptr)
+    {
+        printf("%s simRMLRemove\n",couldNotFind);
         return 0;
     }
     // Deprecated end
