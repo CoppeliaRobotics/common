@@ -96,8 +96,6 @@ ptrSimTransformVector simTransformVector=nullptr;
 ptrSimReservedCommand simReservedCommand=nullptr;
 ptrSimGetSimulationTime simGetSimulationTime=nullptr;
 ptrSimGetSimulationState simGetSimulationState=nullptr;
-ptrSimGetSystemTime simGetSystemTime=nullptr;
-ptrSimGetSystemTimeInMilliseconds simGetSystemTimeInMilliseconds=nullptr;
 ptrSimGetSystemTimeInMs simGetSystemTimeInMs=nullptr;
 ptrSimLoadScene simLoadScene=nullptr;
 ptrSimCloseScene simCloseScene=nullptr;
@@ -160,10 +158,6 @@ ptrSimSetNavigationMode simSetNavigationMode=nullptr;
 ptrSimGetNavigationMode simGetNavigationMode=nullptr;
 ptrSimSetPage simSetPage=nullptr;
 ptrSimGetPage simGetPage=nullptr;
-ptrSimDisplayDialog simDisplayDialog=nullptr;
-ptrSimGetDialogResult simGetDialogResult=nullptr;
-ptrSimGetDialogInput simGetDialogInput=nullptr;
-ptrSimEndDialog simEndDialog=nullptr;
 ptrSimRegisterScriptCallbackFunction simRegisterScriptCallbackFunction=nullptr;
 ptrSimRegisterScriptVariable simRegisterScriptVariable=nullptr;
 ptrSimRegisterScriptFuncHook simRegisterScriptFuncHook=nullptr;
@@ -277,8 +271,6 @@ ptrSimRuckigStep simRuckigStep=nullptr;
 ptrSimRuckigRemove simRuckigRemove=nullptr;
 ptrSimBuildMatrixQ simBuildMatrixQ=nullptr;
 ptrSimGetQuaternionFromMatrix simGetQuaternionFromMatrix=nullptr;
-ptrSimFileDialog simFileDialog=nullptr;
-ptrSimMsgBox simMsgBox=nullptr;
 ptrSimGroupShapes simGroupShapes=nullptr;
 ptrSimUngroupShape simUngroupShape=nullptr;
 ptrSimConvexDecompose simConvexDecompose=nullptr;
@@ -715,6 +707,14 @@ ptrSimRMLPos simRMLPos=nullptr;
 ptrSimRMLVel simRMLVel=nullptr;
 ptrSimRMLStep simRMLStep=nullptr;
 ptrSimRMLRemove simRMLRemove=nullptr;
+ptrSimGetSystemTime simGetSystemTime=nullptr;
+ptrSimGetSystemTimeInMilliseconds simGetSystemTimeInMilliseconds=nullptr;
+ptrSimFileDialog simFileDialog=nullptr;
+ptrSimMsgBox simMsgBox=nullptr;
+ptrSimDisplayDialog simDisplayDialog=nullptr;
+ptrSimGetDialogResult simGetDialogResult=nullptr;
+ptrSimGetDialogInput simGetDialogInput=nullptr;
+ptrSimEndDialog simEndDialog=nullptr;
 // Deprecated end
 
 
@@ -829,8 +829,6 @@ int getSimProcAddresses(LIBRARY lib)
     simReservedCommand=(ptrSimReservedCommand)(_getProcAddress(lib,"simReservedCommand"));
     simGetSimulationTime=(ptrSimGetSimulationTime)(_getProcAddress(lib,"simGetSimulationTime"));
     simGetSimulationState=(ptrSimGetSimulationState)(_getProcAddress(lib,"simGetSimulationState"));
-    simGetSystemTime=(ptrSimGetSystemTime)(_getProcAddress(lib,"simGetSystemTime"));
-    simGetSystemTimeInMilliseconds=(ptrSimGetSystemTimeInMilliseconds)(_getProcAddress(lib,"simGetSystemTimeInMilliseconds"));
     simGetSystemTimeInMs=(ptrSimGetSystemTimeInMs)(_getProcAddress(lib,"simGetSystemTimeInMs"));
     simLoadScene=(ptrSimLoadScene)(_getProcAddress(lib,"simLoadScene"));
     simCloseScene=(ptrSimCloseScene)(_getProcAddress(lib,"simCloseScene"));
@@ -893,10 +891,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetNavigationMode=(ptrSimGetNavigationMode)(_getProcAddress(lib,"simGetNavigationMode"));
     simSetPage=(ptrSimSetPage)(_getProcAddress(lib,"simSetPage"));
     simGetPage=(ptrSimGetPage)(_getProcAddress(lib,"simGetPage"));
-    simDisplayDialog=(ptrSimDisplayDialog)(_getProcAddress(lib,"simDisplayDialog"));
-    simGetDialogResult=(ptrSimGetDialogResult)(_getProcAddress(lib,"simGetDialogResult"));
-    simGetDialogInput=(ptrSimGetDialogInput)(_getProcAddress(lib,"simGetDialogInput"));
-    simEndDialog=(ptrSimEndDialog)(_getProcAddress(lib,"simEndDialog"));
     simRegisterScriptCallbackFunction=(ptrSimRegisterScriptCallbackFunction)(_getProcAddress(lib,"simRegisterScriptCallbackFunction"));
     simRegisterScriptVariable=(ptrSimRegisterScriptVariable)(_getProcAddress(lib,"simRegisterScriptVariable"));
     simRegisterScriptFuncHook=(ptrSimRegisterScriptFuncHook)(_getProcAddress(lib,"simRegisterScriptFuncHook"));
@@ -1010,8 +1004,6 @@ int getSimProcAddresses(LIBRARY lib)
     simRuckigRemove=(ptrSimRuckigRemove)(_getProcAddress(lib,"simRuckigRemove"));
     simBuildMatrixQ=(ptrSimBuildMatrixQ)(_getProcAddress(lib,"simBuildMatrixQ"));
     simGetQuaternionFromMatrix=(ptrSimGetQuaternionFromMatrix)(_getProcAddress(lib,"simGetQuaternionFromMatrix"));
-    simFileDialog=(ptrSimFileDialog)(_getProcAddress(lib,"simFileDialog"));
-    simMsgBox=(ptrSimMsgBox)(_getProcAddress(lib,"simMsgBox"));
     simGroupShapes=(ptrSimGroupShapes)(_getProcAddress(lib,"simGroupShapes"));
     simUngroupShape=(ptrSimUngroupShape)(_getProcAddress(lib,"simUngroupShape"));
     simConvexDecompose=(ptrSimConvexDecompose)(_getProcAddress(lib,"simConvexDecompose"));
@@ -1447,6 +1439,14 @@ int getSimProcAddresses(LIBRARY lib)
     simRMLVel=(ptrSimRMLVel)(_getProcAddress(lib,"simRMLVel"));
     simRMLStep=(ptrSimRMLStep)(_getProcAddress(lib,"simRMLStep"));
     simRMLRemove=(ptrSimRMLRemove)(_getProcAddress(lib,"simRMLRemove"));
+    simGetSystemTime=(ptrSimGetSystemTime)(_getProcAddress(lib,"simGetSystemTime"));
+    simGetSystemTimeInMilliseconds=(ptrSimGetSystemTimeInMilliseconds)(_getProcAddress(lib,"simGetSystemTimeInMilliseconds"));
+    simFileDialog=(ptrSimFileDialog)(_getProcAddress(lib,"simFileDialog"));
+    simMsgBox=(ptrSimMsgBox)(_getProcAddress(lib,"simMsgBox"));
+    simDisplayDialog=(ptrSimDisplayDialog)(_getProcAddress(lib,"simDisplayDialog"));
+    simGetDialogResult=(ptrSimGetDialogResult)(_getProcAddress(lib,"simGetDialogResult"));
+    simGetDialogInput=(ptrSimGetDialogInput)(_getProcAddress(lib,"simGetDialogInput"));
+    simEndDialog=(ptrSimEndDialog)(_getProcAddress(lib,"simEndDialog"));
     // Deprecated end
 
 
@@ -1744,16 +1744,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetSimulationState==nullptr)
     {
         printf("%s simGetSimulationState\n",couldNotFind);
-        return 0;
-    }
-    if (simGetSystemTime==nullptr)
-    {
-        printf("%s simGetSystemTime\n",couldNotFind);
-        return 0;
-    }
-    if (simGetSystemTimeInMilliseconds==nullptr)
-    {
-        printf("%s simGetSystemTimeInMilliseconds\n",couldNotFind);
         return 0;
     }
     if (simGetSystemTimeInMs==nullptr)
@@ -2064,26 +2054,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetPage==nullptr)
     {
         printf("%s simGetPage\n",couldNotFind);
-        return 0;
-    }
-    if (simDisplayDialog==nullptr)
-    {
-        printf("%s simDisplayDialog\n",couldNotFind);
-        return 0;
-    }
-    if (simGetDialogResult==nullptr)
-    {
-        printf("%s simGetDialogResult\n",couldNotFind);
-        return 0;
-    }
-    if (simGetDialogInput==nullptr)
-    {
-        printf("%s simGetDialogInput\n",couldNotFind);
-        return 0;
-    }
-    if (simEndDialog==nullptr)
-    {
-        printf("%s simEndDialog\n",couldNotFind);
         return 0;
     }
     if (simRegisterScriptCallbackFunction==nullptr)
@@ -2649,16 +2619,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetQuaternionFromMatrix==nullptr)
     {
         printf("%s simGetQuaternionFromMatrix\n",couldNotFind);
-        return 0;
-    }
-    if (simFileDialog==nullptr)
-    {
-        printf("%s simFileDialog\n",couldNotFind);
-        return 0;
-    }
-    if (simMsgBox==nullptr)
-    {
-        printf("%s simMsgBox\n",couldNotFind);
         return 0;
     }
     if (simGroupShapes==nullptr)
@@ -4799,6 +4759,46 @@ int getSimProcAddresses(LIBRARY lib)
     if (simRMLRemove==nullptr)
     {
         printf("%s simRMLRemove\n",couldNotFind);
+        return 0;
+    }
+    if (simGetSystemTime==nullptr)
+    {
+        printf("%s simGetSystemTime\n",couldNotFind);
+        return 0;
+    }
+    if (simGetSystemTimeInMilliseconds==nullptr)
+    {
+        printf("%s simGetSystemTimeInMilliseconds\n",couldNotFind);
+        return 0;
+    }
+    if (simFileDialog==nullptr)
+    {
+        printf("%s simFileDialog\n",couldNotFind);
+        return 0;
+    }
+    if (simMsgBox==nullptr)
+    {
+        printf("%s simMsgBox\n",couldNotFind);
+        return 0;
+    }
+    if (simDisplayDialog==nullptr)
+    {
+        printf("%s simDisplayDialog\n",couldNotFind);
+        return 0;
+    }
+    if (simGetDialogResult==nullptr)
+    {
+        printf("%s simGetDialogResult\n",couldNotFind);
+        return 0;
+    }
+    if (simGetDialogInput==nullptr)
+    {
+        printf("%s simGetDialogInput\n",couldNotFind);
+        return 0;
+    }
+    if (simEndDialog==nullptr)
+    {
+        printf("%s simEndDialog\n",couldNotFind);
         return 0;
     }
     // Deprecated end
