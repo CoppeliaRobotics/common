@@ -103,12 +103,8 @@ ptrSimSaveScene simSaveScene=nullptr;
 ptrSimLoadModel simLoadModel=nullptr;
 ptrSimSaveModel simSaveModel=nullptr;
 ptrSimDoesFileExist simDoesFileExist=nullptr;
-ptrSimIsObjectInSelection simIsObjectInSelection=nullptr;
-ptrSimAddObjectToSelection simAddObjectToSelection=nullptr;
-ptrSimRemoveObjectFromSelection simRemoveObjectFromSelection=nullptr;
-ptrSimGetObjectSelectionSize simGetObjectSelectionSize=nullptr;
-ptrSimGetObjectLastSelection simGetObjectLastSelection=nullptr;
-ptrSimGetObjectSelection simGetObjectSelection=nullptr;
+ptrSimGetObjectSel simGetObjectSel=nullptr;
+ptrSimSetObjectSel simSetObjectSel=nullptr;
 ptrSimHandleProximitySensor simHandleProximitySensor=nullptr;
 ptrSimReadProximitySensor simReadProximitySensor=nullptr;
 ptrSimHandleDynamics simHandleDynamics=nullptr;
@@ -164,9 +160,7 @@ ptrSimRegisterScriptFuncHook simRegisterScriptFuncHook=nullptr;
 ptrSimSetJointTargetVelocity simSetJointTargetVelocity=nullptr;
 ptrSimGetJointTargetVelocity simGetJointTargetVelocity=nullptr;
 ptrSimCopyPasteObjects simCopyPasteObjects=nullptr;
-ptrSimScaleSelectedObjects simScaleSelectedObjects=nullptr;
 ptrSimScaleObjects simScaleObjects=nullptr;
-ptrSimDeleteSelectedObjects simDeleteSelectedObjects=nullptr;
 ptrSimGetObjectUniqueIdentifier simGetObjectUniqueIdentifier=nullptr;
 ptrSimAddDrawingObject simAddDrawingObject=nullptr;
 ptrSimRemoveDrawingObject simRemoveDrawingObject=nullptr;
@@ -715,6 +709,14 @@ ptrSimDisplayDialog simDisplayDialog=nullptr;
 ptrSimGetDialogResult simGetDialogResult=nullptr;
 ptrSimGetDialogInput simGetDialogInput=nullptr;
 ptrSimEndDialog simEndDialog=nullptr;
+ptrSimIsObjectInSelection simIsObjectInSelection=nullptr;
+ptrSimAddObjectToSelection simAddObjectToSelection=nullptr;
+ptrSimRemoveObjectFromSelection simRemoveObjectFromSelection=nullptr;
+ptrSimGetObjectSelectionSize simGetObjectSelectionSize=nullptr;
+ptrSimGetObjectLastSelection simGetObjectLastSelection=nullptr;
+ptrSimGetObjectSelection simGetObjectSelection=nullptr;
+ptrSimScaleSelectedObjects simScaleSelectedObjects=nullptr;
+ptrSimDeleteSelectedObjects simDeleteSelectedObjects=nullptr;
 // Deprecated end
 
 
@@ -836,12 +838,8 @@ int getSimProcAddresses(LIBRARY lib)
     simLoadModel=(ptrSimLoadModel)(_getProcAddress(lib,"simLoadModel"));
     simSaveModel=(ptrSimSaveModel)(_getProcAddress(lib,"simSaveModel"));
     simDoesFileExist=(ptrSimDoesFileExist)(_getProcAddress(lib,"simDoesFileExist"));
-    simIsObjectInSelection=(ptrSimIsObjectInSelection)(_getProcAddress(lib,"simIsObjectInSelection"));
-    simAddObjectToSelection=(ptrSimAddObjectToSelection)(_getProcAddress(lib,"simAddObjectToSelection"));
-    simRemoveObjectFromSelection=(ptrSimRemoveObjectFromSelection)(_getProcAddress(lib,"simRemoveObjectFromSelection"));
-    simGetObjectSelectionSize=(ptrSimGetObjectSelectionSize)(_getProcAddress(lib,"simGetObjectSelectionSize"));
-    simGetObjectLastSelection=(ptrSimGetObjectLastSelection)(_getProcAddress(lib,"simGetObjectLastSelection"));
-    simGetObjectSelection=(ptrSimGetObjectSelection)(_getProcAddress(lib,"simGetObjectSelection"));
+    simGetObjectSel=(ptrSimGetObjectSel)(_getProcAddress(lib,"simGetObjectSel"));
+    simSetObjectSel=(ptrSimSetObjectSel)(_getProcAddress(lib,"simSetObjectSel"));
     simHandleProximitySensor=(ptrSimHandleProximitySensor)(_getProcAddress(lib,"simHandleProximitySensor"));
     simReadProximitySensor=(ptrSimReadProximitySensor)(_getProcAddress(lib,"simReadProximitySensor"));
     simHandleDynamics=(ptrSimHandleDynamics)(_getProcAddress(lib,"simHandleDynamics"));
@@ -897,9 +895,7 @@ int getSimProcAddresses(LIBRARY lib)
     simSetJointTargetVelocity=(ptrSimSetJointTargetVelocity)(_getProcAddress(lib,"simSetJointTargetVelocity"));
     simGetJointTargetVelocity=(ptrSimGetJointTargetVelocity)(_getProcAddress(lib,"simGetJointTargetVelocity"));
     simCopyPasteObjects=(ptrSimCopyPasteObjects)(_getProcAddress(lib,"simCopyPasteObjects"));
-    simScaleSelectedObjects=(ptrSimScaleSelectedObjects)(_getProcAddress(lib,"simScaleSelectedObjects"));
     simScaleObjects=(ptrSimScaleObjects)(_getProcAddress(lib,"simScaleObjects"));
-    simDeleteSelectedObjects=(ptrSimDeleteSelectedObjects)(_getProcAddress(lib,"simDeleteSelectedObjects"));
     simGetObjectUniqueIdentifier=(ptrSimGetObjectUniqueIdentifier)(_getProcAddress(lib,"simGetObjectUniqueIdentifier"));
     simAddDrawingObject=(ptrSimAddDrawingObject)(_getProcAddress(lib,"simAddDrawingObject"));
     simRemoveDrawingObject=(ptrSimRemoveDrawingObject)(_getProcAddress(lib,"simRemoveDrawingObject"));
@@ -1447,6 +1443,14 @@ int getSimProcAddresses(LIBRARY lib)
     simGetDialogResult=(ptrSimGetDialogResult)(_getProcAddress(lib,"simGetDialogResult"));
     simGetDialogInput=(ptrSimGetDialogInput)(_getProcAddress(lib,"simGetDialogInput"));
     simEndDialog=(ptrSimEndDialog)(_getProcAddress(lib,"simEndDialog"));
+    simIsObjectInSelection=(ptrSimIsObjectInSelection)(_getProcAddress(lib,"simIsObjectInSelection"));
+    simAddObjectToSelection=(ptrSimAddObjectToSelection)(_getProcAddress(lib,"simAddObjectToSelection"));
+    simRemoveObjectFromSelection=(ptrSimRemoveObjectFromSelection)(_getProcAddress(lib,"simRemoveObjectFromSelection"));
+    simGetObjectSelectionSize=(ptrSimGetObjectSelectionSize)(_getProcAddress(lib,"simGetObjectSelectionSize"));
+    simGetObjectLastSelection=(ptrSimGetObjectLastSelection)(_getProcAddress(lib,"simGetObjectLastSelection"));
+    simGetObjectSelection=(ptrSimGetObjectSelection)(_getProcAddress(lib,"simGetObjectSelection"));
+    simScaleSelectedObjects=(ptrSimScaleSelectedObjects)(_getProcAddress(lib,"simScaleSelectedObjects"));
+    simDeleteSelectedObjects=(ptrSimDeleteSelectedObjects)(_getProcAddress(lib,"simDeleteSelectedObjects"));
     // Deprecated end
 
 
@@ -1781,34 +1785,14 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simDoesFileExist\n",couldNotFind);
         return 0;
     }
-    if (simIsObjectInSelection==nullptr)
+    if (simGetObjectSel==nullptr)
     {
-        printf("%s simIsObjectInSelection\n",couldNotFind);
+        printf("%s simGetObjectSel\n",couldNotFind);
         return 0;
     }
-    if (simAddObjectToSelection==nullptr)
+    if (simSetObjectSel==nullptr)
     {
-        printf("%s simAddObjectToSelection\n",couldNotFind);
-        return 0;
-    }
-    if (simRemoveObjectFromSelection==nullptr)
-    {
-        printf("%s simRemoveObjectFromSelection\n",couldNotFind);
-        return 0;
-    }
-    if (simGetObjectSelectionSize==nullptr)
-    {
-        printf("%s simGetObjectSelectionSize\n",couldNotFind);
-        return 0;
-    }
-    if (simGetObjectLastSelection==nullptr)
-    {
-        printf("%s simGetObjectLastSelection\n",couldNotFind);
-        return 0;
-    }
-    if (simGetObjectSelection==nullptr)
-    {
-        printf("%s simGetObjectSelection\n",couldNotFind);
+        printf("%s simSetObjectSel\n",couldNotFind);
         return 0;
     }
     if (simHandleProximitySensor==nullptr)
@@ -2086,19 +2070,9 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simCopyPasteObjects\n",couldNotFind);
         return 0;
     }
-    if (simScaleSelectedObjects==nullptr)
-    {
-        printf("%s simScaleSelectedObjects\n",couldNotFind);
-        return 0;
-    }
     if (simScaleObjects==nullptr)
     {
         printf("%s simScaleObjects\n",couldNotFind);
-        return 0;
-    }
-    if (simDeleteSelectedObjects==nullptr)
-    {
-        printf("%s simDeleteSelectedObjects\n",couldNotFind);
         return 0;
     }
     if (simGetObjectUniqueIdentifier==nullptr)
@@ -4799,6 +4773,46 @@ int getSimProcAddresses(LIBRARY lib)
     if (simEndDialog==nullptr)
     {
         printf("%s simEndDialog\n",couldNotFind);
+        return 0;
+    }
+    if (simIsObjectInSelection==nullptr)
+    {
+        printf("%s simIsObjectInSelection\n",couldNotFind);
+        return 0;
+    }
+    if (simAddObjectToSelection==nullptr)
+    {
+        printf("%s simAddObjectToSelection\n",couldNotFind);
+        return 0;
+    }
+    if (simRemoveObjectFromSelection==nullptr)
+    {
+        printf("%s simRemoveObjectFromSelection\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectSelectionSize==nullptr)
+    {
+        printf("%s simGetObjectSelectionSize\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectLastSelection==nullptr)
+    {
+        printf("%s simGetObjectLastSelection\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectSelection==nullptr)
+    {
+        printf("%s simGetObjectSelection\n",couldNotFind);
+        return 0;
+    }
+    if (simScaleSelectedObjects==nullptr)
+    {
+        printf("%s simScaleSelectedObjects\n",couldNotFind);
+        return 0;
+    }
+    if (simDeleteSelectedObjects==nullptr)
+    {
+        printf("%s simDeleteSelectedObjects\n",couldNotFind);
         return 0;
     }
     // Deprecated end
