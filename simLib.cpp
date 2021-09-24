@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <string>
 #include <cstring>
+#include <cstdlib>
 #if defined (__linux) || defined (__APPLE__)
     #include <dlfcn.h>
 #endif
@@ -1453,6 +1454,9 @@ int getSimProcAddresses(LIBRARY lib)
     simDeleteSelectedObjects=(ptrSimDeleteSelectedObjects)(_getProcAddress(lib,"simDeleteSelectedObjects"));
     // Deprecated end
 
+    char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
+    if (ps!=nullptr)
+        return(1);
 
     char couldNotFind[]="Could not find function";
     if (simRunSimulator==nullptr)
