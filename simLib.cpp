@@ -383,6 +383,8 @@ ptrSimIsDynamicallyEnabled simIsDynamicallyEnabled=nullptr;
 ptrSimGenerateShapeFromPath simGenerateShapeFromPath=nullptr;
 ptrSimGetClosestPosOnPath simGetClosestPosOnPath=nullptr;
 ptrSimInitScript simInitScript=nullptr;
+ptrSimModuleEntry simModuleEntry=nullptr;
+
 
 
 // Following courtesy of Stephen James:
@@ -1118,6 +1120,8 @@ int getSimProcAddresses(LIBRARY lib)
     simGenerateShapeFromPath=(ptrSimGenerateShapeFromPath)(_getProcAddress(lib,"simGenerateShapeFromPath"));
     simGetClosestPosOnPath=(ptrSimGetClosestPosOnPath)(_getProcAddress(lib,"simGetClosestPosOnPath"));
     simInitScript=(ptrSimInitScript)(_getProcAddress(lib,"simInitScript"));
+    simModuleEntry=(ptrSimModuleEntry)(_getProcAddress(lib,"simModuleEntry"));
+
 
 
     // Following courtesy of Stephen James:
@@ -3179,6 +3183,12 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simInitScript\n",couldNotFind);
         return 0;
     }
+    if (simModuleEntry==nullptr)
+    {
+        printf("%s simModuleEntry\n",couldNotFind);
+        return 0;
+    }
+
 
 
     // Following courtesy of Stephen James:
