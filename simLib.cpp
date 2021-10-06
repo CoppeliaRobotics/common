@@ -57,8 +57,8 @@ ptrSimSetStringParam simSetStringParam=nullptr;
 ptrSimGetStringParam simGetStringParam=nullptr;
 ptrSimSetArrayParam simSetArrayParam=nullptr;
 ptrSimGetArrayParam simGetArrayParam=nullptr;
-ptrSimSetStringNamedParam simSetStringNamedParam=nullptr;
-ptrSimGetStringNamedParam simGetStringNamedParam=nullptr;
+ptrSimSetNamedStringParam simSetNamedStringParam=nullptr;
+ptrSimGetNamedStringParam simGetNamedStringParam=nullptr;
 ptrSimGetObjectHandleEx simGetObjectHandleEx=nullptr;
 ptrSimGetScriptHandleEx simGetScriptHandleEx=nullptr;
 ptrSimRemoveObject simRemoveObject=nullptr;
@@ -720,6 +720,8 @@ ptrSimGetObjectLastSelection simGetObjectLastSelection=nullptr;
 ptrSimGetObjectSelection simGetObjectSelection=nullptr;
 ptrSimScaleSelectedObjects simScaleSelectedObjects=nullptr;
 ptrSimDeleteSelectedObjects simDeleteSelectedObjects=nullptr;
+ptrSimSetNamedStringParam simSetStringNamedParam=nullptr;
+ptrSimGetNamedStringParam simGetStringNamedParam=nullptr;
 // Deprecated end
 
 
@@ -794,8 +796,8 @@ int getSimProcAddresses(LIBRARY lib)
     simGetStringParam=(ptrSimGetStringParam)(_getProcAddress(lib,"simGetStringParam"));
     simSetArrayParam=(ptrSimSetArrayParam)(_getProcAddress(lib,"simSetArrayParam"));
     simGetArrayParam=(ptrSimGetArrayParam)(_getProcAddress(lib,"simGetArrayParam"));
-    simSetStringNamedParam=(ptrSimSetStringNamedParam)(_getProcAddress(lib,"simSetStringNamedParam"));
-    simGetStringNamedParam=(ptrSimGetStringNamedParam)(_getProcAddress(lib,"simGetStringNamedParam"));
+    simSetNamedStringParam=(ptrSimSetNamedStringParam)(_getProcAddress(lib,"simSetNamedStringParam"));
+    simGetNamedStringParam=(ptrSimGetNamedStringParam)(_getProcAddress(lib,"simGetNamedStringParam"));
     simGetObjectHandleEx=(ptrSimGetObjectHandleEx)(_getProcAddress(lib,"simGetObjectHandleEx"));
     simGetScriptHandleEx=(ptrSimGetScriptHandleEx)(_getProcAddress(lib,"simGetScriptHandleEx"));
     simRemoveObject=(ptrSimRemoveObject)(_getProcAddress(lib,"simRemoveObject"));
@@ -1456,6 +1458,8 @@ int getSimProcAddresses(LIBRARY lib)
     simGetObjectSelection=(ptrSimGetObjectSelection)(_getProcAddress(lib,"simGetObjectSelection"));
     simScaleSelectedObjects=(ptrSimScaleSelectedObjects)(_getProcAddress(lib,"simScaleSelectedObjects"));
     simDeleteSelectedObjects=(ptrSimDeleteSelectedObjects)(_getProcAddress(lib,"simDeleteSelectedObjects"));
+    simSetStringNamedParam=(ptrSimSetNamedStringParam)(_getProcAddress(lib,"simSetStringNamedParam"));
+    simGetStringNamedParam=(ptrSimGetNamedStringParam)(_getProcAddress(lib,"simGetStringNamedParam"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -1558,14 +1562,14 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetArrayParam\n",couldNotFind);
         return 0;
     }
-    if (simSetStringNamedParam==nullptr)
+    if (simSetNamedStringParam==nullptr)
     {
-        printf("%s simSetStringNamedParam\n",couldNotFind);
+        printf("%s simSetNamedStringParam\n",couldNotFind);
         return 0;
     }
-    if (simGetStringNamedParam==nullptr)
+    if (simGetNamedStringParam==nullptr)
     {
-        printf("%s simGetStringNamedParam\n",couldNotFind);
+        printf("%s simGetNamedStringParam\n",couldNotFind);
         return 0;
     }
     if (simGetObjectHandleEx==nullptr)
@@ -4827,6 +4831,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simDeleteSelectedObjects==nullptr)
     {
         printf("%s simDeleteSelectedObjects\n",couldNotFind);
+        return 0;
+    }
+    if (simSetStringNamedParam==nullptr)
+    {
+        printf("%s simSetStringNamedParam\n",couldNotFind);
+        return 0;
+    }
+    if (simGetStringNamedParam==nullptr)
+    {
+        printf("%s simGetStringNamedParam\n",couldNotFind);
         return 0;
     }
     // Deprecated end
