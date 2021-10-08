@@ -162,7 +162,6 @@ ptrSimSetJointTargetVelocity simSetJointTargetVelocity=nullptr;
 ptrSimGetJointTargetVelocity simGetJointTargetVelocity=nullptr;
 ptrSimCopyPasteObjects simCopyPasteObjects=nullptr;
 ptrSimScaleObjects simScaleObjects=nullptr;
-ptrSimGetObjectUniqueIdentifier simGetObjectUniqueIdentifier=nullptr;
 ptrSimAddDrawingObject simAddDrawingObject=nullptr;
 ptrSimRemoveDrawingObject simRemoveDrawingObject=nullptr;
 ptrSimAddDrawingObjectItem simAddDrawingObjectItem=nullptr;
@@ -722,6 +721,7 @@ ptrSimScaleSelectedObjects simScaleSelectedObjects=nullptr;
 ptrSimDeleteSelectedObjects simDeleteSelectedObjects=nullptr;
 ptrSimSetNamedStringParam simSetStringNamedParam=nullptr;
 ptrSimGetNamedStringParam simGetStringNamedParam=nullptr;
+ptrSimGetObjectUniqueIdentifier simGetObjectUniqueIdentifier=nullptr;
 // Deprecated end
 
 
@@ -901,7 +901,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetJointTargetVelocity=(ptrSimGetJointTargetVelocity)(_getProcAddress(lib,"simGetJointTargetVelocity"));
     simCopyPasteObjects=(ptrSimCopyPasteObjects)(_getProcAddress(lib,"simCopyPasteObjects"));
     simScaleObjects=(ptrSimScaleObjects)(_getProcAddress(lib,"simScaleObjects"));
-    simGetObjectUniqueIdentifier=(ptrSimGetObjectUniqueIdentifier)(_getProcAddress(lib,"simGetObjectUniqueIdentifier"));
     simAddDrawingObject=(ptrSimAddDrawingObject)(_getProcAddress(lib,"simAddDrawingObject"));
     simRemoveDrawingObject=(ptrSimRemoveDrawingObject)(_getProcAddress(lib,"simRemoveDrawingObject"));
     simAddDrawingObjectItem=(ptrSimAddDrawingObjectItem)(_getProcAddress(lib,"simAddDrawingObjectItem"));
@@ -1460,6 +1459,7 @@ int getSimProcAddresses(LIBRARY lib)
     simDeleteSelectedObjects=(ptrSimDeleteSelectedObjects)(_getProcAddress(lib,"simDeleteSelectedObjects"));
     simSetStringNamedParam=(ptrSimSetNamedStringParam)(_getProcAddress(lib,"simSetStringNamedParam"));
     simGetStringNamedParam=(ptrSimGetNamedStringParam)(_getProcAddress(lib,"simGetStringNamedParam"));
+    simGetObjectUniqueIdentifier=(ptrSimGetObjectUniqueIdentifier)(_getProcAddress(lib,"simGetObjectUniqueIdentifier"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -2085,11 +2085,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simScaleObjects==nullptr)
     {
         printf("%s simScaleObjects\n",couldNotFind);
-        return 0;
-    }
-    if (simGetObjectUniqueIdentifier==nullptr)
-    {
-        printf("%s simGetObjectUniqueIdentifier\n",couldNotFind);
         return 0;
     }
     if (simAddDrawingObject==nullptr)
@@ -4841,6 +4836,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetStringNamedParam==nullptr)
     {
         printf("%s simGetStringNamedParam\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectUniqueIdentifier==nullptr)
+    {
+        printf("%s simGetObjectUniqueIdentifier\n",couldNotFind);
         return 0;
     }
     // Deprecated end
