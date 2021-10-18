@@ -80,6 +80,8 @@ ptrSimGetJointTargetPosition simGetJointTargetPosition=nullptr;
 ptrSimSetJointMaxForce simSetJointMaxForce=nullptr;
 ptrSimGetJointMatrix simGetJointMatrix=nullptr;
 ptrSimSetSphericalJointMatrix simSetSphericalJointMatrix=nullptr;
+ptrSimGetJointPose simGetJointPose=nullptr;
+ptrSimSetJointPose simSetJointPose=nullptr;
 ptrSimGetJointInterval simGetJointInterval=nullptr;
 ptrSimSetJointInterval simSetJointInterval=nullptr;
 ptrSimGetObjectParent simGetObjectParent=nullptr;
@@ -819,6 +821,8 @@ int getSimProcAddresses(LIBRARY lib)
     simSetJointMaxForce=(ptrSimSetJointMaxForce)(_getProcAddress(lib,"simSetJointMaxForce"));
     simGetJointMatrix=(ptrSimGetJointMatrix)(_getProcAddress(lib,"simGetJointMatrix"));
     simSetSphericalJointMatrix=(ptrSimSetSphericalJointMatrix)(_getProcAddress(lib,"simSetSphericalJointMatrix"));
+    simGetJointPose=(ptrSimGetJointPose)(_getProcAddress(lib,"simGetJointPose"));
+    simSetJointPose=(ptrSimSetJointPose)(_getProcAddress(lib,"simSetJointPose"));
     simGetJointInterval=(ptrSimGetJointInterval)(_getProcAddress(lib,"simGetJointInterval"));
     simSetJointInterval=(ptrSimSetJointInterval)(_getProcAddress(lib,"simSetJointInterval"));
     simGetObjectParent=(ptrSimGetObjectParent)(_getProcAddress(lib,"simGetObjectParent"));
@@ -1675,6 +1679,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetSphericalJointMatrix==nullptr)
     {
         printf("%s simSetSphericalJointMatrix\n",couldNotFind);
+        return 0;
+    }
+    if (simGetJointPose==nullptr)
+    {
+        printf("%s simGetJointPose\n",couldNotFind);
+        return 0;
+    }
+    if (simSetJointPose==nullptr)
+    {
+        printf("%s simSetJointPose\n",couldNotFind);
         return 0;
     }
     if (simGetJointInterval==nullptr)
