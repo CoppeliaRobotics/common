@@ -206,6 +206,8 @@ ptrSimGetLinkDummy simGetLinkDummy=nullptr;
 ptrSimSetLinkDummy simSetLinkDummy=nullptr;
 ptrSimSetModelProperty simSetModelProperty=nullptr;
 ptrSimGetModelProperty simGetModelProperty=nullptr;
+ptrSimSetObjectColor simSetObjectColor=nullptr;
+ptrSimGetObjectColor simGetObjectColor=nullptr;
 ptrSimSetShapeColor simSetShapeColor=nullptr;
 ptrSimGetShapeColor simGetShapeColor=nullptr;
 ptrSimResetDynamicObject simResetDynamicObject=nullptr;
@@ -947,6 +949,8 @@ int getSimProcAddresses(LIBRARY lib)
     simSetLinkDummy=(ptrSimSetLinkDummy)(_getProcAddress(lib,"simSetLinkDummy"));
     simSetModelProperty=(ptrSimSetModelProperty)(_getProcAddress(lib,"simSetModelProperty"));
     simGetModelProperty=(ptrSimGetModelProperty)(_getProcAddress(lib,"simGetModelProperty"));
+    simSetObjectColor=(ptrSimSetObjectColor)(_getProcAddress(lib,"simSetObjectColor"));
+    simGetObjectColor=(ptrSimGetObjectColor)(_getProcAddress(lib,"simGetObjectColor"));
     simSetShapeColor=(ptrSimSetShapeColor)(_getProcAddress(lib,"simSetShapeColor"));
     simGetShapeColor=(ptrSimGetShapeColor)(_getProcAddress(lib,"simGetShapeColor"));
     simResetDynamicObject=(ptrSimResetDynamicObject)(_getProcAddress(lib,"simResetDynamicObject"));
@@ -2309,6 +2313,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetModelProperty==nullptr)
     {
         printf("%s simGetModelProperty\n",couldNotFind);
+        return 0;
+    }
+    if (simSetObjectColor==nullptr)
+    {
+        printf("%s simSetObjectColor\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectColor==nullptr)
+    {
+        printf("%s simGetObjectColor\n",couldNotFind);
         return 0;
     }
     if (simSetShapeColor==nullptr)
