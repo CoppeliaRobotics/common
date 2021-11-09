@@ -190,7 +190,6 @@ ptrSimGetObjectProperty simGetObjectProperty=nullptr;
 ptrSimSetObjectSpecialProperty simSetObjectSpecialProperty=nullptr;
 ptrSimGetObjectSpecialProperty simGetObjectSpecialProperty=nullptr;
 ptrSimReadForceSensor simReadForceSensor=nullptr;
-ptrSimBreakForceSensor simBreakForceSensor=nullptr;
 ptrSimGetShapeVertex simGetShapeVertex=nullptr;
 ptrSimGetShapeTriangle simGetShapeTriangle=nullptr;
 ptrSimSetLightParameters simSetLightParameters=nullptr;
@@ -418,6 +417,7 @@ ptr_simGetIkGroupObject _simGetIkGroupObject=nullptr;
 ptr_simMpHandleIkGroupObject _simMpHandleIkGroupObject=nullptr;
 ptr_simGetObjectLocalTransformation _simGetObjectLocalTransformation=nullptr;
 ptr_simSetObjectLocalTransformation _simSetObjectLocalTransformation=nullptr;
+ptr_simDynReportObjectCumulativeTransformation _simDynReportObjectCumulativeTransformation=nullptr;
 ptr_simSetObjectCumulativeTransformation _simSetObjectCumulativeTransformation=nullptr;
 ptr_simGetObjectCumulativeTransformation _simGetObjectCumulativeTransformation=nullptr;
 ptr_simIsShapeDynamicallyStatic _simIsShapeDynamicallyStatic=nullptr;
@@ -449,8 +449,6 @@ ptr_simGetAdditionalForceAndTorque _simGetAdditionalForceAndTorque=nullptr;
 ptr_simClearAdditionalForceAndTorque _simClearAdditionalForceAndTorque=nullptr;
 ptr_simGetJointPositionInterval _simGetJointPositionInterval=nullptr;
 ptr_simGetJointType _simGetJointType=nullptr;
-ptr_simIsForceSensorBroken _simIsForceSensorBroken=nullptr;
-ptr_simGetDynamicForceSensorLocalTransformationPart2 _simGetDynamicForceSensorLocalTransformationPart2=nullptr;
 ptr_simIsDynamicMotorEnabled _simIsDynamicMotorEnabled=nullptr;
 ptr_simIsDynamicMotorPositionCtrlEnabled _simIsDynamicMotorPositionCtrlEnabled=nullptr;
 ptr_simIsDynamicMotorTorqueModulationEnabled _simIsDynamicMotorTorqueModulationEnabled=nullptr;
@@ -463,10 +461,6 @@ ptr_simSetDynamicMotorReflectedPositionFromDynamicEngine _simSetDynamicMotorRefl
 ptr_simSetJointSphericalTransformation _simSetJointSphericalTransformation=nullptr;
 ptr_simAddForceSensorCumulativeForcesAndTorques _simAddForceSensorCumulativeForcesAndTorques=nullptr;
 ptr_simAddJointCumulativeForcesOrTorques _simAddJointCumulativeForcesOrTorques=nullptr;
-ptr_simSetDynamicJointLocalTransformationPart2 _simSetDynamicJointLocalTransformationPart2=nullptr;
-ptr_simSetDynamicForceSensorLocalTransformationPart2 _simSetDynamicForceSensorLocalTransformationPart2=nullptr;
-ptr_simSetDynamicJointLocalTransformationPart2IsValid _simSetDynamicJointLocalTransformationPart2IsValid=nullptr;
-ptr_simSetDynamicForceSensorLocalTransformationPart2IsValid _simSetDynamicForceSensorLocalTransformationPart2IsValid=nullptr;
 ptr_simGetGeomWrapFromGeomProxy _simGetGeomWrapFromGeomProxy=nullptr;
 ptr_simGetLocalInertiaFrame _simGetLocalInertiaFrame=nullptr;
 ptr_simGetPurePrimitiveType _simGetPurePrimitiveType=nullptr;
@@ -726,6 +720,13 @@ ptrSimDeleteSelectedObjects simDeleteSelectedObjects=nullptr;
 ptrSimSetNamedStringParam simSetStringNamedParam=nullptr;
 ptrSimGetNamedStringParam simGetStringNamedParam=nullptr;
 ptrSimGetObjectUniqueIdentifier simGetObjectUniqueIdentifier=nullptr;
+ptr_simSetDynamicJointLocalTransformationPart2 _simSetDynamicJointLocalTransformationPart2=nullptr;
+ptr_simSetDynamicForceSensorLocalTransformationPart2 _simSetDynamicForceSensorLocalTransformationPart2=nullptr;
+ptr_simSetDynamicJointLocalTransformationPart2IsValid _simSetDynamicJointLocalTransformationPart2IsValid=nullptr;
+ptr_simSetDynamicForceSensorLocalTransformationPart2IsValid _simSetDynamicForceSensorLocalTransformationPart2IsValid=nullptr;
+ptr_simGetDynamicForceSensorLocalTransformationPart2 _simGetDynamicForceSensorLocalTransformationPart2=nullptr;
+ptr_simIsForceSensorBroken _simIsForceSensorBroken=nullptr;
+ptrSimBreakForceSensor simBreakForceSensor=nullptr;
 // Deprecated end
 
 
@@ -933,7 +934,6 @@ int getSimProcAddresses(LIBRARY lib)
     simSetObjectSpecialProperty=(ptrSimSetObjectSpecialProperty)(_getProcAddress(lib,"simSetObjectSpecialProperty"));
     simGetObjectSpecialProperty=(ptrSimGetObjectSpecialProperty)(_getProcAddress(lib,"simGetObjectSpecialProperty"));
     simReadForceSensor=(ptrSimReadForceSensor)(_getProcAddress(lib,"simReadForceSensor"));
-    simBreakForceSensor=(ptrSimBreakForceSensor)(_getProcAddress(lib,"simBreakForceSensor"));
     simGetShapeVertex=(ptrSimGetShapeVertex)(_getProcAddress(lib,"simGetShapeVertex"));
     simGetShapeTriangle=(ptrSimGetShapeTriangle)(_getProcAddress(lib,"simGetShapeTriangle"));
     simSetLightParameters=(ptrSimSetLightParameters)(_getProcAddress(lib,"simSetLightParameters"));
@@ -1159,6 +1159,7 @@ int getSimProcAddresses(LIBRARY lib)
     _simMpHandleIkGroupObject=(ptr_simMpHandleIkGroupObject)(_getProcAddress(lib,"_simMpHandleIkGroupObject"));
     _simGetObjectLocalTransformation=(ptr_simGetObjectLocalTransformation)(_getProcAddress(lib,"_simGetObjectLocalTransformation"));
     _simSetObjectLocalTransformation=(ptr_simSetObjectLocalTransformation)(_getProcAddress(lib,"_simSetObjectLocalTransformation"));
+    _simDynReportObjectCumulativeTransformation=(ptr_simDynReportObjectCumulativeTransformation)(_getProcAddress(lib,"_simDynReportObjectCumulativeTransformation"));
     _simSetObjectCumulativeTransformation=(ptr_simSetObjectCumulativeTransformation)(_getProcAddress(lib,"_simSetObjectCumulativeTransformation"));
     _simGetObjectCumulativeTransformation=(ptr_simGetObjectCumulativeTransformation)(_getProcAddress(lib,"_simGetObjectCumulativeTransformation"));
     _simIsShapeDynamicallyStatic=(ptr_simIsShapeDynamicallyStatic)(_getProcAddress(lib,"_simIsShapeDynamicallyStatic"));
@@ -1190,8 +1191,6 @@ int getSimProcAddresses(LIBRARY lib)
     _simClearAdditionalForceAndTorque=(ptr_simClearAdditionalForceAndTorque)(_getProcAddress(lib,"_simClearAdditionalForceAndTorque"));
     _simGetJointPositionInterval=(ptr_simGetJointPositionInterval)(_getProcAddress(lib,"_simGetJointPositionInterval"));
     _simGetJointType=(ptr_simGetJointType)(_getProcAddress(lib,"_simGetJointType"));
-    _simIsForceSensorBroken=(ptr_simIsForceSensorBroken)(_getProcAddress(lib,"_simIsForceSensorBroken"));
-    _simGetDynamicForceSensorLocalTransformationPart2=(ptr_simGetDynamicForceSensorLocalTransformationPart2)(_getProcAddress(lib,"_simGetDynamicForceSensorLocalTransformationPart2"));
     _simIsDynamicMotorEnabled=(ptr_simIsDynamicMotorEnabled)(_getProcAddress(lib,"_simIsDynamicMotorEnabled"));
     _simIsDynamicMotorPositionCtrlEnabled=(ptr_simIsDynamicMotorPositionCtrlEnabled)(_getProcAddress(lib,"_simIsDynamicMotorPositionCtrlEnabled"));
     _simIsDynamicMotorTorqueModulationEnabled=(ptr_simIsDynamicMotorTorqueModulationEnabled)(_getProcAddress(lib,"_simIsDynamicMotorTorqueModulationEnabled"));
@@ -1204,10 +1203,6 @@ int getSimProcAddresses(LIBRARY lib)
     _simSetJointSphericalTransformation=(ptr_simSetJointSphericalTransformation)(_getProcAddress(lib,"_simSetJointSphericalTransformation"));
     _simAddForceSensorCumulativeForcesAndTorques=(ptr_simAddForceSensorCumulativeForcesAndTorques)(_getProcAddress(lib,"_simAddForceSensorCumulativeForcesAndTorques"));
     _simAddJointCumulativeForcesOrTorques=(ptr_simAddJointCumulativeForcesOrTorques)(_getProcAddress(lib,"_simAddJointCumulativeForcesOrTorques"));
-    _simSetDynamicJointLocalTransformationPart2=(ptr_simSetDynamicJointLocalTransformationPart2)(_getProcAddress(lib,"_simSetDynamicJointLocalTransformationPart2"));
-    _simSetDynamicForceSensorLocalTransformationPart2=(ptr_simSetDynamicForceSensorLocalTransformationPart2)(_getProcAddress(lib,"_simSetDynamicForceSensorLocalTransformationPart2"));
-    _simSetDynamicJointLocalTransformationPart2IsValid=(ptr_simSetDynamicJointLocalTransformationPart2IsValid)(_getProcAddress(lib,"_simSetDynamicJointLocalTransformationPart2IsValid"));
-    _simSetDynamicForceSensorLocalTransformationPart2IsValid=(ptr_simSetDynamicForceSensorLocalTransformationPart2IsValid)(_getProcAddress(lib,"_simSetDynamicForceSensorLocalTransformationPart2IsValid"));
     _simGetGeomWrapFromGeomProxy=(ptr_simGetGeomWrapFromGeomProxy)(_getProcAddress(lib,"_simGetGeomWrapFromGeomProxy"));
     _simGetLocalInertiaFrame=(ptr_simGetLocalInertiaFrame)(_getProcAddress(lib,"_simGetLocalInertiaFrame"));
     _simGetPurePrimitiveType=(ptr_simGetPurePrimitiveType)(_getProcAddress(lib,"_simGetPurePrimitiveType"));
@@ -1468,6 +1463,13 @@ int getSimProcAddresses(LIBRARY lib)
     simSetStringNamedParam=(ptrSimSetNamedStringParam)(_getProcAddress(lib,"simSetStringNamedParam"));
     simGetStringNamedParam=(ptrSimGetNamedStringParam)(_getProcAddress(lib,"simGetStringNamedParam"));
     simGetObjectUniqueIdentifier=(ptrSimGetObjectUniqueIdentifier)(_getProcAddress(lib,"simGetObjectUniqueIdentifier"));
+    _simSetDynamicJointLocalTransformationPart2=(ptr_simSetDynamicJointLocalTransformationPart2)(_getProcAddress(lib,"_simSetDynamicJointLocalTransformationPart2"));
+    _simSetDynamicForceSensorLocalTransformationPart2=(ptr_simSetDynamicForceSensorLocalTransformationPart2)(_getProcAddress(lib,"_simSetDynamicForceSensorLocalTransformationPart2"));
+    _simSetDynamicJointLocalTransformationPart2IsValid=(ptr_simSetDynamicJointLocalTransformationPart2IsValid)(_getProcAddress(lib,"_simSetDynamicJointLocalTransformationPart2IsValid"));
+    _simSetDynamicForceSensorLocalTransformationPart2IsValid=(ptr_simSetDynamicForceSensorLocalTransformationPart2IsValid)(_getProcAddress(lib,"_simSetDynamicForceSensorLocalTransformationPart2IsValid"));
+    _simGetDynamicForceSensorLocalTransformationPart2=(ptr_simGetDynamicForceSensorLocalTransformationPart2)(_getProcAddress(lib,"_simGetDynamicForceSensorLocalTransformationPart2"));
+    _simIsForceSensorBroken=(ptr_simIsForceSensorBroken)(_getProcAddress(lib,"_simIsForceSensorBroken"));
+    simBreakForceSensor=(ptrSimBreakForceSensor)(_getProcAddress(lib,"simBreakForceSensor"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -2233,11 +2235,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simReadForceSensor==nullptr)
     {
         printf("%s simReadForceSensor\n",couldNotFind);
-        return 0;
-    }
-    if (simBreakForceSensor==nullptr)
-    {
-        printf("%s simBreakForceSensor\n",couldNotFind);
         return 0;
     }
     if (simGetShapeVertex==nullptr)
@@ -3341,6 +3338,11 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s _simSetObjectLocalTransformation\n",couldNotFind);
         return 0;
     }
+    if (_simDynReportObjectCumulativeTransformation==nullptr)
+    {
+        printf("%s _simDynReportObjectCumulativeTransformation\n",couldNotFind);
+        return 0;
+    }
     if (_simSetObjectCumulativeTransformation==nullptr)
     {
         printf("%s _simSetObjectCumulativeTransformation\n",couldNotFind);
@@ -3496,16 +3498,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s _simGetJointType\n",couldNotFind);
         return 0;
     }
-    if (_simIsForceSensorBroken==nullptr)
-    {
-        printf("%s _simIsForceSensorBroken\n",couldNotFind);
-        return 0;
-    }
-    if (_simGetDynamicForceSensorLocalTransformationPart2==nullptr)
-    {
-        printf("%s _simGetDynamicForceSensorLocalTransformationPart2\n",couldNotFind);
-        return 0;
-    }
     if (_simIsDynamicMotorEnabled==nullptr)
     {
         printf("%s _simIsDynamicMotorEnabled\n",couldNotFind);
@@ -3564,26 +3556,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (_simAddJointCumulativeForcesOrTorques==nullptr)
     {
         printf("%s _simAddJointCumulativeForcesOrTorques\n",couldNotFind);
-        return 0;
-    }
-    if (_simSetDynamicJointLocalTransformationPart2==nullptr)
-    {
-        printf("%s _simSetDynamicJointLocalTransformationPart2\n",couldNotFind);
-        return 0;
-    }
-    if (_simSetDynamicForceSensorLocalTransformationPart2==nullptr)
-    {
-        printf("%s _simSetDynamicForceSensorLocalTransformationPart2\n",couldNotFind);
-        return 0;
-    }
-    if (_simSetDynamicJointLocalTransformationPart2IsValid==nullptr)
-    {
-        printf("%s _simSetDynamicJointLocalTransformationPart2IsValid\n",couldNotFind);
-        return 0;
-    }
-    if (_simSetDynamicForceSensorLocalTransformationPart2IsValid==nullptr)
-    {
-        printf("%s _simSetDynamicForceSensorLocalTransformationPart2IsValid\n",couldNotFind);
         return 0;
     }
     if (_simGetGeomWrapFromGeomProxy==nullptr)
@@ -4869,6 +4841,41 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetObjectUniqueIdentifier==nullptr)
     {
         printf("%s simGetObjectUniqueIdentifier\n",couldNotFind);
+        return 0;
+    }
+    if (_simSetDynamicJointLocalTransformationPart2==nullptr)
+    {
+        printf("%s _simSetDynamicJointLocalTransformationPart2\n",couldNotFind);
+        return 0;
+    }
+    if (_simSetDynamicForceSensorLocalTransformationPart2==nullptr)
+    {
+        printf("%s _simSetDynamicForceSensorLocalTransformationPart2\n",couldNotFind);
+        return 0;
+    }
+    if (_simSetDynamicJointLocalTransformationPart2IsValid==nullptr)
+    {
+        printf("%s _simSetDynamicJointLocalTransformationPart2IsValid\n",couldNotFind);
+        return 0;
+    }
+    if (_simSetDynamicForceSensorLocalTransformationPart2IsValid==nullptr)
+    {
+        printf("%s _simSetDynamicForceSensorLocalTransformationPart2IsValid\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetDynamicForceSensorLocalTransformationPart2==nullptr)
+    {
+        printf("%s _simGetDynamicForceSensorLocalTransformationPart2\n",couldNotFind);
+        return 0;
+    }
+    if (_simIsForceSensorBroken==nullptr)
+    {
+        printf("%s _simIsForceSensorBroken\n",couldNotFind);
+        return 0;
+    }
+    if (simBreakForceSensor==nullptr)
+    {
+        printf("%s simBreakForceSensor\n",couldNotFind);
         return 0;
     }
     // Deprecated end
