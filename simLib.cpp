@@ -78,10 +78,8 @@ ptrSimSetJointPosition simSetJointPosition=nullptr;
 ptrSimSetJointTargetPosition simSetJointTargetPosition=nullptr;
 ptrSimGetJointTargetPosition simGetJointTargetPosition=nullptr;
 ptrSimSetJointMaxForce simSetJointMaxForce=nullptr;
-ptrSimGetJointMatrix simGetJointMatrix=nullptr;
-ptrSimSetSphericalJointMatrix simSetSphericalJointMatrix=nullptr;
-ptrSimGetJointPose simGetJointPose=nullptr;
-ptrSimSetJointPose simSetJointPose=nullptr;
+ptrSimGetObjectChildPose simGetObjectChildPose=nullptr;
+ptrSimSetObjectChildPose simSetObjectChildPose=nullptr;
 ptrSimGetJointInterval simGetJointInterval=nullptr;
 ptrSimSetJointInterval simSetJointInterval=nullptr;
 ptrSimGetObjectParent simGetObjectParent=nullptr;
@@ -727,6 +725,8 @@ ptr_simSetDynamicForceSensorLocalTransformationPart2IsValid _simSetDynamicForceS
 ptr_simGetDynamicForceSensorLocalTransformationPart2 _simGetDynamicForceSensorLocalTransformationPart2=nullptr;
 ptr_simIsForceSensorBroken _simIsForceSensorBroken=nullptr;
 ptrSimBreakForceSensor simBreakForceSensor=nullptr;
+ptrSimGetJointMatrix simGetJointMatrix=nullptr;
+ptrSimSetSphericalJointMatrix simSetSphericalJointMatrix=nullptr;
 // Deprecated end
 
 
@@ -822,10 +822,8 @@ int getSimProcAddresses(LIBRARY lib)
     simSetJointTargetPosition=(ptrSimSetJointTargetPosition)(_getProcAddress(lib,"simSetJointTargetPosition"));
     simGetJointTargetPosition=(ptrSimGetJointTargetPosition)(_getProcAddress(lib,"simGetJointTargetPosition"));
     simSetJointMaxForce=(ptrSimSetJointMaxForce)(_getProcAddress(lib,"simSetJointMaxForce"));
-    simGetJointMatrix=(ptrSimGetJointMatrix)(_getProcAddress(lib,"simGetJointMatrix"));
-    simSetSphericalJointMatrix=(ptrSimSetSphericalJointMatrix)(_getProcAddress(lib,"simSetSphericalJointMatrix"));
-    simGetJointPose=(ptrSimGetJointPose)(_getProcAddress(lib,"simGetJointPose"));
-    simSetJointPose=(ptrSimSetJointPose)(_getProcAddress(lib,"simSetJointPose"));
+    simGetObjectChildPose=(ptrSimGetObjectChildPose)(_getProcAddress(lib,"simGetObjectChildPose"));
+    simSetObjectChildPose=(ptrSimSetObjectChildPose)(_getProcAddress(lib,"simSetObjectChildPose"));
     simGetJointInterval=(ptrSimGetJointInterval)(_getProcAddress(lib,"simGetJointInterval"));
     simSetJointInterval=(ptrSimSetJointInterval)(_getProcAddress(lib,"simSetJointInterval"));
     simGetObjectParent=(ptrSimGetObjectParent)(_getProcAddress(lib,"simGetObjectParent"));
@@ -1470,6 +1468,8 @@ int getSimProcAddresses(LIBRARY lib)
     _simGetDynamicForceSensorLocalTransformationPart2=(ptr_simGetDynamicForceSensorLocalTransformationPart2)(_getProcAddress(lib,"_simGetDynamicForceSensorLocalTransformationPart2"));
     _simIsForceSensorBroken=(ptr_simIsForceSensorBroken)(_getProcAddress(lib,"_simIsForceSensorBroken"));
     simBreakForceSensor=(ptrSimBreakForceSensor)(_getProcAddress(lib,"simBreakForceSensor"));
+    simGetJointMatrix=(ptrSimGetJointMatrix)(_getProcAddress(lib,"simGetJointMatrix"));
+    simSetSphericalJointMatrix=(ptrSimSetSphericalJointMatrix)(_getProcAddress(lib,"simSetSphericalJointMatrix"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -1677,24 +1677,14 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simSetJointMaxForce\n",couldNotFind);
         return 0;
     }
-    if (simGetJointMatrix==nullptr)
+    if (simGetObjectChildPose==nullptr)
     {
-        printf("%s simGetJointMatrix\n",couldNotFind);
+        printf("%s simGetObjectChildPose\n",couldNotFind);
         return 0;
     }
-    if (simSetSphericalJointMatrix==nullptr)
+    if (simSetObjectChildPose==nullptr)
     {
-        printf("%s simSetSphericalJointMatrix\n",couldNotFind);
-        return 0;
-    }
-    if (simGetJointPose==nullptr)
-    {
-        printf("%s simGetJointPose\n",couldNotFind);
-        return 0;
-    }
-    if (simSetJointPose==nullptr)
-    {
-        printf("%s simSetJointPose\n",couldNotFind);
+        printf("%s simSetObjectChildPose\n",couldNotFind);
         return 0;
     }
     if (simGetJointInterval==nullptr)
@@ -4876,6 +4866,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simBreakForceSensor==nullptr)
     {
         printf("%s simBreakForceSensor\n",couldNotFind);
+        return 0;
+    }
+    if (simGetJointMatrix==nullptr)
+    {
+        printf("%s simGetJointMatrix\n",couldNotFind);
+        return 0;
+    }
+    if (simSetSphericalJointMatrix==nullptr)
+    {
+        printf("%s simSetSphericalJointMatrix\n",couldNotFind);
         return 0;
     }
     // Deprecated end
