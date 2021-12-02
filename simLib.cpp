@@ -89,6 +89,7 @@ ptrSimGetObjectType simGetObjectType=nullptr;
 ptrSimGetJointType simGetJointType=nullptr;
 ptrSimBuildIdentityMatrix simBuildIdentityMatrix=nullptr;
 ptrSimBuildMatrix simBuildMatrix=nullptr;
+ptrSimBuildPose simBuildPose=nullptr;
 ptrSimGetEulerAnglesFromMatrix simGetEulerAnglesFromMatrix=nullptr;
 ptrSimInvertMatrix simInvertMatrix=nullptr;
 ptrSimMultiplyMatrices simMultiplyMatrices=nullptr;
@@ -833,6 +834,7 @@ int getSimProcAddresses(LIBRARY lib)
     simGetJointType=(ptrSimGetJointType)(_getProcAddress(lib,"simGetJointType"));
     simBuildIdentityMatrix=(ptrSimBuildIdentityMatrix)(_getProcAddress(lib,"simBuildIdentityMatrix"));
     simBuildMatrix=(ptrSimBuildMatrix)(_getProcAddress(lib,"simBuildMatrix"));
+    simBuildPose=(ptrSimBuildPose)(_getProcAddress(lib,"simBuildPose"));
     simGetEulerAnglesFromMatrix=(ptrSimGetEulerAnglesFromMatrix)(_getProcAddress(lib,"simGetEulerAnglesFromMatrix"));
     simInvertMatrix=(ptrSimInvertMatrix)(_getProcAddress(lib,"simInvertMatrix"));
     simMultiplyMatrices=(ptrSimMultiplyMatrices)(_getProcAddress(lib,"simMultiplyMatrices"));
@@ -1730,6 +1732,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simBuildMatrix==nullptr)
     {
         printf("%s simBuildMatrix\n",couldNotFind);
+        return 0;
+    }
+    if (simBuildPose==nullptr)
+    {
+        printf("%s simBuildPose\n",couldNotFind);
         return 0;
     }
     if (simGetEulerAnglesFromMatrix==nullptr)
