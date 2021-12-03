@@ -59,7 +59,9 @@ ptrSimSetArrayParam simSetArrayParam=nullptr;
 ptrSimGetArrayParam simGetArrayParam=nullptr;
 ptrSimSetNamedStringParam simSetNamedStringParam=nullptr;
 ptrSimGetNamedStringParam simGetNamedStringParam=nullptr;
-ptrSimGetObjectHandleEx simGetObjectHandleEx=nullptr;
+ptrSimGetObject simGetObject=nullptr;
+ptrSimGetObjectUid simGetObjectUid=nullptr;
+ptrSimGetObjectFromUid simGetObjectFromUid=nullptr;
 ptrSimGetScriptHandleEx simGetScriptHandleEx=nullptr;
 ptrSimRemoveObject simRemoveObject=nullptr;
 ptrSimRemoveModel simRemoveModel=nullptr;
@@ -683,6 +685,7 @@ ptrSimGetScriptName simGetScriptName=nullptr;
 ptrSimGetScriptHandle simGetScriptHandle=nullptr;
 ptrSimSetScriptVariable simSetScriptVariable=nullptr;
 ptrSimGetObjectHandle simGetObjectHandle=nullptr;
+ptrSimGetObjectHandleEx simGetObjectHandleEx=nullptr;
 ptrSimGetScript simGetScript=nullptr;
 ptrSimGetScriptAssociatedWithObject simGetScriptAssociatedWithObject=nullptr;
 ptrSimGetCustomizationScriptAssociatedWithObject simGetCustomizationScriptAssociatedWithObject=nullptr;
@@ -804,7 +807,9 @@ int getSimProcAddresses(LIBRARY lib)
     simGetArrayParam=(ptrSimGetArrayParam)(_getProcAddress(lib,"simGetArrayParam"));
     simSetNamedStringParam=(ptrSimSetNamedStringParam)(_getProcAddress(lib,"simSetNamedStringParam"));
     simGetNamedStringParam=(ptrSimGetNamedStringParam)(_getProcAddress(lib,"simGetNamedStringParam"));
-    simGetObjectHandleEx=(ptrSimGetObjectHandleEx)(_getProcAddress(lib,"simGetObjectHandleEx"));
+    simGetObject=(ptrSimGetObject)(_getProcAddress(lib,"simGetObject"));
+    simGetObjectUid=(ptrSimGetObjectUid)(_getProcAddress(lib,"simGetObjectUid"));
+    simGetObjectFromUid=(ptrSimGetObjectFromUid)(_getProcAddress(lib,"simGetObjectFromUid"));
     simGetScriptHandleEx=(ptrSimGetScriptHandleEx)(_getProcAddress(lib,"simGetScriptHandleEx"));
     simRemoveObject=(ptrSimRemoveObject)(_getProcAddress(lib,"simRemoveObject"));
     simRemoveModel=(ptrSimRemoveModel)(_getProcAddress(lib,"simRemoveModel"));
@@ -1427,6 +1432,7 @@ int getSimProcAddresses(LIBRARY lib)
     simGetScriptHandle=(ptrSimGetScriptHandle)(_getProcAddress(lib,"simGetScriptHandle"));
     simSetScriptVariable=(ptrSimSetScriptVariable)(_getProcAddress(lib,"simSetScriptVariable"));
     simGetObjectHandle=(ptrSimGetObjectHandle)(_getProcAddress(lib,"simGetObjectHandle"));
+    simGetObjectHandleEx=(ptrSimGetObjectHandleEx)(_getProcAddress(lib,"simGetObjectHandleEx"));
     simGetScript=(ptrSimGetScript)(_getProcAddress(lib,"simGetScript"));
     simGetScriptAssociatedWithObject=(ptrSimGetScriptAssociatedWithObject)(_getProcAddress(lib,"simGetScriptAssociatedWithObject"));
     simGetCustomizationScriptAssociatedWithObject=(ptrSimGetCustomizationScriptAssociatedWithObject)(_getProcAddress(lib,"simGetCustomizationScriptAssociatedWithObject"));
@@ -1584,9 +1590,19 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetNamedStringParam\n",couldNotFind);
         return 0;
     }
-    if (simGetObjectHandleEx==nullptr)
+    if (simGetObject==nullptr)
     {
-        printf("%s simGetObjectHandleEx\n",couldNotFind);
+        printf("%s simGetObject\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectUid==nullptr)
+    {
+        printf("%s simGetObjectUid\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectFromUid==nullptr)
+    {
+        printf("%s simGetObjectFromUid\n",couldNotFind);
         return 0;
     }
     if (simGetScriptHandleEx==nullptr)
@@ -4658,6 +4674,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetObjectHandle==nullptr)
     {
         printf("%s simGetObjectHandle\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectHandleEx==nullptr)
+    {
+        printf("%s simGetObjectHandleEx\n",couldNotFind);
         return 0;
     }
     if (simGetScript==nullptr)
