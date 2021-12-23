@@ -387,6 +387,8 @@ ptrSimGenerateShapeFromPath simGenerateShapeFromPath=nullptr;
 ptrSimGetClosestPosOnPath simGetClosestPosOnPath=nullptr;
 ptrSimInitScript simInitScript=nullptr;
 ptrSimModuleEntry simModuleEntry=nullptr;
+ptrSimCheckExecAuthorization simCheckExecAuthorization=nullptr;
+
 
 
 
@@ -1136,6 +1138,7 @@ int getSimProcAddresses(LIBRARY lib)
     simGetClosestPosOnPath=(ptrSimGetClosestPosOnPath)(_getProcAddress(lib,"simGetClosestPosOnPath"));
     simInitScript=(ptrSimInitScript)(_getProcAddress(lib,"simInitScript"));
     simModuleEntry=(ptrSimModuleEntry)(_getProcAddress(lib,"simModuleEntry"));
+    simCheckExecAuthorization=(ptrSimCheckExecAuthorization)(_getProcAddress(lib,"simCheckExecAuthorization"));
 
 
 
@@ -3225,6 +3228,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simModuleEntry==nullptr)
     {
         printf("%s simModuleEntry\n",couldNotFind);
+        return 0;
+    }
+    if (simCheckExecAuthorization==nullptr)
+    {
+        printf("%s simCheckExecAuthorization\n",couldNotFind);
         return 0;
     }
 
