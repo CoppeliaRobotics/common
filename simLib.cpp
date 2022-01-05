@@ -241,6 +241,10 @@ ptrSimGetObjectFloatParam simGetObjectFloatParam=nullptr;
 ptrSimSetObjectFloatParam simSetObjectFloatParam=nullptr;
 ptrSimGetObjectStringParam simGetObjectStringParam=nullptr;
 ptrSimSetObjectStringParam simSetObjectStringParam=nullptr;
+ptrSimGetScriptInt32Param simGetScriptInt32Param=nullptr;
+ptrSimSetScriptInt32Param simSetScriptInt32Param=nullptr;
+ptrSimGetScriptStringParam simGetScriptStringParam=nullptr;
+ptrSimSetScriptStringParam simSetScriptStringParam=nullptr;
 ptrSimSetSimulationPassesPerRenderingPass simSetSimulationPassesPerRenderingPass=nullptr;
 ptrSimGetRotationAxis simGetRotationAxis=nullptr;
 ptrSimRotateAroundAxis simRotateAroundAxis=nullptr;
@@ -291,8 +295,6 @@ ptrSimCreateCollectionEx simCreateCollectionEx=nullptr;
 ptrSimAddItemToCollection simAddItemToCollection=nullptr;
 ptrSimDestroyCollection simDestroyCollection=nullptr;
 ptrSimGetCollectionObjects simGetCollectionObjects=nullptr;
-ptrSimSetScriptAttribute simSetScriptAttribute=nullptr;
-ptrSimGetScriptAttribute simGetScriptAttribute=nullptr;
 ptrSimReorientShapeBoundingBox simReorientShapeBoundingBox=nullptr;
 ptrSimSaveImage simSaveImage=nullptr;
 ptrSimLoadImage simLoadImage=nullptr;
@@ -734,6 +736,8 @@ ptr_simIsForceSensorBroken _simIsForceSensorBroken=nullptr;
 ptrSimBreakForceSensor simBreakForceSensor=nullptr;
 ptrSimGetJointMatrix simGetJointMatrix=nullptr;
 ptrSimSetSphericalJointMatrix simSetSphericalJointMatrix=nullptr;
+ptrSimSetScriptAttribute simSetScriptAttribute=nullptr;
+ptrSimGetScriptAttribute simGetScriptAttribute=nullptr;
 // Deprecated end
 
 
@@ -992,6 +996,10 @@ int getSimProcAddresses(LIBRARY lib)
     simSetObjectFloatParam=(ptrSimSetObjectFloatParam)(_getProcAddress(lib,"simSetObjectFloatParam"));
     simGetObjectStringParam=(ptrSimGetObjectStringParam)(_getProcAddress(lib,"simGetObjectStringParam"));
     simSetObjectStringParam=(ptrSimSetObjectStringParam)(_getProcAddress(lib,"simSetObjectStringParam"));
+    simGetScriptInt32Param=(ptrSimGetScriptInt32Param)(_getProcAddress(lib,"simGetScriptInt32Param"));
+    simSetScriptInt32Param=(ptrSimSetScriptInt32Param)(_getProcAddress(lib,"simSetScriptInt32Param"));
+    simGetScriptStringParam=(ptrSimGetScriptStringParam)(_getProcAddress(lib,"simGetScriptStringParam"));
+    simSetScriptStringParam=(ptrSimSetScriptStringParam)(_getProcAddress(lib,"simSetScriptStringParam"));
     simSetSimulationPassesPerRenderingPass=(ptrSimSetSimulationPassesPerRenderingPass)(_getProcAddress(lib,"simSetSimulationPassesPerRenderingPass"));
     simGetRotationAxis=(ptrSimGetRotationAxis)(_getProcAddress(lib,"simGetRotationAxis"));
     simRotateAroundAxis=(ptrSimRotateAroundAxis)(_getProcAddress(lib,"simRotateAroundAxis"));
@@ -1042,8 +1050,6 @@ int getSimProcAddresses(LIBRARY lib)
     simAddItemToCollection=(ptrSimAddItemToCollection)(_getProcAddress(lib,"simAddItemToCollection"));
     simDestroyCollection=(ptrSimDestroyCollection)(_getProcAddress(lib,"simDestroyCollection"));
     simGetCollectionObjects=(ptrSimGetCollectionObjects)(_getProcAddress(lib,"simGetCollectionObjects"));
-    simSetScriptAttribute=(ptrSimSetScriptAttribute)(_getProcAddress(lib,"simSetScriptAttribute"));
-    simGetScriptAttribute=(ptrSimGetScriptAttribute)(_getProcAddress(lib,"simGetScriptAttribute"));
     simReorientShapeBoundingBox=(ptrSimReorientShapeBoundingBox)(_getProcAddress(lib,"simReorientShapeBoundingBox"));
     simSaveImage=(ptrSimSaveImage)(_getProcAddress(lib,"simSaveImage"));
     simLoadImage=(ptrSimLoadImage)(_getProcAddress(lib,"simLoadImage"));
@@ -1483,6 +1489,8 @@ int getSimProcAddresses(LIBRARY lib)
     simBreakForceSensor=(ptrSimBreakForceSensor)(_getProcAddress(lib,"simBreakForceSensor"));
     simGetJointMatrix=(ptrSimGetJointMatrix)(_getProcAddress(lib,"simGetJointMatrix"));
     simSetSphericalJointMatrix=(ptrSimSetSphericalJointMatrix)(_getProcAddress(lib,"simSetSphericalJointMatrix"));
+    simSetScriptAttribute=(ptrSimSetScriptAttribute)(_getProcAddress(lib,"simSetScriptAttribute"));
+    simGetScriptAttribute=(ptrSimGetScriptAttribute)(_getProcAddress(lib,"simGetScriptAttribute"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -2505,6 +2513,26 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simSetObjectStringParam\n",couldNotFind);
         return 0;
     }
+    if (simGetScriptInt32Param==nullptr)
+    {
+        printf("%s simGetScriptInt32Param\n",couldNotFind);
+        return 0;
+    }
+    if (simSetScriptInt32Param==nullptr)
+    {
+        printf("%s simSetScriptInt32Param\n",couldNotFind);
+        return 0;
+    }
+    if (simGetScriptStringParam==nullptr)
+    {
+        printf("%s simGetScriptStringParam\n",couldNotFind);
+        return 0;
+    }
+    if (simSetScriptStringParam==nullptr)
+    {
+        printf("%s simSetScriptStringParam\n",couldNotFind);
+        return 0;
+    }
     if (simSetSimulationPassesPerRenderingPass==nullptr)
     {
         printf("%s simSetSimulationPassesPerRenderingPass\n",couldNotFind);
@@ -2753,16 +2781,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetCollectionObjects==nullptr)
     {
         printf("%s simGetCollectionObjects\n",couldNotFind);
-        return 0;
-    }
-    if (simSetScriptAttribute==nullptr)
-    {
-        printf("%s simSetScriptAttribute\n",couldNotFind);
-        return 0;
-    }
-    if (simGetScriptAttribute==nullptr)
-    {
-        printf("%s simGetScriptAttribute\n",couldNotFind);
         return 0;
     }
     if (simReorientShapeBoundingBox==nullptr)
@@ -4919,6 +4937,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetSphericalJointMatrix==nullptr)
     {
         printf("%s simSetSphericalJointMatrix\n",couldNotFind);
+        return 0;
+    }
+    if (simSetScriptAttribute==nullptr)
+    {
+        printf("%s simSetScriptAttribute\n",couldNotFind);
+        return 0;
+    }
+    if (simGetScriptAttribute==nullptr)
+    {
+        printf("%s simGetScriptAttribute\n",couldNotFind);
         return 0;
     }
     // Deprecated end
