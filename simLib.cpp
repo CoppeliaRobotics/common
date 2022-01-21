@@ -64,6 +64,7 @@ ptrSimGetObjectUid simGetObjectUid=nullptr;
 ptrSimGetObjectFromUid simGetObjectFromUid=nullptr;
 ptrSimGetScriptHandleEx simGetScriptHandleEx=nullptr;
 ptrSimRemoveObject simRemoveObject=nullptr;
+ptrSimRemoveObjects simRemoveObjects=nullptr;
 ptrSimRemoveModel simRemoveModel=nullptr;
 ptrSimGetObjectAlias simGetObjectAlias=nullptr;
 ptrSimSetObjectAlias simSetObjectAlias=nullptr;
@@ -819,6 +820,7 @@ int getSimProcAddresses(LIBRARY lib)
     simGetObjectFromUid=(ptrSimGetObjectFromUid)(_getProcAddress(lib,"simGetObjectFromUid"));
     simGetScriptHandleEx=(ptrSimGetScriptHandleEx)(_getProcAddress(lib,"simGetScriptHandleEx"));
     simRemoveObject=(ptrSimRemoveObject)(_getProcAddress(lib,"simRemoveObject"));
+    simRemoveObjects=(ptrSimRemoveObjects)(_getProcAddress(lib,"simRemoveObjects"));
     simRemoveModel=(ptrSimRemoveModel)(_getProcAddress(lib,"simRemoveModel"));
     simGetObjectAlias=(ptrSimGetObjectAlias)(_getProcAddress(lib,"simGetObjectAlias"));
     simSetObjectAlias=(ptrSimSetObjectAlias)(_getProcAddress(lib,"simSetObjectAlias"));
@@ -1626,6 +1628,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simRemoveObject==nullptr)
     {
         printf("%s simRemoveObject\n",couldNotFind);
+        return 0;
+    }
+    if (simRemoveObjects==nullptr)
+    {
+        printf("%s simRemoveObjects\n",couldNotFind);
         return 0;
     }
     if (simRemoveModel==nullptr)
