@@ -424,7 +424,6 @@ ptr_simMpHandleIkGroupObject _simMpHandleIkGroupObject=nullptr;
 ptr_simGetObjectLocalTransformation _simGetObjectLocalTransformation=nullptr;
 ptr_simSetObjectLocalTransformation _simSetObjectLocalTransformation=nullptr;
 ptr_simDynReportObjectCumulativeTransformation _simDynReportObjectCumulativeTransformation=nullptr;
-ptr_simDynReportObjectCumulativeTransformationLooped _simDynReportObjectCumulativeTransformationLooped=nullptr;
 ptr_simSetObjectCumulativeTransformation _simSetObjectCumulativeTransformation=nullptr;
 ptr_simGetObjectCumulativeTransformation _simGetObjectCumulativeTransformation=nullptr;
 ptr_simIsShapeDynamicallyStatic _simIsShapeDynamicallyStatic=nullptr;
@@ -1177,7 +1176,6 @@ int getSimProcAddresses(LIBRARY lib)
     _simGetObjectLocalTransformation=(ptr_simGetObjectLocalTransformation)(_getProcAddress(lib,"_simGetObjectLocalTransformation"));
     _simSetObjectLocalTransformation=(ptr_simSetObjectLocalTransformation)(_getProcAddress(lib,"_simSetObjectLocalTransformation"));
     _simDynReportObjectCumulativeTransformation=(ptr_simDynReportObjectCumulativeTransformation)(_getProcAddress(lib,"_simDynReportObjectCumulativeTransformation"));
-    _simDynReportObjectCumulativeTransformationLooped=(ptr_simDynReportObjectCumulativeTransformationLooped)(_getProcAddress(lib,"_simDynReportObjectCumulativeTransformationLooped"));
     _simSetObjectCumulativeTransformation=(ptr_simSetObjectCumulativeTransformation)(_getProcAddress(lib,"_simSetObjectCumulativeTransformation"));
     _simGetObjectCumulativeTransformation=(ptr_simGetObjectCumulativeTransformation)(_getProcAddress(lib,"_simGetObjectCumulativeTransformation"));
     _simIsShapeDynamicallyStatic=(ptr_simIsShapeDynamicallyStatic)(_getProcAddress(lib,"_simIsShapeDynamicallyStatic"));
@@ -3389,11 +3387,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (_simDynReportObjectCumulativeTransformation==nullptr)
     {
         printf("%s _simDynReportObjectCumulativeTransformation\n",couldNotFind);
-        return 0;
-    }
-    if (_simDynReportObjectCumulativeTransformationLooped==nullptr)
-    {
-        printf("%s _simDynReportObjectCumulativeTransformationLooped\n",couldNotFind);
         return 0;
     }
     if (_simSetObjectCumulativeTransformation==nullptr)
