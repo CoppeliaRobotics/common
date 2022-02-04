@@ -113,9 +113,6 @@ ptrSimSetObjectSel simSetObjectSel=nullptr;
 ptrSimHandleProximitySensor simHandleProximitySensor=nullptr;
 ptrSimReadProximitySensor simReadProximitySensor=nullptr;
 ptrSimHandleDynamics simHandleDynamics=nullptr;
-ptrSimSetScriptText simSetScriptText=nullptr;
-ptrSimGetScriptText simGetScriptText=nullptr;
-ptrSimGetScriptProperty simGetScriptProperty=nullptr;
 ptrSimAssociateScriptWithObject simAssociateScriptWithObject=nullptr;
 ptrSimHandleMainScript simHandleMainScript=nullptr;
 ptrSimResetScript simResetScript=nullptr;
@@ -738,6 +735,9 @@ ptrSimGetJointMatrix simGetJointMatrix=nullptr;
 ptrSimSetSphericalJointMatrix simSetSphericalJointMatrix=nullptr;
 ptrSimSetScriptAttribute simSetScriptAttribute=nullptr;
 ptrSimGetScriptAttribute simGetScriptAttribute=nullptr;
+ptrSimSetScriptText simSetScriptText=nullptr;
+ptrSimGetScriptText simGetScriptText=nullptr;
+ptrSimGetScriptProperty simGetScriptProperty=nullptr;
 // Deprecated end
 
 
@@ -868,9 +868,6 @@ int getSimProcAddresses(LIBRARY lib)
     simHandleProximitySensor=(ptrSimHandleProximitySensor)(_getProcAddress(lib,"simHandleProximitySensor"));
     simReadProximitySensor=(ptrSimReadProximitySensor)(_getProcAddress(lib,"simReadProximitySensor"));
     simHandleDynamics=(ptrSimHandleDynamics)(_getProcAddress(lib,"simHandleDynamics"));
-    simSetScriptText=(ptrSimSetScriptText)(_getProcAddress(lib,"simSetScriptText"));
-    simGetScriptText=(ptrSimGetScriptText)(_getProcAddress(lib,"simGetScriptText"));
-    simGetScriptProperty=(ptrSimGetScriptProperty)(_getProcAddress(lib,"simGetScriptProperty"));
     simAssociateScriptWithObject=(ptrSimAssociateScriptWithObject)(_getProcAddress(lib,"simAssociateScriptWithObject"));
     simHandleMainScript=(ptrSimHandleMainScript)(_getProcAddress(lib,"simHandleMainScript"));
     simResetScript=(ptrSimResetScript)(_getProcAddress(lib,"simResetScript"));
@@ -1491,6 +1488,9 @@ int getSimProcAddresses(LIBRARY lib)
     simSetSphericalJointMatrix=(ptrSimSetSphericalJointMatrix)(_getProcAddress(lib,"simSetSphericalJointMatrix"));
     simSetScriptAttribute=(ptrSimSetScriptAttribute)(_getProcAddress(lib,"simSetScriptAttribute"));
     simGetScriptAttribute=(ptrSimGetScriptAttribute)(_getProcAddress(lib,"simGetScriptAttribute"));
+    simSetScriptText=(ptrSimSetScriptText)(_getProcAddress(lib,"simSetScriptText"));
+    simGetScriptText=(ptrSimGetScriptText)(_getProcAddress(lib,"simGetScriptText"));
+    simGetScriptProperty=(ptrSimGetScriptProperty)(_getProcAddress(lib,"simGetScriptProperty"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -1871,21 +1871,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simHandleDynamics==nullptr)
     {
         printf("%s simHandleDynamics\n",couldNotFind);
-        return 0;
-    }
-    if (simSetScriptText==nullptr)
-    {
-        printf("%s simSetScriptText\n",couldNotFind);
-        return 0;
-    }
-    if (simGetScriptText==nullptr)
-    {
-        printf("%s simGetScriptText\n",couldNotFind);
-        return 0;
-    }
-    if (simGetScriptProperty==nullptr)
-    {
-        printf("%s simGetScriptProperty\n",couldNotFind);
         return 0;
     }
     if (simAssociateScriptWithObject==nullptr)
@@ -4947,6 +4932,21 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetScriptAttribute==nullptr)
     {
         printf("%s simGetScriptAttribute\n",couldNotFind);
+        return 0;
+    }
+    if (simSetScriptText==nullptr)
+    {
+        printf("%s simSetScriptText\n",couldNotFind);
+        return 0;
+    }
+    if (simGetScriptText==nullptr)
+    {
+        printf("%s simGetScriptText\n",couldNotFind);
+        return 0;
+    }
+    if (simGetScriptProperty==nullptr)
+    {
+        printf("%s simGetScriptProperty\n",couldNotFind);
         return 0;
     }
     // Deprecated end
