@@ -445,8 +445,6 @@ ptr_simGetStartSleeping _simGetStartSleeping=nullptr;
 ptr_simGetWasPutToSleepOnce _simGetWasPutToSleepOnce=nullptr;
 ptr_simGetDynamicsFullRefreshFlag _simGetDynamicsFullRefreshFlag=nullptr;
 ptr_simSetDynamicsFullRefreshFlag _simSetDynamicsFullRefreshFlag=nullptr;
-ptr_simSetGeomProxyDynamicsFullRefreshFlag _simSetGeomProxyDynamicsFullRefreshFlag=nullptr;
-ptr_simGetGeomProxyDynamicsFullRefreshFlag _simGetGeomProxyDynamicsFullRefreshFlag=nullptr;
 ptr_simSetShapeDynamicVelocity _simSetShapeDynamicVelocity=nullptr;
 ptr_simGetAdditionalForceAndTorque _simGetAdditionalForceAndTorque=nullptr;
 ptr_simClearAdditionalForceAndTorque _simClearAdditionalForceAndTorque=nullptr;
@@ -740,6 +738,8 @@ ptrSimGetScriptText simGetScriptText=nullptr;
 ptrSimGetScriptProperty simGetScriptProperty=nullptr;
 ptrSimGetJointMaxForce simGetJointMaxForce=nullptr;
 ptrSimSetJointMaxForce simSetJointMaxForce=nullptr;
+ptr_simSetGeomProxyDynamicsFullRefreshFlag _simSetGeomProxyDynamicsFullRefreshFlag=nullptr;
+ptr_simGetGeomProxyDynamicsFullRefreshFlag _simGetGeomProxyDynamicsFullRefreshFlag=nullptr;
 // Deprecated end
 
 
@@ -1199,8 +1199,6 @@ int getSimProcAddresses(LIBRARY lib)
     _simGetWasPutToSleepOnce=(ptr_simGetWasPutToSleepOnce)(_getProcAddress(lib,"_simGetWasPutToSleepOnce"));
     _simGetDynamicsFullRefreshFlag=(ptr_simGetDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simGetDynamicsFullRefreshFlag"));
     _simSetDynamicsFullRefreshFlag=(ptr_simSetDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simSetDynamicsFullRefreshFlag"));
-    _simSetGeomProxyDynamicsFullRefreshFlag=(ptr_simSetGeomProxyDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simSetGeomProxyDynamicsFullRefreshFlag"));
-    _simGetGeomProxyDynamicsFullRefreshFlag=(ptr_simGetGeomProxyDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simGetGeomProxyDynamicsFullRefreshFlag"));
     _simSetShapeDynamicVelocity=(ptr_simSetShapeDynamicVelocity)(_getProcAddress(lib,"_simSetShapeDynamicVelocity"));
     _simGetAdditionalForceAndTorque=(ptr_simGetAdditionalForceAndTorque)(_getProcAddress(lib,"_simGetAdditionalForceAndTorque"));
     _simClearAdditionalForceAndTorque=(ptr_simClearAdditionalForceAndTorque)(_getProcAddress(lib,"_simClearAdditionalForceAndTorque"));
@@ -1495,6 +1493,8 @@ int getSimProcAddresses(LIBRARY lib)
     simGetScriptProperty=(ptrSimGetScriptProperty)(_getProcAddress(lib,"simGetScriptProperty"));
     simGetJointMaxForce=(ptrSimGetJointMaxForce)(_getProcAddress(lib,"simGetJointMaxForce"));
     simSetJointMaxForce=(ptrSimSetJointMaxForce)(_getProcAddress(lib,"simSetJointMaxForce"));
+    _simSetGeomProxyDynamicsFullRefreshFlag=(ptr_simSetGeomProxyDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simSetGeomProxyDynamicsFullRefreshFlag"));
+    _simGetGeomProxyDynamicsFullRefreshFlag=(ptr_simGetGeomProxyDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simGetGeomProxyDynamicsFullRefreshFlag"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -3498,16 +3498,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s _simSetDynamicsFullRefreshFlag\n",couldNotFind);
         return 0;
     }
-    if (_simSetGeomProxyDynamicsFullRefreshFlag==nullptr)
-    {
-        printf("%s _simSetGeomProxyDynamicsFullRefreshFlag\n",couldNotFind);
-        return 0;
-    }
-    if (_simGetGeomProxyDynamicsFullRefreshFlag==nullptr)
-    {
-        printf("%s _simGetGeomProxyDynamicsFullRefreshFlag\n",couldNotFind);
-        return 0;
-    }
     if (_simSetShapeDynamicVelocity==nullptr)
     {
         printf("%s _simSetShapeDynamicVelocity\n",couldNotFind);
@@ -4961,6 +4951,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetJointMaxForce==nullptr)
     {
         printf("%s simSetJointMaxForce\n",couldNotFind);
+        return 0;
+    }
+    if (_simSetGeomProxyDynamicsFullRefreshFlag==nullptr)
+    {
+        printf("%s _simSetGeomProxyDynamicsFullRefreshFlag\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetGeomProxyDynamicsFullRefreshFlag==nullptr)
+    {
+        printf("%s _simGetGeomProxyDynamicsFullRefreshFlag\n",couldNotFind);
         return 0;
     }
     // Deprecated end
