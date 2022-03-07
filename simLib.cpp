@@ -63,7 +63,6 @@ ptrSimGetObject simGetObject=nullptr;
 ptrSimGetObjectUid simGetObjectUid=nullptr;
 ptrSimGetObjectFromUid simGetObjectFromUid=nullptr;
 ptrSimGetScriptHandleEx simGetScriptHandleEx=nullptr;
-ptrSimRemoveObject simRemoveObject=nullptr;
 ptrSimRemoveObjects simRemoveObjects=nullptr;
 ptrSimRemoveModel simRemoveModel=nullptr;
 ptrSimGetObjectAlias simGetObjectAlias=nullptr;
@@ -740,6 +739,7 @@ ptrSimGetJointMaxForce simGetJointMaxForce=nullptr;
 ptrSimSetJointMaxForce simSetJointMaxForce=nullptr;
 ptr_simSetGeomProxyDynamicsFullRefreshFlag _simSetGeomProxyDynamicsFullRefreshFlag=nullptr;
 ptr_simGetGeomProxyDynamicsFullRefreshFlag _simGetGeomProxyDynamicsFullRefreshFlag=nullptr;
+ptrSimRemoveObject simRemoveObject=nullptr;
 // Deprecated end
 
 
@@ -820,7 +820,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetObjectUid=(ptrSimGetObjectUid)(_getProcAddress(lib,"simGetObjectUid"));
     simGetObjectFromUid=(ptrSimGetObjectFromUid)(_getProcAddress(lib,"simGetObjectFromUid"));
     simGetScriptHandleEx=(ptrSimGetScriptHandleEx)(_getProcAddress(lib,"simGetScriptHandleEx"));
-    simRemoveObject=(ptrSimRemoveObject)(_getProcAddress(lib,"simRemoveObject"));
     simRemoveObjects=(ptrSimRemoveObjects)(_getProcAddress(lib,"simRemoveObjects"));
     simRemoveModel=(ptrSimRemoveModel)(_getProcAddress(lib,"simRemoveModel"));
     simGetObjectAlias=(ptrSimGetObjectAlias)(_getProcAddress(lib,"simGetObjectAlias"));
@@ -1495,6 +1494,7 @@ int getSimProcAddresses(LIBRARY lib)
     simSetJointMaxForce=(ptrSimSetJointMaxForce)(_getProcAddress(lib,"simSetJointMaxForce"));
     _simSetGeomProxyDynamicsFullRefreshFlag=(ptr_simSetGeomProxyDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simSetGeomProxyDynamicsFullRefreshFlag"));
     _simGetGeomProxyDynamicsFullRefreshFlag=(ptr_simGetGeomProxyDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simGetGeomProxyDynamicsFullRefreshFlag"));
+    simRemoveObject=(ptrSimRemoveObject)(_getProcAddress(lib,"simRemoveObject"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -1625,11 +1625,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetScriptHandleEx==nullptr)
     {
         printf("%s simGetScriptHandleEx\n",couldNotFind);
-        return 0;
-    }
-    if (simRemoveObject==nullptr)
-    {
-        printf("%s simRemoveObject\n",couldNotFind);
         return 0;
     }
     if (simRemoveObjects==nullptr)
@@ -4961,6 +4956,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (_simGetGeomProxyDynamicsFullRefreshFlag==nullptr)
     {
         printf("%s _simGetGeomProxyDynamicsFullRefreshFlag\n",couldNotFind);
+        return 0;
+    }
+    if (simRemoveObject==nullptr)
+    {
+        printf("%s simRemoveObject\n",couldNotFind);
         return 0;
     }
     // Deprecated end
