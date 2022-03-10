@@ -431,8 +431,6 @@ ptr_simDisableDynamicTreeForManipulation _simDisableDynamicTreeForManipulation=n
 ptr_simIsShapeDynamicallyRespondable _simIsShapeDynamicallyRespondable=nullptr;
 ptr_simGetDynamicCollisionMask _simGetDynamicCollisionMask=nullptr;
 ptr_simGetLastParentForLocalGlobalCollidable _simGetLastParentForLocalGlobalCollidable=nullptr;
-ptr_simSetShapeIsStaticAndNotRespondableButDynamicTag _simSetShapeIsStaticAndNotRespondableButDynamicTag=nullptr;
-ptr_simGetShapeIsStaticAndNotRespondableButDynamicTag _simGetShapeIsStaticAndNotRespondableButDynamicTag=nullptr;
 ptr_simSetJointPosition _simSetJointPosition=nullptr;
 ptr_simGetJointPosition _simGetJointPosition=nullptr;
 ptr_simSetDynamicMotorPositionControlTargetPosition _simSetDynamicMotorPositionControlTargetPosition=nullptr;
@@ -740,6 +738,8 @@ ptrSimSetJointMaxForce simSetJointMaxForce=nullptr;
 ptr_simSetGeomProxyDynamicsFullRefreshFlag _simSetGeomProxyDynamicsFullRefreshFlag=nullptr;
 ptr_simGetGeomProxyDynamicsFullRefreshFlag _simGetGeomProxyDynamicsFullRefreshFlag=nullptr;
 ptrSimRemoveObject simRemoveObject=nullptr;
+ptr_simSetShapeIsStaticAndNotRespondableButDynamicTag _simSetShapeIsStaticAndNotRespondableButDynamicTag=nullptr;
+ptr_simGetShapeIsStaticAndNotRespondableButDynamicTag _simGetShapeIsStaticAndNotRespondableButDynamicTag=nullptr;
 // Deprecated end
 
 
@@ -1185,8 +1185,6 @@ int getSimProcAddresses(LIBRARY lib)
     _simIsShapeDynamicallyRespondable=(ptr_simIsShapeDynamicallyRespondable)(_getProcAddress(lib,"_simIsShapeDynamicallyRespondable"));
     _simGetDynamicCollisionMask=(ptr_simGetDynamicCollisionMask)(_getProcAddress(lib,"_simGetDynamicCollisionMask"));
     _simGetLastParentForLocalGlobalCollidable=(ptr_simGetLastParentForLocalGlobalCollidable)(_getProcAddress(lib,"_simGetLastParentForLocalGlobalCollidable"));
-    _simSetShapeIsStaticAndNotRespondableButDynamicTag=(ptr_simSetShapeIsStaticAndNotRespondableButDynamicTag)(_getProcAddress(lib,"_simSetShapeIsStaticAndNotRespondableButDynamicTag"));
-    _simGetShapeIsStaticAndNotRespondableButDynamicTag=(ptr_simGetShapeIsStaticAndNotRespondableButDynamicTag)(_getProcAddress(lib,"_simGetShapeIsStaticAndNotRespondableButDynamicTag"));
     _simSetJointPosition=(ptr_simSetJointPosition)(_getProcAddress(lib,"_simSetJointPosition"));
     _simGetJointPosition=(ptr_simGetJointPosition)(_getProcAddress(lib,"_simGetJointPosition"));
     _simSetDynamicMotorPositionControlTargetPosition=(ptr_simSetDynamicMotorPositionControlTargetPosition)(_getProcAddress(lib,"_simSetDynamicMotorPositionControlTargetPosition"));
@@ -1495,6 +1493,8 @@ int getSimProcAddresses(LIBRARY lib)
     _simSetGeomProxyDynamicsFullRefreshFlag=(ptr_simSetGeomProxyDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simSetGeomProxyDynamicsFullRefreshFlag"));
     _simGetGeomProxyDynamicsFullRefreshFlag=(ptr_simGetGeomProxyDynamicsFullRefreshFlag)(_getProcAddress(lib,"_simGetGeomProxyDynamicsFullRefreshFlag"));
     simRemoveObject=(ptrSimRemoveObject)(_getProcAddress(lib,"simRemoveObject"));
+    _simSetShapeIsStaticAndNotRespondableButDynamicTag=(ptr_simSetShapeIsStaticAndNotRespondableButDynamicTag)(_getProcAddress(lib,"_simSetShapeIsStaticAndNotRespondableButDynamicTag"));
+    _simGetShapeIsStaticAndNotRespondableButDynamicTag=(ptr_simGetShapeIsStaticAndNotRespondableButDynamicTag)(_getProcAddress(lib,"_simGetShapeIsStaticAndNotRespondableButDynamicTag"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -3428,16 +3428,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s _simGetLastParentForLocalGlobalCollidable\n",couldNotFind);
         return 0;
     }
-    if (_simSetShapeIsStaticAndNotRespondableButDynamicTag==nullptr)
-    {
-        printf("%s _simSetShapeIsStaticAndNotRespondableButDynamicTag\n",couldNotFind);
-        return 0;
-    }
-    if (_simGetShapeIsStaticAndNotRespondableButDynamicTag==nullptr)
-    {
-        printf("%s _simGetShapeIsStaticAndNotRespondableButDynamicTag\n",couldNotFind);
-        return 0;
-    }
     if (_simSetJointPosition==nullptr)
     {
         printf("%s _simSetJointPosition\n",couldNotFind);
@@ -4961,6 +4951,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simRemoveObject==nullptr)
     {
         printf("%s simRemoveObject\n",couldNotFind);
+        return 0;
+    }
+    if (_simSetShapeIsStaticAndNotRespondableButDynamicTag==nullptr)
+    {
+        printf("%s _simSetShapeIsStaticAndNotRespondableButDynamicTag\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetShapeIsStaticAndNotRespondableButDynamicTag==nullptr)
+    {
+        printf("%s _simGetShapeIsStaticAndNotRespondableButDynamicTag\n",couldNotFind);
         return 0;
     }
     // Deprecated end
