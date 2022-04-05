@@ -99,7 +99,7 @@ ptrSimTransformVector simTransformVector=nullptr;
 ptrSimReservedCommand simReservedCommand=nullptr;
 ptrSimGetSimulationTime simGetSimulationTime=nullptr;
 ptrSimGetSimulationState simGetSimulationState=nullptr;
-ptrSimGetSystemTimeInMs simGetSystemTimeInMs=nullptr;
+ptrSimGetSystemTime simGetSystemTime=nullptr;
 ptrSimLoadScene simLoadScene=nullptr;
 ptrSimCloseScene simCloseScene=nullptr;
 ptrSimSaveScene simSaveScene=nullptr;
@@ -700,7 +700,7 @@ ptrSimRMLPos simRMLPos=nullptr;
 ptrSimRMLVel simRMLVel=nullptr;
 ptrSimRMLStep simRMLStep=nullptr;
 ptrSimRMLRemove simRMLRemove=nullptr;
-ptrSimGetSystemTime simGetSystemTime=nullptr;
+ptrSimGetSystemTimeInMs simGetSystemTimeInMs=nullptr;
 ptrSimGetSystemTimeInMilliseconds simGetSystemTimeInMilliseconds=nullptr;
 ptrSimFileDialog simFileDialog=nullptr;
 ptrSimMsgBox simMsgBox=nullptr;
@@ -856,7 +856,7 @@ int getSimProcAddresses(LIBRARY lib)
     simReservedCommand=(ptrSimReservedCommand)(_getProcAddress(lib,"simReservedCommand"));
     simGetSimulationTime=(ptrSimGetSimulationTime)(_getProcAddress(lib,"simGetSimulationTime"));
     simGetSimulationState=(ptrSimGetSimulationState)(_getProcAddress(lib,"simGetSimulationState"));
-    simGetSystemTimeInMs=(ptrSimGetSystemTimeInMs)(_getProcAddress(lib,"simGetSystemTimeInMs"));
+    simGetSystemTime=(ptrSimGetSystemTime)(_getProcAddress(lib,"simGetSystemTime"));
     simLoadScene=(ptrSimLoadScene)(_getProcAddress(lib,"simLoadScene"));
     simCloseScene=(ptrSimCloseScene)(_getProcAddress(lib,"simCloseScene"));
     simSaveScene=(ptrSimSaveScene)(_getProcAddress(lib,"simSaveScene"));
@@ -1455,8 +1455,8 @@ int getSimProcAddresses(LIBRARY lib)
     simRMLVel=(ptrSimRMLVel)(_getProcAddress(lib,"simRMLVel"));
     simRMLStep=(ptrSimRMLStep)(_getProcAddress(lib,"simRMLStep"));
     simRMLRemove=(ptrSimRMLRemove)(_getProcAddress(lib,"simRMLRemove"));
-    simGetSystemTime=(ptrSimGetSystemTime)(_getProcAddress(lib,"simGetSystemTime"));
     simGetSystemTimeInMilliseconds=(ptrSimGetSystemTimeInMilliseconds)(_getProcAddress(lib,"simGetSystemTimeInMilliseconds"));
+    simGetSystemTimeInMs=(ptrSimGetSystemTimeInMs)(_getProcAddress(lib,"simGetSystemTimeInMs"));
     simFileDialog=(ptrSimFileDialog)(_getProcAddress(lib,"simFileDialog"));
     simMsgBox=(ptrSimMsgBox)(_getProcAddress(lib,"simMsgBox"));
     simDisplayDialog=(ptrSimDisplayDialog)(_getProcAddress(lib,"simDisplayDialog"));
@@ -1807,9 +1807,9 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simGetSimulationState\n",couldNotFind);
         return 0;
     }
-    if (simGetSystemTimeInMs==nullptr)
+    if (simGetSystemTime==nullptr)
     {
-        printf("%s simGetSystemTimeInMs\n",couldNotFind);
+        printf("%s simGetSystemTime\n",couldNotFind);
         return 0;
     }
     if (simLoadScene==nullptr)
@@ -4763,14 +4763,14 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simRMLRemove\n",couldNotFind);
         return 0;
     }
-    if (simGetSystemTime==nullptr)
-    {
-        printf("%s simGetSystemTime\n",couldNotFind);
-        return 0;
-    }
     if (simGetSystemTimeInMilliseconds==nullptr)
     {
         printf("%s simGetSystemTimeInMilliseconds\n",couldNotFind);
+        return 0;
+    }
+    if (simGetSystemTimeInMs==nullptr)
+    {
+        printf("%s simGetSystemTimeInMs\n",couldNotFind);
         return 0;
     }
     if (simFileDialog==nullptr)
