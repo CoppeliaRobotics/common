@@ -256,12 +256,9 @@ ptrSimReadVisionSensor simReadVisionSensor=nullptr;
 ptrSimResetVisionSensor simResetVisionSensor=nullptr;
 ptrSimCheckVisionSensor simCheckVisionSensor=nullptr;
 ptrSimCheckVisionSensorEx simCheckVisionSensorEx=nullptr;
-ptrSimGetVisionSensorResolution simGetVisionSensorResolution=nullptr;
-ptrSimGetVisionSensorImage simGetVisionSensorImage=nullptr;
-ptrSimGetVisionSensorCharImage simGetVisionSensorCharImage=nullptr;
-ptrSimSetVisionSensorImage simSetVisionSensorImage=nullptr;
-ptrSimSetVisionSensorCharImage simSetVisionSensorCharImage=nullptr;
-ptrSimGetVisionSensorDepthBuffer simGetVisionSensorDepthBuffer=nullptr;
+ptrSimGetVisionSensorImg simGetVisionSensorImg=nullptr;
+ptrSimSetVisionSensorImg simSetVisionSensorImg=nullptr;
+ptrSimGetVisionSensorDepth simGetVisionSensorDepth=nullptr;
 ptrSimGetObjectQuaternion simGetObjectQuaternion=nullptr;
 ptrSimSetObjectQuaternion simSetObjectQuaternion=nullptr;
 ptrSimRuckigPos simRuckigPos=nullptr;
@@ -740,6 +737,12 @@ ptr_simGetGeomProxyDynamicsFullRefreshFlag _simGetGeomProxyDynamicsFullRefreshFl
 ptrSimRemoveObject simRemoveObject=nullptr;
 ptr_simSetShapeIsStaticAndNotRespondableButDynamicTag _simSetShapeIsStaticAndNotRespondableButDynamicTag=nullptr;
 ptr_simGetShapeIsStaticAndNotRespondableButDynamicTag _simGetShapeIsStaticAndNotRespondableButDynamicTag=nullptr;
+ptrSimGetVisionSensorResolution simGetVisionSensorResolution=nullptr;
+ptrSimGetVisionSensorImage simGetVisionSensorImage=nullptr;
+ptrSimGetVisionSensorCharImage simGetVisionSensorCharImage=nullptr;
+ptrSimSetVisionSensorImage simSetVisionSensorImage=nullptr;
+ptrSimSetVisionSensorCharImage simSetVisionSensorCharImage=nullptr;
+ptrSimGetVisionSensorDepthBuffer simGetVisionSensorDepthBuffer=nullptr;
 // Deprecated end
 
 
@@ -1013,12 +1016,9 @@ int getSimProcAddresses(LIBRARY lib)
     simResetVisionSensor=(ptrSimResetVisionSensor)(_getProcAddress(lib,"simResetVisionSensor"));
     simCheckVisionSensor=(ptrSimCheckVisionSensor)(_getProcAddress(lib,"simCheckVisionSensor"));
     simCheckVisionSensorEx=(ptrSimCheckVisionSensorEx)(_getProcAddress(lib,"simCheckVisionSensorEx"));
-    simGetVisionSensorResolution=(ptrSimGetVisionSensorResolution)(_getProcAddress(lib,"simGetVisionSensorResolution"));
-    simGetVisionSensorImage=(ptrSimGetVisionSensorImage)(_getProcAddress(lib,"simGetVisionSensorImage"));
-    simGetVisionSensorCharImage=(ptrSimGetVisionSensorCharImage)(_getProcAddress(lib,"simGetVisionSensorCharImage"));
-    simSetVisionSensorImage=(ptrSimSetVisionSensorImage)(_getProcAddress(lib,"simSetVisionSensorImage"));
-    simSetVisionSensorCharImage=(ptrSimSetVisionSensorCharImage)(_getProcAddress(lib,"simSetVisionSensorCharImage"));
-    simGetVisionSensorDepthBuffer=(ptrSimGetVisionSensorDepthBuffer)(_getProcAddress(lib,"simGetVisionSensorDepthBuffer"));
+    simGetVisionSensorImg=(ptrSimGetVisionSensorImg)(_getProcAddress(lib,"simGetVisionSensorImg"));
+    simSetVisionSensorImg=(ptrSimSetVisionSensorImg)(_getProcAddress(lib,"simSetVisionSensorImg"));
+    simGetVisionSensorDepth=(ptrSimGetVisionSensorDepth)(_getProcAddress(lib,"simGetVisionSensorDepth"));
     simGetObjectQuaternion=(ptrSimGetObjectQuaternion)(_getProcAddress(lib,"simGetObjectQuaternion"));
     simSetObjectQuaternion=(ptrSimSetObjectQuaternion)(_getProcAddress(lib,"simSetObjectQuaternion"));
     simRuckigPos=(ptrSimRuckigPos)(_getProcAddress(lib,"simRuckigPos"));
@@ -1495,6 +1495,12 @@ int getSimProcAddresses(LIBRARY lib)
     simRemoveObject=(ptrSimRemoveObject)(_getProcAddress(lib,"simRemoveObject"));
     _simSetShapeIsStaticAndNotRespondableButDynamicTag=(ptr_simSetShapeIsStaticAndNotRespondableButDynamicTag)(_getProcAddress(lib,"_simSetShapeIsStaticAndNotRespondableButDynamicTag"));
     _simGetShapeIsStaticAndNotRespondableButDynamicTag=(ptr_simGetShapeIsStaticAndNotRespondableButDynamicTag)(_getProcAddress(lib,"_simGetShapeIsStaticAndNotRespondableButDynamicTag"));
+    simGetVisionSensorResolution=(ptrSimGetVisionSensorResolution)(_getProcAddress(lib,"simGetVisionSensorResolution"));
+    simGetVisionSensorImage=(ptrSimGetVisionSensorImage)(_getProcAddress(lib,"simGetVisionSensorImage"));
+    simGetVisionSensorCharImage=(ptrSimGetVisionSensorCharImage)(_getProcAddress(lib,"simGetVisionSensorCharImage"));
+    simSetVisionSensorImage=(ptrSimSetVisionSensorImage)(_getProcAddress(lib,"simSetVisionSensorImage"));
+    simSetVisionSensorCharImage=(ptrSimSetVisionSensorCharImage)(_getProcAddress(lib,"simSetVisionSensorCharImage"));
+    simGetVisionSensorDepthBuffer=(ptrSimGetVisionSensorDepthBuffer)(_getProcAddress(lib,"simGetVisionSensorDepthBuffer"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -2592,34 +2598,19 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simCheckVisionSensorEx\n",couldNotFind);
         return 0;
     }
-    if (simGetVisionSensorResolution==nullptr)
+    if (simGetVisionSensorImg==nullptr)
     {
-        printf("%s simGetVisionSensorResolution\n",couldNotFind);
+        printf("%s simGetVisionSensorImg\n",couldNotFind);
         return 0;
     }
-    if (simGetVisionSensorImage==nullptr)
+    if (simSetVisionSensorImg==nullptr)
     {
-        printf("%s simGetVisionSensorImage\n",couldNotFind);
+        printf("%s simSetVisionSensorImg\n",couldNotFind);
         return 0;
     }
-    if (simGetVisionSensorCharImage==nullptr)
+    if (simGetVisionSensorDepth==nullptr)
     {
-        printf("%s simGetVisionSensorCharImage\n",couldNotFind);
-        return 0;
-    }
-    if (simSetVisionSensorImage==nullptr)
-    {
-        printf("%s simSetVisionSensorImage\n",couldNotFind);
-        return 0;
-    }
-    if (simSetVisionSensorCharImage==nullptr)
-    {
-        printf("%s simSetVisionSensorCharImage\n",couldNotFind);
-        return 0;
-    }
-    if (simGetVisionSensorDepthBuffer==nullptr)
-    {
-        printf("%s simGetVisionSensorDepthBuffer\n",couldNotFind);
+        printf("%s simGetVisionSensorDepth\n",couldNotFind);
         return 0;
     }
     if (simGetObjectQuaternion==nullptr)
@@ -4961,6 +4952,36 @@ int getSimProcAddresses(LIBRARY lib)
     if (_simGetShapeIsStaticAndNotRespondableButDynamicTag==nullptr)
     {
         printf("%s _simGetShapeIsStaticAndNotRespondableButDynamicTag\n",couldNotFind);
+        return 0;
+    }
+    if (simGetVisionSensorResolution==nullptr)
+    {
+        printf("%s simGetVisionSensorResolution\n",couldNotFind);
+        return 0;
+    }
+    if (simGetVisionSensorImage==nullptr)
+    {
+        printf("%s simGetVisionSensorImage\n",couldNotFind);
+        return 0;
+    }
+    if (simGetVisionSensorCharImage==nullptr)
+    {
+        printf("%s simGetVisionSensorCharImage\n",couldNotFind);
+        return 0;
+    }
+    if (simSetVisionSensorImage==nullptr)
+    {
+        printf("%s simSetVisionSensorImage\n",couldNotFind);
+        return 0;
+    }
+    if (simSetVisionSensorCharImage==nullptr)
+    {
+        printf("%s simSetVisionSensorCharImage\n",couldNotFind);
+        return 0;
+    }
+    if (simGetVisionSensorDepthBuffer==nullptr)
+    {
+        printf("%s simGetVisionSensorDepthBuffer\n",couldNotFind);
         return 0;
     }
     // Deprecated end
