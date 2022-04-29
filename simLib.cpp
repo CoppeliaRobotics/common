@@ -223,7 +223,7 @@ ptrSimImportShape simImportShape=nullptr;
 ptrSimImportMesh simImportMesh=nullptr;
 ptrSimExportMesh simExportMesh=nullptr;
 ptrSimCreateMeshShape simCreateMeshShape=nullptr;
-ptrSimCreatePureShape simCreatePureShape=nullptr;
+ptrSimCreatePrimitiveShape simCreatePrimitiveShape=nullptr;
 ptrSimCreateHeightfieldShape simCreateHeightfieldShape=nullptr;
 ptrSimGetShapeMesh simGetShapeMesh=nullptr;
 ptrSimCreateJoint simCreateJoint=nullptr;
@@ -743,6 +743,7 @@ ptrSimGetVisionSensorCharImage simGetVisionSensorCharImage=nullptr;
 ptrSimSetVisionSensorImage simSetVisionSensorImage=nullptr;
 ptrSimSetVisionSensorCharImage simSetVisionSensorCharImage=nullptr;
 ptrSimGetVisionSensorDepthBuffer simGetVisionSensorDepthBuffer=nullptr;
+ptrSimCreatePureShape simCreatePureShape=nullptr;
 // Deprecated end
 
 
@@ -983,7 +984,7 @@ int getSimProcAddresses(LIBRARY lib)
     simImportMesh=(ptrSimImportMesh)(_getProcAddress(lib,"simImportMesh"));
     simExportMesh=(ptrSimExportMesh)(_getProcAddress(lib,"simExportMesh"));
     simCreateMeshShape=(ptrSimCreateMeshShape)(_getProcAddress(lib,"simCreateMeshShape"));
-    simCreatePureShape=(ptrSimCreatePureShape)(_getProcAddress(lib,"simCreatePureShape"));
+    simCreatePrimitiveShape=(ptrSimCreatePrimitiveShape)(_getProcAddress(lib,"simCreatePrimitiveShape"));
     simCreateHeightfieldShape=(ptrSimCreateHeightfieldShape)(_getProcAddress(lib,"simCreateHeightfieldShape"));
     simGetShapeMesh=(ptrSimGetShapeMesh)(_getProcAddress(lib,"simGetShapeMesh"));
     simCreateJoint=(ptrSimCreateJoint)(_getProcAddress(lib,"simCreateJoint"));
@@ -1501,6 +1502,7 @@ int getSimProcAddresses(LIBRARY lib)
     simSetVisionSensorImage=(ptrSimSetVisionSensorImage)(_getProcAddress(lib,"simSetVisionSensorImage"));
     simSetVisionSensorCharImage=(ptrSimSetVisionSensorCharImage)(_getProcAddress(lib,"simSetVisionSensorCharImage"));
     simGetVisionSensorDepthBuffer=(ptrSimGetVisionSensorDepthBuffer)(_getProcAddress(lib,"simGetVisionSensorDepthBuffer"));
+    simCreatePureShape=(ptrSimCreatePureShape)(_getProcAddress(lib,"simCreatePureShape"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -2433,9 +2435,9 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simCreateMeshShape\n",couldNotFind);
         return 0;
     }
-    if (simCreatePureShape==nullptr)
+    if (simCreatePrimitiveShape==nullptr)
     {
-        printf("%s simCreatePureShape\n",couldNotFind);
+        printf("%s simCreatePrimitiveShape\n",couldNotFind);
         return 0;
     }
     if (simCreateHeightfieldShape==nullptr)
@@ -4982,6 +4984,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetVisionSensorDepthBuffer==nullptr)
     {
         printf("%s simGetVisionSensorDepthBuffer\n",couldNotFind);
+        return 0;
+    }
+    if (simCreatePureShape==nullptr)
+    {
+        printf("%s simCreatePureShape\n",couldNotFind);
         return 0;
     }
     // Deprecated end
