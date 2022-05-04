@@ -45,7 +45,6 @@ ptrSimGetMainWindow simGetMainWindow=nullptr;
 ptrSimGetLastError simGetLastError=nullptr;
 ptrSimLoadModule simLoadModule=nullptr;
 ptrSimUnloadModule simUnloadModule=nullptr;
-ptrSimSendModuleMessage simSendModuleMessage=nullptr;
 ptrSimSetBoolParam simSetBoolParam=nullptr;
 ptrSimGetBoolParam simGetBoolParam=nullptr;
 ptrSimSetInt32Param simSetInt32Param=nullptr;
@@ -136,7 +135,6 @@ ptrSimAdvanceSimulationByOneStep simAdvanceSimulationByOneStep=nullptr;
 ptrSimStartSimulation simStartSimulation=nullptr;
 ptrSimStopSimulation simStopSimulation=nullptr;
 ptrSimPauseSimulation simPauseSimulation=nullptr;
-ptrSimBroadcastMessage simBroadcastMessage=nullptr;
 ptrSimGetModuleName simGetModuleName=nullptr;
 ptrSimFloatingViewAdd simFloatingViewAdd=nullptr;
 ptrSimFloatingViewRemove simFloatingViewRemove=nullptr;
@@ -744,6 +742,8 @@ ptrSimSetVisionSensorImage simSetVisionSensorImage=nullptr;
 ptrSimSetVisionSensorCharImage simSetVisionSensorCharImage=nullptr;
 ptrSimGetVisionSensorDepthBuffer simGetVisionSensorDepthBuffer=nullptr;
 ptrSimCreatePureShape simCreatePureShape=nullptr;
+ptrSimBroadcastMessage simBroadcastMessage=nullptr;
+ptrSimSendModuleMessage simSendModuleMessage=nullptr;
 // Deprecated end
 
 
@@ -806,7 +806,6 @@ int getSimProcAddresses(LIBRARY lib)
     simGetLastError=(ptrSimGetLastError)(_getProcAddress(lib,"simGetLastError"));
     simLoadModule=(ptrSimLoadModule)(_getProcAddress(lib,"simLoadModule"));
     simUnloadModule=(ptrSimUnloadModule)(_getProcAddress(lib,"simUnloadModule"));
-    simSendModuleMessage=(ptrSimSendModuleMessage)(_getProcAddress(lib,"simSendModuleMessage"));
     simSetBoolParam=(ptrSimSetBoolParam)(_getProcAddress(lib,"simSetBoolParam"));
     simGetBoolParam=(ptrSimGetBoolParam)(_getProcAddress(lib,"simGetBoolParam"));
     simSetInt32Param=(ptrSimSetInt32Param)(_getProcAddress(lib,"simSetInt32Param"));
@@ -897,7 +896,6 @@ int getSimProcAddresses(LIBRARY lib)
     simStartSimulation=(ptrSimStartSimulation)(_getProcAddress(lib,"simStartSimulation"));
     simStopSimulation=(ptrSimStopSimulation)(_getProcAddress(lib,"simStopSimulation"));
     simPauseSimulation=(ptrSimPauseSimulation)(_getProcAddress(lib,"simPauseSimulation"));
-    simBroadcastMessage=(ptrSimBroadcastMessage)(_getProcAddress(lib,"simBroadcastMessage"));
     simGetModuleName=(ptrSimGetModuleName)(_getProcAddress(lib,"simGetModuleName"));
     simFloatingViewAdd=(ptrSimFloatingViewAdd)(_getProcAddress(lib,"simFloatingViewAdd"));
     simFloatingViewRemove=(ptrSimFloatingViewRemove)(_getProcAddress(lib,"simFloatingViewRemove"));
@@ -1503,6 +1501,8 @@ int getSimProcAddresses(LIBRARY lib)
     simSetVisionSensorCharImage=(ptrSimSetVisionSensorCharImage)(_getProcAddress(lib,"simSetVisionSensorCharImage"));
     simGetVisionSensorDepthBuffer=(ptrSimGetVisionSensorDepthBuffer)(_getProcAddress(lib,"simGetVisionSensorDepthBuffer"));
     simCreatePureShape=(ptrSimCreatePureShape)(_getProcAddress(lib,"simCreatePureShape"));
+    simBroadcastMessage=(ptrSimBroadcastMessage)(_getProcAddress(lib,"simBroadcastMessage"));
+    simSendModuleMessage=(ptrSimSendModuleMessage)(_getProcAddress(lib,"simSendModuleMessage"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -1543,11 +1543,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simUnloadModule==nullptr)
     {
         printf("%s simUnloadModule\n",couldNotFind);
-        return 0;
-    }
-    if (simSendModuleMessage==nullptr)
-    {
-        printf("%s simSendModuleMessage\n",couldNotFind);
         return 0;
     }
     if (simSetBoolParam==nullptr)
@@ -1998,11 +1993,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simPauseSimulation==nullptr)
     {
         printf("%s simPauseSimulation\n",couldNotFind);
-        return 0;
-    }
-    if (simBroadcastMessage==nullptr)
-    {
-        printf("%s simBroadcastMessage\n",couldNotFind);
         return 0;
     }
     if (simGetModuleName==nullptr)
@@ -4989,6 +4979,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simCreatePureShape==nullptr)
     {
         printf("%s simCreatePureShape\n",couldNotFind);
+        return 0;
+    }
+    if (simBroadcastMessage==nullptr)
+    {
+        printf("%s simBroadcastMessage\n",couldNotFind);
+        return 0;
+    }
+    if (simSendModuleMessage==nullptr)
+    {
+        printf("%s simSendModuleMessage\n",couldNotFind);
         return 0;
     }
     // Deprecated end
