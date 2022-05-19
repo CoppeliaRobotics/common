@@ -398,8 +398,6 @@ ptrSimExtCallScriptFunction simExtCallScriptFunction=nullptr;
 
 
 
-ptr_simGetContactCallbackCount _simGetContactCallbackCount=nullptr;
-ptr_simGetContactCallback _simGetContactCallback=nullptr;
 ptr_simSetDynamicSimulationIconCode _simSetDynamicSimulationIconCode=nullptr;
 ptr_simSetDynamicObjectFlagForVisualization _simSetDynamicObjectFlagForVisualization=nullptr;
 ptr_simGetObjectListSize _simGetObjectListSize=nullptr;
@@ -442,10 +440,6 @@ ptr_simGetAdditionalForceAndTorque _simGetAdditionalForceAndTorque=nullptr;
 ptr_simClearAdditionalForceAndTorque _simClearAdditionalForceAndTorque=nullptr;
 ptr_simGetJointPositionInterval _simGetJointPositionInterval=nullptr;
 ptr_simGetJointType _simGetJointType=nullptr;
-ptr_simIsDynamicMotorEnabled _simIsDynamicMotorEnabled=nullptr;
-ptr_simIsDynamicMotorPositionCtrlEnabled _simIsDynamicMotorPositionCtrlEnabled=nullptr;
-ptr_simIsDynamicMotorTorqueModulationEnabled _simIsDynamicMotorTorqueModulationEnabled=nullptr;
-ptr_simGetMotorPid _simGetMotorPid=nullptr;
 ptr_simGetDynamicMotorTargetPosition _simGetDynamicMotorTargetPosition=nullptr;
 ptr_simGetDynamicMotorTargetVelocity _simGetDynamicMotorTargetVelocity=nullptr;
 ptr_simGetDynamicMotorMaxForce _simGetDynamicMotorMaxForce=nullptr;
@@ -476,6 +470,7 @@ ptr_simHandleJointControl _simHandleJointControl=nullptr;
 ptr_simHandleCustomContact _simHandleCustomContact=nullptr;
 ptr_simGetPureHollowScaling _simGetPureHollowScaling=nullptr;
 ptr_simGetJointCallbackCallOrder _simGetJointCallbackCallOrder=nullptr;
+ptr_simGetJointDynCtrlMode _simGetJointDynCtrlMode=nullptr;
 ptr_simDynCallback _simDynCallback=nullptr;
 
 
@@ -744,6 +739,12 @@ ptrSimGetVisionSensorDepthBuffer simGetVisionSensorDepthBuffer=nullptr;
 ptrSimCreatePureShape simCreatePureShape=nullptr;
 ptrSimBroadcastMessage simBroadcastMessage=nullptr;
 ptrSimSendModuleMessage simSendModuleMessage=nullptr;
+ptr_simIsDynamicMotorEnabled _simIsDynamicMotorEnabled=nullptr;
+ptr_simIsDynamicMotorPositionCtrlEnabled _simIsDynamicMotorPositionCtrlEnabled=nullptr;
+ptr_simIsDynamicMotorTorqueModulationEnabled _simIsDynamicMotorTorqueModulationEnabled=nullptr;
+ptr_simGetMotorPid _simGetMotorPid=nullptr;
+ptr_simGetContactCallbackCount _simGetContactCallbackCount=nullptr;
+ptr_simGetContactCallback _simGetContactCallback=nullptr;
 // Deprecated end
 
 
@@ -1156,8 +1157,6 @@ int getSimProcAddresses(LIBRARY lib)
     simExtStep=(ptrSimExtStep)(_getProcAddress(lib,"simExtStep"));
     simExtCallScriptFunction=(ptrSimExtCallScriptFunction)(_getProcAddress(lib,"simExtCallScriptFunction"));
 
-    _simGetContactCallbackCount=(ptr_simGetContactCallbackCount)(_getProcAddress(lib,"_simGetContactCallbackCount"));
-    _simGetContactCallback=(ptr_simGetContactCallback)(_getProcAddress(lib,"_simGetContactCallback"));
     _simSetDynamicSimulationIconCode=(ptr_simSetDynamicSimulationIconCode)(_getProcAddress(lib,"_simSetDynamicSimulationIconCode"));
     _simSetDynamicObjectFlagForVisualization=(ptr_simSetDynamicObjectFlagForVisualization)(_getProcAddress(lib,"_simSetDynamicObjectFlagForVisualization"));
     _simGetObjectListSize=(ptr_simGetObjectListSize)(_getProcAddress(lib,"_simGetObjectListSize"));
@@ -1200,10 +1199,6 @@ int getSimProcAddresses(LIBRARY lib)
     _simClearAdditionalForceAndTorque=(ptr_simClearAdditionalForceAndTorque)(_getProcAddress(lib,"_simClearAdditionalForceAndTorque"));
     _simGetJointPositionInterval=(ptr_simGetJointPositionInterval)(_getProcAddress(lib,"_simGetJointPositionInterval"));
     _simGetJointType=(ptr_simGetJointType)(_getProcAddress(lib,"_simGetJointType"));
-    _simIsDynamicMotorEnabled=(ptr_simIsDynamicMotorEnabled)(_getProcAddress(lib,"_simIsDynamicMotorEnabled"));
-    _simIsDynamicMotorPositionCtrlEnabled=(ptr_simIsDynamicMotorPositionCtrlEnabled)(_getProcAddress(lib,"_simIsDynamicMotorPositionCtrlEnabled"));
-    _simIsDynamicMotorTorqueModulationEnabled=(ptr_simIsDynamicMotorTorqueModulationEnabled)(_getProcAddress(lib,"_simIsDynamicMotorTorqueModulationEnabled"));
-    _simGetMotorPid=(ptr_simGetMotorPid)(_getProcAddress(lib,"_simGetMotorPid"));
     _simGetDynamicMotorTargetPosition=(ptr_simGetDynamicMotorTargetPosition)(_getProcAddress(lib,"_simGetDynamicMotorTargetPosition"));
     _simGetDynamicMotorTargetVelocity=(ptr_simGetDynamicMotorTargetVelocity)(_getProcAddress(lib,"_simGetDynamicMotorTargetVelocity"));
     _simGetDynamicMotorMaxForce=(ptr_simGetDynamicMotorMaxForce)(_getProcAddress(lib,"_simGetDynamicMotorMaxForce"));
@@ -1234,6 +1229,7 @@ int getSimProcAddresses(LIBRARY lib)
     _simHandleCustomContact=(ptr_simHandleCustomContact)(_getProcAddress(lib,"_simHandleCustomContact"));
     _simGetPureHollowScaling=(ptr_simGetPureHollowScaling)(_getProcAddress(lib,"_simGetPureHollowScaling"));
     _simGetJointCallbackCallOrder=(ptr_simGetJointCallbackCallOrder)(_getProcAddress(lib,"_simGetJointCallbackCallOrder"));
+    _simGetJointDynCtrlMode=(ptr_simGetJointDynCtrlMode)(_getProcAddress(lib,"_simGetJointDynCtrlMode"));
     _simDynCallback=(ptr_simDynCallback)(_getProcAddress(lib,"_simDynCallback"));
 
 
@@ -1503,6 +1499,12 @@ int getSimProcAddresses(LIBRARY lib)
     simCreatePureShape=(ptrSimCreatePureShape)(_getProcAddress(lib,"simCreatePureShape"));
     simBroadcastMessage=(ptrSimBroadcastMessage)(_getProcAddress(lib,"simBroadcastMessage"));
     simSendModuleMessage=(ptrSimSendModuleMessage)(_getProcAddress(lib,"simSendModuleMessage"));
+    _simIsDynamicMotorEnabled=(ptr_simIsDynamicMotorEnabled)(_getProcAddress(lib,"_simIsDynamicMotorEnabled"));
+    _simIsDynamicMotorPositionCtrlEnabled=(ptr_simIsDynamicMotorPositionCtrlEnabled)(_getProcAddress(lib,"_simIsDynamicMotorPositionCtrlEnabled"));
+    _simIsDynamicMotorTorqueModulationEnabled=(ptr_simIsDynamicMotorTorqueModulationEnabled)(_getProcAddress(lib,"_simIsDynamicMotorTorqueModulationEnabled"));
+    _simGetMotorPid=(ptr_simGetMotorPid)(_getProcAddress(lib,"_simGetMotorPid"));
+    _simGetContactCallbackCount=(ptr_simGetContactCallbackCount)(_getProcAddress(lib,"_simGetContactCallbackCount"));
+    _simGetContactCallback=(ptr_simGetContactCallback)(_getProcAddress(lib,"_simGetContactCallback"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -3269,18 +3271,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s simExtCallScriptFunction\n",couldNotFind);
         return 0;
     }
-
-
-    if (_simGetContactCallbackCount==nullptr)
-    {
-        printf("%s _simGetContactCallbackCount\n",couldNotFind);
-        return 0;
-    }
-    if (_simGetContactCallback==nullptr)
-    {
-        printf("%s _simGetContactCallback\n",couldNotFind);
-        return 0;
-    }
     if (_simSetDynamicSimulationIconCode==nullptr)
     {
         printf("%s _simSetDynamicSimulationIconCode\n",couldNotFind);
@@ -3491,26 +3481,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s _simGetJointType\n",couldNotFind);
         return 0;
     }
-    if (_simIsDynamicMotorEnabled==nullptr)
-    {
-        printf("%s _simIsDynamicMotorEnabled\n",couldNotFind);
-        return 0;
-    }
-    if (_simIsDynamicMotorPositionCtrlEnabled==nullptr)
-    {
-        printf("%s _simIsDynamicMotorPositionCtrlEnabled\n",couldNotFind);
-        return 0;
-    }
-    if (_simIsDynamicMotorTorqueModulationEnabled==nullptr)
-    {
-        printf("%s _simIsDynamicMotorTorqueModulationEnabled\n",couldNotFind);
-        return 0;
-    }
-    if (_simGetMotorPid==nullptr)
-    {
-        printf("%s _simGetMotorPid\n",couldNotFind);
-        return 0;
-    }
     if (_simGetDynamicMotorTargetPosition==nullptr)
     {
         printf("%s _simGetDynamicMotorTargetPosition\n",couldNotFind);
@@ -3659,6 +3629,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (_simGetJointCallbackCallOrder==nullptr)
     {
         printf("%s _simGetJointCallbackCallOrder\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetJointDynCtrlMode==nullptr)
+    {
+        printf("%s _simGetJointDynCtrlMode\n",couldNotFind);
         return 0;
     }
     if (_simDynCallback==nullptr)
@@ -4989,6 +4964,36 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSendModuleMessage==nullptr)
     {
         printf("%s simSendModuleMessage\n",couldNotFind);
+        return 0;
+    }
+    if (_simIsDynamicMotorEnabled==nullptr)
+    {
+        printf("%s _simIsDynamicMotorEnabled\n",couldNotFind);
+        return 0;
+    }
+    if (_simIsDynamicMotorPositionCtrlEnabled==nullptr)
+    {
+        printf("%s _simIsDynamicMotorPositionCtrlEnabled\n",couldNotFind);
+        return 0;
+    }
+    if (_simIsDynamicMotorTorqueModulationEnabled==nullptr)
+    {
+        printf("%s _simIsDynamicMotorTorqueModulationEnabled\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetMotorPid==nullptr)
+    {
+        printf("%s _simGetMotorPid\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetContactCallbackCount==nullptr)
+    {
+        printf("%s _simGetContactCallbackCount\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetContactCallback==nullptr)
+    {
+        printf("%s _simGetContactCallback\n",couldNotFind);
         return 0;
     }
     // Deprecated end
