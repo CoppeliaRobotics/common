@@ -754,6 +754,7 @@ LIBRARY loadSimLibrary(const char* pathAndFilename)
         QLibrary* lib=new QLibrary(pathAndFilename);
         if (!lib->load())
         {
+            qCritical() << "error: library load:" << lib->errorString();
             delete lib;
             lib=nullptr;
         }
@@ -762,7 +763,14 @@ LIBRARY loadSimLibrary(const char* pathAndFilename)
         #ifdef _WIN32
             return LoadLibraryA(pathAndFilename);
         #elif defined (__linux) || defined (__APPLE__)
-            return dlopen(pathAndFilename,RTLD_LAZY);
+            auto lib = dlopen(pathAndFilename,RTLD_LAZY);
+            if (!lib)
+            {
+                auto err = dlerror();
+                if (err)
+                    fprintf(stderr, "error: dlopen: %s\n", err);
+            }
+            return lib;
         #endif
     #endif // QT_FRAMEWORK
 }
@@ -772,7 +780,8 @@ void unloadSimLibrary(LIBRARY lib)
     #ifdef QT_FRAMEWORK
         if (lib!=0)
         {
-            lib->unload();
+            if (!lib->unload())
+                qCritical() << "error: library unload:" << lib->errorString();
             delete lib;
         }
     #else
@@ -780,7 +789,12 @@ void unloadSimLibrary(LIBRARY lib)
             if (lib!=0)
                 FreeLibrary(lib);
         #elif defined (__linux) || defined (__APPLE__)
-                dlclose(lib);
+            if (dlclose(lib) != 0)
+            {
+                auto err = dlerror();
+                if (err)
+                    fprintf(stderr, "error: dlclose: %s\n", err);
+            }
         #endif
     #endif // QT_FRAMEWORK
 }
