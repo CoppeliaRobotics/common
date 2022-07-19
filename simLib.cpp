@@ -754,7 +754,7 @@ LIBRARY loadSimLibrary(const char* pathAndFilename)
         QLibrary* lib=new QLibrary(pathAndFilename);
         if (!lib->load())
         {
-            qCritical() << "error: library load:" << lib->errorString();
+            qCritical() << "error: library (" << pathAndFilename << ") load:" << lib->errorString();
             delete lib;
             lib=nullptr;
         }
@@ -768,7 +768,7 @@ LIBRARY loadSimLibrary(const char* pathAndFilename)
             {
                 auto err = dlerror();
                 if (err)
-                    fprintf(stderr, "error: dlopen: %s\n", err);
+                    fprintf(stderr, "error: dlopen(%s): %s\n", pathAndFilename, err);
             }
             return lib;
         #endif
