@@ -449,7 +449,10 @@ ptr_simSetJointSphericalTransformation _simSetJointSphericalTransformation=nullp
 ptr_simAddForceSensorCumulativeForcesAndTorques _simAddForceSensorCumulativeForcesAndTorques=nullptr;
 ptr_simAddJointCumulativeForcesOrTorques _simAddJointCumulativeForcesOrTorques=nullptr;
 ptr_simGetGeomWrapFromGeomProxy _simGetGeomWrapFromGeomProxy=nullptr;
+ptr_simGetMass _simGetMass=nullptr;
+ptr_simGetPrincipalMomentOfInertia _simGetPrincipalMomentOfInertia=nullptr;
 ptr_simGetLocalInertiaFrame _simGetLocalInertiaFrame=nullptr;
+ptr_simGetLocalInertiaInfo _simGetLocalInertiaInfo=nullptr;
 ptr_simGetPurePrimitiveType _simGetPurePrimitiveType=nullptr;
 ptr_simIsGeomWrapGeometric _simIsGeomWrapGeometric=nullptr;
 ptr_simIsGeomWrapConvex _simIsGeomWrapConvex=nullptr;
@@ -460,8 +463,6 @@ ptr_simMakeDynamicAnnouncement _simMakeDynamicAnnouncement=nullptr;
 ptr_simGetVerticesLocalFrame _simGetVerticesLocalFrame=nullptr;
 ptr_simGetHeightfieldData _simGetHeightfieldData=nullptr;
 ptr_simGetCumulativeMeshes _simGetCumulativeMeshes=nullptr;
-ptr_simGetMass _simGetMass=nullptr;
-ptr_simGetPrincipalMomentOfInertia _simGetPrincipalMomentOfInertia=nullptr;
 ptr_simGetGravity _simGetGravity=nullptr;
 ptr_simGetTimeDiffInMs _simGetTimeDiffInMs=nullptr;
 ptr_simDoEntitiesCollide _simDoEntitiesCollide=nullptr;
@@ -1222,7 +1223,10 @@ int getSimProcAddresses(LIBRARY lib)
     _simAddForceSensorCumulativeForcesAndTorques=(ptr_simAddForceSensorCumulativeForcesAndTorques)(_getProcAddress(lib,"_simAddForceSensorCumulativeForcesAndTorques"));
     _simAddJointCumulativeForcesOrTorques=(ptr_simAddJointCumulativeForcesOrTorques)(_getProcAddress(lib,"_simAddJointCumulativeForcesOrTorques"));
     _simGetGeomWrapFromGeomProxy=(ptr_simGetGeomWrapFromGeomProxy)(_getProcAddress(lib,"_simGetGeomWrapFromGeomProxy"));
+    _simGetMass=(ptr_simGetMass)(_getProcAddress(lib,"_simGetMass"));
     _simGetLocalInertiaFrame=(ptr_simGetLocalInertiaFrame)(_getProcAddress(lib,"_simGetLocalInertiaFrame"));
+    _simGetPrincipalMomentOfInertia=(ptr_simGetPrincipalMomentOfInertia)(_getProcAddress(lib,"_simGetPrincipalMomentOfInertia"));
+    _simGetLocalInertiaInfo=(ptr_simGetLocalInertiaInfo)(_getProcAddress(lib,"_simGetLocalInertiaInfo"));
     _simGetPurePrimitiveType=(ptr_simGetPurePrimitiveType)(_getProcAddress(lib,"_simGetPurePrimitiveType"));
     _simIsGeomWrapGeometric=(ptr_simIsGeomWrapGeometric)(_getProcAddress(lib,"_simIsGeomWrapGeometric"));
     _simIsGeomWrapConvex=(ptr_simIsGeomWrapConvex)(_getProcAddress(lib,"_simIsGeomWrapConvex"));
@@ -1233,8 +1237,6 @@ int getSimProcAddresses(LIBRARY lib)
     _simGetVerticesLocalFrame=(ptr_simGetVerticesLocalFrame)(_getProcAddress(lib,"_simGetVerticesLocalFrame"));
     _simGetHeightfieldData=(ptr_simGetHeightfieldData)(_getProcAddress(lib,"_simGetHeightfieldData"));
     _simGetCumulativeMeshes=(ptr_simGetCumulativeMeshes)(_getProcAddress(lib,"_simGetCumulativeMeshes"));
-    _simGetMass=(ptr_simGetMass)(_getProcAddress(lib,"_simGetMass"));
-    _simGetPrincipalMomentOfInertia=(ptr_simGetPrincipalMomentOfInertia)(_getProcAddress(lib,"_simGetPrincipalMomentOfInertia"));
     _simGetGravity=(ptr_simGetGravity)(_getProcAddress(lib,"_simGetGravity"));
     _simGetTimeDiffInMs=(ptr_simGetTimeDiffInMs)(_getProcAddress(lib,"_simGetTimeDiffInMs"));
     _simDoEntitiesCollide=(ptr_simDoEntitiesCollide)(_getProcAddress(lib,"_simDoEntitiesCollide"));
@@ -3540,9 +3542,24 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s _simGetGeomWrapFromGeomProxy\n",couldNotFind);
         return 0;
     }
+    if (_simGetMass==nullptr)
+    {
+        printf("%s _simGetMass\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetPrincipalMomentOfInertia==nullptr)
+    {
+        printf("%s _simGetPrincipalMomentOfInertia\n",couldNotFind);
+        return 0;
+    }
     if (_simGetLocalInertiaFrame==nullptr)
     {
         printf("%s _simGetLocalInertiaFrame\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetLocalInertiaInfo==nullptr)
+    {
+        printf("%s _simGetLocalInertiaInfo\n",couldNotFind);
         return 0;
     }
     if (_simGetPurePrimitiveType==nullptr)
@@ -3593,16 +3610,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (_simGetCumulativeMeshes==nullptr)
     {
         printf("%s _simGetCumulativeMeshes\n",couldNotFind);
-        return 0;
-    }
-    if (_simGetMass==nullptr)
-    {
-        printf("%s _simGetMass\n",couldNotFind);
-        return 0;
-    }
-    if (_simGetPrincipalMomentOfInertia==nullptr)
-    {
-        printf("%s _simGetPrincipalMomentOfInertia\n",couldNotFind);
         return 0;
     }
     if (_simGetGravity==nullptr)
