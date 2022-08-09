@@ -93,6 +93,11 @@ ptrSimBuildPose simBuildPose=nullptr;
 ptrSimGetEulerAnglesFromMatrix simGetEulerAnglesFromMatrix=nullptr;
 ptrSimInvertMatrix simInvertMatrix=nullptr;
 ptrSimMultiplyMatrices simMultiplyMatrices=nullptr;
+ptrSimMultiplyPoses simMultiplyPoses=nullptr;
+ptrSimInvertPose simInvertPose=nullptr;
+ptrSimInterpolatePoses simInterpolatePoses=nullptr;
+ptrSimPoseToMatrix simPoseToMatrix=nullptr;
+ptrSimMatrixToPose simMatrixToPose=nullptr;
 ptrSimInterpolateMatrices simInterpolateMatrices=nullptr;
 ptrSimTransformVector simTransformVector=nullptr;
 ptrSimReservedCommand simReservedCommand=nullptr;
@@ -263,8 +268,6 @@ ptrSimRuckigPos simRuckigPos=nullptr;
 ptrSimRuckigVel simRuckigVel=nullptr;
 ptrSimRuckigStep simRuckigStep=nullptr;
 ptrSimRuckigRemove simRuckigRemove=nullptr;
-ptrSimBuildMatrixQ simBuildMatrixQ=nullptr;
-ptrSimGetQuaternionFromMatrix simGetQuaternionFromMatrix=nullptr;
 ptrSimGroupShapes simGroupShapes=nullptr;
 ptrSimUngroupShape simUngroupShape=nullptr;
 ptrSimConvexDecompose simConvexDecompose=nullptr;
@@ -746,6 +749,8 @@ ptr_simIsDynamicMotorTorqueModulationEnabled _simIsDynamicMotorTorqueModulationE
 ptr_simGetMotorPid _simGetMotorPid=nullptr;
 ptr_simGetContactCallbackCount _simGetContactCallbackCount=nullptr;
 ptr_simGetContactCallback _simGetContactCallback=nullptr;
+ptrSimBuildMatrixQ simBuildMatrixQ=nullptr;
+ptrSimGetQuaternionFromMatrix simGetQuaternionFromMatrix=nullptr;
 // Deprecated end
 
 
@@ -870,6 +875,11 @@ int getSimProcAddresses(LIBRARY lib)
     simGetEulerAnglesFromMatrix=(ptrSimGetEulerAnglesFromMatrix)(_getProcAddress(lib,"simGetEulerAnglesFromMatrix"));
     simInvertMatrix=(ptrSimInvertMatrix)(_getProcAddress(lib,"simInvertMatrix"));
     simMultiplyMatrices=(ptrSimMultiplyMatrices)(_getProcAddress(lib,"simMultiplyMatrices"));
+    simMultiplyPoses=(ptrSimMultiplyPoses)(_getProcAddress(lib,"simMultiplyPoses"));
+    simInvertPose=(ptrSimInvertPose)(_getProcAddress(lib,"simInvertPose"));
+    simInterpolatePoses=(ptrSimInterpolatePoses)(_getProcAddress(lib,"simInterpolatePoses"));
+    simPoseToMatrix=(ptrSimPoseToMatrix)(_getProcAddress(lib,"simPoseToMatrix"));
+    simMatrixToPose=(ptrSimMatrixToPose)(_getProcAddress(lib,"simMatrixToPose"));
     simInterpolateMatrices=(ptrSimInterpolateMatrices)(_getProcAddress(lib,"simInterpolateMatrices"));
     simTransformVector=(ptrSimTransformVector)(_getProcAddress(lib,"simTransformVector"));
     simReservedCommand=(ptrSimReservedCommand)(_getProcAddress(lib,"simReservedCommand"));
@@ -1040,8 +1050,6 @@ int getSimProcAddresses(LIBRARY lib)
     simRuckigVel=(ptrSimRuckigVel)(_getProcAddress(lib,"simRuckigVel"));
     simRuckigStep=(ptrSimRuckigStep)(_getProcAddress(lib,"simRuckigStep"));
     simRuckigRemove=(ptrSimRuckigRemove)(_getProcAddress(lib,"simRuckigRemove"));
-    simBuildMatrixQ=(ptrSimBuildMatrixQ)(_getProcAddress(lib,"simBuildMatrixQ"));
-    simGetQuaternionFromMatrix=(ptrSimGetQuaternionFromMatrix)(_getProcAddress(lib,"simGetQuaternionFromMatrix"));
     simGroupShapes=(ptrSimGroupShapes)(_getProcAddress(lib,"simGroupShapes"));
     simUngroupShape=(ptrSimUngroupShape)(_getProcAddress(lib,"simUngroupShape"));
     simConvexDecompose=(ptrSimConvexDecompose)(_getProcAddress(lib,"simConvexDecompose"));
@@ -1521,6 +1529,8 @@ int getSimProcAddresses(LIBRARY lib)
     _simGetMotorPid=(ptr_simGetMotorPid)(_getProcAddress(lib,"_simGetMotorPid"));
     _simGetContactCallbackCount=(ptr_simGetContactCallbackCount)(_getProcAddress(lib,"_simGetContactCallbackCount"));
     _simGetContactCallback=(ptr_simGetContactCallback)(_getProcAddress(lib,"_simGetContactCallback"));
+    simGetQuaternionFromMatrix=(ptrSimGetQuaternionFromMatrix)(_getProcAddress(lib,"simGetQuaternionFromMatrix"));
+    simBuildMatrixQ=(ptrSimBuildMatrixQ)(_getProcAddress(lib,"simBuildMatrixQ"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -1801,6 +1811,31 @@ int getSimProcAddresses(LIBRARY lib)
     if (simMultiplyMatrices==nullptr)
     {
         printf("%s simMultiplyMatrices\n",couldNotFind);
+        return 0;
+    }
+    if (simMultiplyPoses==nullptr)
+    {
+        printf("%s simMultiplyPoses\n",couldNotFind);
+        return 0;
+    }
+    if (simInvertPose==nullptr)
+    {
+        printf("%s simInvertPose\n",couldNotFind);
+        return 0;
+    }
+    if (simInterpolatePoses==nullptr)
+    {
+        printf("%s simInterpolatePoses\n",couldNotFind);
+        return 0;
+    }
+    if (simPoseToMatrix==nullptr)
+    {
+        printf("%s simPoseToMatrix\n",couldNotFind);
+        return 0;
+    }
+    if (simMatrixToPose==nullptr)
+    {
+        printf("%s simMatrixToPose\n",couldNotFind);
         return 0;
     }
     if (simInterpolateMatrices==nullptr)
@@ -2651,16 +2686,6 @@ int getSimProcAddresses(LIBRARY lib)
     if (simRuckigRemove==nullptr)
     {
         printf("%s simRuckigRemove\n",couldNotFind);
-        return 0;
-    }
-    if (simBuildMatrixQ==nullptr)
-    {
-        printf("%s simBuildMatrixQ\n",couldNotFind);
-        return 0;
-    }
-    if (simGetQuaternionFromMatrix==nullptr)
-    {
-        printf("%s simGetQuaternionFromMatrix\n",couldNotFind);
         return 0;
     }
     if (simGroupShapes==nullptr)
@@ -5015,6 +5040,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (_simGetContactCallback==nullptr)
     {
         printf("%s _simGetContactCallback\n",couldNotFind);
+        return 0;
+    }
+    if (simBuildMatrixQ==nullptr)
+    {
+        printf("%s simBuildMatrixQ\n",couldNotFind);
+        return 0;
+    }
+    if (simGetQuaternionFromMatrix==nullptr)
+    {
+        printf("%s simGetQuaternionFromMatrix\n",couldNotFind);
         return 0;
     }
     // Deprecated end
