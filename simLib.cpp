@@ -453,8 +453,6 @@ ptr_simAddForceSensorCumulativeForcesAndTorques _simAddForceSensorCumulativeForc
 ptr_simAddJointCumulativeForcesOrTorques _simAddJointCumulativeForcesOrTorques=nullptr;
 ptr_simGetGeomWrapFromGeomProxy _simGetGeomWrapFromGeomProxy=nullptr;
 ptr_simGetMass _simGetMass=nullptr;
-ptr_simGetPrincipalMomentOfInertia _simGetPrincipalMomentOfInertia=nullptr;
-ptr_simGetLocalInertiaFrame _simGetLocalInertiaFrame=nullptr;
 ptr_simGetLocalInertiaInfo _simGetLocalInertiaInfo=nullptr;
 ptr_simGetPurePrimitiveType _simGetPurePrimitiveType=nullptr;
 ptr_simIsGeomWrapGeometric _simIsGeomWrapGeometric=nullptr;
@@ -751,6 +749,8 @@ ptr_simGetContactCallbackCount _simGetContactCallbackCount=nullptr;
 ptr_simGetContactCallback _simGetContactCallback=nullptr;
 ptrSimBuildMatrixQ simBuildMatrixQ=nullptr;
 ptrSimGetQuaternionFromMatrix simGetQuaternionFromMatrix=nullptr;
+ptr_simGetPrincipalMomentOfInertia _simGetPrincipalMomentOfInertia=nullptr;
+ptr_simGetLocalInertiaFrame _simGetLocalInertiaFrame=nullptr;
 // Deprecated end
 
 
@@ -1232,8 +1232,6 @@ int getSimProcAddresses(LIBRARY lib)
     _simAddJointCumulativeForcesOrTorques=(ptr_simAddJointCumulativeForcesOrTorques)(_getProcAddress(lib,"_simAddJointCumulativeForcesOrTorques"));
     _simGetGeomWrapFromGeomProxy=(ptr_simGetGeomWrapFromGeomProxy)(_getProcAddress(lib,"_simGetGeomWrapFromGeomProxy"));
     _simGetMass=(ptr_simGetMass)(_getProcAddress(lib,"_simGetMass"));
-    _simGetLocalInertiaFrame=(ptr_simGetLocalInertiaFrame)(_getProcAddress(lib,"_simGetLocalInertiaFrame"));
-    _simGetPrincipalMomentOfInertia=(ptr_simGetPrincipalMomentOfInertia)(_getProcAddress(lib,"_simGetPrincipalMomentOfInertia"));
     _simGetLocalInertiaInfo=(ptr_simGetLocalInertiaInfo)(_getProcAddress(lib,"_simGetLocalInertiaInfo"));
     _simGetPurePrimitiveType=(ptr_simGetPurePrimitiveType)(_getProcAddress(lib,"_simGetPurePrimitiveType"));
     _simIsGeomWrapGeometric=(ptr_simIsGeomWrapGeometric)(_getProcAddress(lib,"_simIsGeomWrapGeometric"));
@@ -1531,6 +1529,8 @@ int getSimProcAddresses(LIBRARY lib)
     _simGetContactCallback=(ptr_simGetContactCallback)(_getProcAddress(lib,"_simGetContactCallback"));
     simGetQuaternionFromMatrix=(ptrSimGetQuaternionFromMatrix)(_getProcAddress(lib,"simGetQuaternionFromMatrix"));
     simBuildMatrixQ=(ptrSimBuildMatrixQ)(_getProcAddress(lib,"simBuildMatrixQ"));
+    _simGetLocalInertiaFrame=(ptr_simGetLocalInertiaFrame)(_getProcAddress(lib,"_simGetLocalInertiaFrame"));
+    _simGetPrincipalMomentOfInertia=(ptr_simGetPrincipalMomentOfInertia)(_getProcAddress(lib,"_simGetPrincipalMomentOfInertia"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -3572,16 +3572,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s _simGetMass\n",couldNotFind);
         return 0;
     }
-    if (_simGetPrincipalMomentOfInertia==nullptr)
-    {
-        printf("%s _simGetPrincipalMomentOfInertia\n",couldNotFind);
-        return 0;
-    }
-    if (_simGetLocalInertiaFrame==nullptr)
-    {
-        printf("%s _simGetLocalInertiaFrame\n",couldNotFind);
-        return 0;
-    }
     if (_simGetLocalInertiaInfo==nullptr)
     {
         printf("%s _simGetLocalInertiaInfo\n",couldNotFind);
@@ -5050,6 +5040,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simGetQuaternionFromMatrix==nullptr)
     {
         printf("%s simGetQuaternionFromMatrix\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetPrincipalMomentOfInertia==nullptr)
+    {
+        printf("%s _simGetPrincipalMomentOfInertia\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetLocalInertiaFrame==nullptr)
+    {
+        printf("%s _simGetLocalInertiaFrame\n",couldNotFind);
         return 0;
     }
     // Deprecated end
