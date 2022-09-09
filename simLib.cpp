@@ -427,6 +427,7 @@ ptr_simDisableDynamicTreeForManipulation _simDisableDynamicTreeForManipulation=n
 ptr_simIsShapeDynamicallyRespondable _simIsShapeDynamicallyRespondable=nullptr;
 ptr_simGetDynamicCollisionMask _simGetDynamicCollisionMask=nullptr;
 ptr_simGetLastParentForLocalGlobalCollidable _simGetLastParentForLocalGlobalCollidable=nullptr;
+ptr_simSetJointVelocity _simSetJointVelocity=nullptr;
 ptr_simSetJointPosition _simSetJointPosition=nullptr;
 ptr_simGetJointPosition _simGetJointPosition=nullptr;
 ptr_simSetDynamicMotorPositionControlTargetPosition _simSetDynamicMotorPositionControlTargetPosition=nullptr;
@@ -1206,6 +1207,7 @@ int getSimProcAddresses(LIBRARY lib)
     _simIsShapeDynamicallyRespondable=(ptr_simIsShapeDynamicallyRespondable)(_getProcAddress(lib,"_simIsShapeDynamicallyRespondable"));
     _simGetDynamicCollisionMask=(ptr_simGetDynamicCollisionMask)(_getProcAddress(lib,"_simGetDynamicCollisionMask"));
     _simGetLastParentForLocalGlobalCollidable=(ptr_simGetLastParentForLocalGlobalCollidable)(_getProcAddress(lib,"_simGetLastParentForLocalGlobalCollidable"));
+    _simSetJointVelocity=(ptr_simSetJointVelocity)(_getProcAddress(lib,"_simSetJointVelocity"));
     _simSetJointPosition=(ptr_simSetJointPosition)(_getProcAddress(lib,"_simSetJointPosition"));
     _simGetJointPosition=(ptr_simGetJointPosition)(_getProcAddress(lib,"_simGetJointPosition"));
     _simSetDynamicMotorPositionControlTargetPosition=(ptr_simSetDynamicMotorPositionControlTargetPosition)(_getProcAddress(lib,"_simSetDynamicMotorPositionControlTargetPosition"));
@@ -3440,6 +3442,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (_simGetLastParentForLocalGlobalCollidable==nullptr)
     {
         printf("%s _simGetLastParentForLocalGlobalCollidable\n",couldNotFind);
+        return 0;
+    }
+    if (_simSetJointVelocity==nullptr)
+    {
+        printf("%s _simSetJointVelocity\n",couldNotFind);
         return 0;
     }
     if (_simSetJointPosition==nullptr)
