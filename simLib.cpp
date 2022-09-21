@@ -472,7 +472,6 @@ ptr_simGetDistanceBetweenEntitiesIfSmaller _simGetDistanceBetweenEntitiesIfSmall
 ptr_simHandleJointControl _simHandleJointControl=nullptr;
 ptr_simHandleCustomContact _simHandleCustomContact=nullptr;
 ptr_simGetPureHollowScaling _simGetPureHollowScaling=nullptr;
-ptr_simGetJointCallbackCallOrder _simGetJointCallbackCallOrder=nullptr;
 ptr_simGetJointDynCtrlMode _simGetJointDynCtrlMode=nullptr;
 ptr_simDynCallback _simDynCallback=nullptr;
 
@@ -752,6 +751,7 @@ ptrSimBuildMatrixQ simBuildMatrixQ=nullptr;
 ptrSimGetQuaternionFromMatrix simGetQuaternionFromMatrix=nullptr;
 ptr_simGetPrincipalMomentOfInertia _simGetPrincipalMomentOfInertia=nullptr;
 ptr_simGetLocalInertiaFrame _simGetLocalInertiaFrame=nullptr;
+ptr_simGetJointCallbackCallOrder _simGetJointCallbackCallOrder=nullptr;
 // Deprecated end
 
 
@@ -1252,7 +1252,6 @@ int getSimProcAddresses(LIBRARY lib)
     _simHandleJointControl=(ptr_simHandleJointControl)(_getProcAddress(lib,"_simHandleJointControl"));
     _simHandleCustomContact=(ptr_simHandleCustomContact)(_getProcAddress(lib,"_simHandleCustomContact"));
     _simGetPureHollowScaling=(ptr_simGetPureHollowScaling)(_getProcAddress(lib,"_simGetPureHollowScaling"));
-    _simGetJointCallbackCallOrder=(ptr_simGetJointCallbackCallOrder)(_getProcAddress(lib,"_simGetJointCallbackCallOrder"));
     _simGetJointDynCtrlMode=(ptr_simGetJointDynCtrlMode)(_getProcAddress(lib,"_simGetJointDynCtrlMode"));
     _simDynCallback=(ptr_simDynCallback)(_getProcAddress(lib,"_simDynCallback"));
 
@@ -1533,6 +1532,7 @@ int getSimProcAddresses(LIBRARY lib)
     simBuildMatrixQ=(ptrSimBuildMatrixQ)(_getProcAddress(lib,"simBuildMatrixQ"));
     _simGetLocalInertiaFrame=(ptr_simGetLocalInertiaFrame)(_getProcAddress(lib,"_simGetLocalInertiaFrame"));
     _simGetPrincipalMomentOfInertia=(ptr_simGetPrincipalMomentOfInertia)(_getProcAddress(lib,"_simGetPrincipalMomentOfInertia"));
+    _simGetJointCallbackCallOrder=(ptr_simGetJointCallbackCallOrder)(_getProcAddress(lib,"_simGetJointCallbackCallOrder"));
     // Deprecated end
 
     char *ps=std::getenv("COPPELIASIMPLUGIN_IGNORE_MISSING_SYMBOLS");
@@ -3669,11 +3669,6 @@ int getSimProcAddresses(LIBRARY lib)
         printf("%s _simGetPureHollowScaling\n",couldNotFind);
         return 0;
     }
-    if (_simGetJointCallbackCallOrder==nullptr)
-    {
-        printf("%s _simGetJointCallbackCallOrder\n",couldNotFind);
-        return 0;
-    }
     if (_simGetJointDynCtrlMode==nullptr)
     {
         printf("%s _simGetJointDynCtrlMode\n",couldNotFind);
@@ -5057,6 +5052,11 @@ int getSimProcAddresses(LIBRARY lib)
     if (_simGetLocalInertiaFrame==nullptr)
     {
         printf("%s _simGetLocalInertiaFrame\n",couldNotFind);
+        return 0;
+    }
+    if (_simGetJointCallbackCallOrder==nullptr)
+    {
+        printf("%s _simGetJointCallbackCallOrder\n",couldNotFind);
         return 0;
     }
     // Deprecated end
