@@ -238,6 +238,8 @@ ptrSimGetObjectInt32Param simGetObjectInt32Param=nullptr;
 ptrSimSetObjectInt32Param simSetObjectInt32Param=nullptr;
 ptrSimGetObjectFloatParam simGetObjectFloatParam=nullptr;
 ptrSimSetObjectFloatParam simSetObjectFloatParam=nullptr;
+ptrSimGetObjectFloatArrayParam simGetObjectFloatArrayParam=nullptr;
+ptrSimSetObjectFloatArrayParam simSetObjectFloatArrayParam=nullptr;
 ptrSimGetObjectStringParam simGetObjectStringParam=nullptr;
 ptrSimSetObjectStringParam simSetObjectStringParam=nullptr;
 ptrSimGetScriptInt32Param simGetScriptInt32Param=nullptr;
@@ -1021,6 +1023,8 @@ int getSimProcAddresses(LIBRARY lib)
     simSetObjectInt32Param=(ptrSimSetObjectInt32Param)(_getProcAddress(lib,"simSetObjectInt32Param"));
     simGetObjectFloatParam=(ptrSimGetObjectFloatParam)(_getProcAddress(lib,"simGetObjectFloatParam"));
     simSetObjectFloatParam=(ptrSimSetObjectFloatParam)(_getProcAddress(lib,"simSetObjectFloatParam"));
+    simGetObjectFloatArrayParam=(ptrSimGetObjectFloatArrayParam)(_getProcAddress(lib,"simGetObjectFloatArrayParam"));
+    simSetObjectFloatArrayParam=(ptrSimSetObjectFloatArrayParam)(_getProcAddress(lib,"simSetObjectFloatArrayParam"));
     simGetObjectStringParam=(ptrSimGetObjectStringParam)(_getProcAddress(lib,"simGetObjectStringParam"));
     simSetObjectStringParam=(ptrSimSetObjectStringParam)(_getProcAddress(lib,"simSetObjectStringParam"));
     simGetScriptInt32Param=(ptrSimGetScriptInt32Param)(_getProcAddress(lib,"simGetScriptInt32Param"));
@@ -2538,6 +2542,16 @@ int getSimProcAddresses(LIBRARY lib)
     if (simSetObjectFloatParam==nullptr)
     {
         printf("%s simSetObjectFloatParam\n",couldNotFind);
+        return 0;
+    }
+    if (simGetObjectFloatArrayParam==nullptr)
+    {
+        printf("%s simGetObjectFloatArrayParam\n",couldNotFind);
+        return 0;
+    }
+    if (simSetObjectFloatArrayParam==nullptr)
+    {
+        printf("%s simSetObjectFloatArrayParam\n",couldNotFind);
         return 0;
     }
     if (simGetObjectStringParam==nullptr)
