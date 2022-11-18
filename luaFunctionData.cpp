@@ -414,7 +414,7 @@ void CLuaFunctionData::writeDataToLua(SLuaCallBack* p)
     if (itemCnt>0)
     {
         p->outputArgCount=itemCnt;
-        p->outputArgTypeAndSize=(simInt*)simCreateBuffer(p->outputArgCount*2*sizeof(simInt));
+        p->outputArgTypeAndSize=(int*)simCreateBuffer(p->outputArgCount*2*sizeof(int));
 
         int boolDataCnt=0;
         int intDataCnt=0;
@@ -511,12 +511,12 @@ void CLuaFunctionData::writeDataToLua(SLuaCallBack* p)
         }
 
         // Now create the buffers:
-        p->outputBool=(simBool*)simCreateBuffer(boolDataCnt*sizeof(simBool));
-        p->outputInt=(simInt*)simCreateBuffer(intDataCnt*sizeof(simInt));
-        p->outputFloat=(simFloat*)simCreateBuffer(floatDataCnt*sizeof(simFloat));
-        p->outputDouble=(simDouble*)simCreateBuffer(doubleDataCnt*sizeof(simDouble));
-        p->outputChar=(simChar*)simCreateBuffer(charDataCnt*sizeof(simChar));
-        p->outputCharBuff=(simChar*)simCreateBuffer(charBuffDataCnt*sizeof(simChar));
+        p->outputBool=(bool*)simCreateBuffer(boolDataCnt*sizeof(bool));
+        p->outputInt=(int*)simCreateBuffer(intDataCnt*sizeof(int));
+        p->outputFloat=(float*)simCreateBuffer(floatDataCnt*sizeof(float));
+        p->outputDouble=(double*)simCreateBuffer(doubleDataCnt*sizeof(double));
+        p->outputChar=(char*)simCreateBuffer(charDataCnt*sizeof(char));
+        p->outputCharBuff=(char*)simCreateBuffer(charBuffDataCnt*sizeof(char));
         
         // Now populate the buffers:
         int boolDataOff=0;
@@ -606,7 +606,7 @@ void CLuaFunctionData::writeDataToLua_luaFunctionCall(SLuaCallBack* p,const int*
     p->outputDouble=NULL;
     p->outputChar=NULL;
     p->outputCharBuff=NULL;
-    p->outputArgTypeAndSize=(simInt*)simCreateBuffer(p->outputArgCount*2*sizeof(simInt));
+    p->outputArgTypeAndSize=(int*)simCreateBuffer(p->outputArgCount*2*sizeof(int));
     for (int i=0;i<p->outputArgCount*2;i++)
         p->outputArgTypeAndSize[i]=expectedArguments[1+i];
 
@@ -614,7 +614,7 @@ void CLuaFunctionData::writeDataToLua_luaFunctionCall(SLuaCallBack* p,const int*
     if (itemCnt>0)
     {
         p->inputArgCount=itemCnt;
-        p->inputArgTypeAndSize=(simInt*)simCreateBuffer(p->inputArgCount*2*sizeof(simInt));
+        p->inputArgTypeAndSize=(int*)simCreateBuffer(p->inputArgCount*2*sizeof(int));
 
         int boolDataCnt=0;
         int intDataCnt=0;
@@ -711,12 +711,12 @@ void CLuaFunctionData::writeDataToLua_luaFunctionCall(SLuaCallBack* p,const int*
         }
 
         // Now create the buffers:
-        p->inputBool=(simBool*)simCreateBuffer(boolDataCnt*sizeof(simBool));
-        p->inputInt=(simInt*)simCreateBuffer(intDataCnt*sizeof(simInt));
-        p->inputFloat=(simFloat*)simCreateBuffer(floatDataCnt*sizeof(simFloat));
-        p->inputDouble=(simDouble*)simCreateBuffer(doubleDataCnt*sizeof(simDouble));
-        p->inputChar=(simChar*)simCreateBuffer(charDataCnt*sizeof(simChar));
-        p->inputCharBuff=(simChar*)simCreateBuffer(charBuffDataCnt*sizeof(simChar));
+        p->inputBool=(bool*)simCreateBuffer(boolDataCnt*sizeof(bool));
+        p->inputInt=(int*)simCreateBuffer(intDataCnt*sizeof(int));
+        p->inputFloat=(float*)simCreateBuffer(floatDataCnt*sizeof(float));
+        p->inputDouble=(double*)simCreateBuffer(doubleDataCnt*sizeof(double));
+        p->inputChar=(char*)simCreateBuffer(charDataCnt*sizeof(char));
+        p->inputCharBuff=(char*)simCreateBuffer(charBuffDataCnt*sizeof(char));
         
         // Now populate the buffers:
         int boolDataOff=0;

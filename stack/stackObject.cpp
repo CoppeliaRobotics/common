@@ -76,7 +76,7 @@ void CStackObject::buildItemOntoStack(int stackId,CStackObject* obj)
 CStackObject* CStackObject::buildItemFromTopStackPosition(int stackId)
 { // this also clears the item from the stack
     CStackObject* retVal=NULL;
-    simBool bv;
+    bool bv;
     double dv;
     if (1==simIsStackValueNull(stackId))
     { // NULL

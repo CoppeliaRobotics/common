@@ -156,7 +156,7 @@ bool CScriptFunctionData::_readData(int stack,const int* expectedArguments,int r
                         simUnfoldStackTable(stack); // this removes the table and exposes the inside
                         for (int j=0;j<itemCnt;j++)
                         {
-                            simBool val;
+                            bool val;
                             simGetStackBoolValue(stack,&val);
                             vect.insert(vect.begin(),val!=0);
                             simPopStackItem(stack,2);
@@ -240,7 +240,7 @@ bool CScriptFunctionData::_readData(int stack,const int* expectedArguments,int r
                 }
                 if (t==sim_script_arg_bool)
                 {
-                    simBool val=0;
+                    bool val=0;
                     if (simGetStackBoolValue(stack,&val)==1)
                     {
                         CScriptFunctionDataItem dat(val!=0);

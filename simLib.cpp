@@ -9,7 +9,7 @@
 
 #ifndef SIM_LIBRARY
 
-static simInt _simAddLog(const simChar* pluginName,simInt verbosity,const simChar* msg)
+static int _simAddLog(const char* pluginName,int verbosity,const char* msg)
 {
     std::string m("[");
     if (strcmp(pluginName,"CoppeliaSimClient")!=0)
