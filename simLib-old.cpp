@@ -384,8 +384,8 @@ int getSimProcAddressesOld(LIBRARY lib)
     simSetObjectIntParameter=(ptrSimSetObjectInt32Param)(_getProcAddress(lib,"simSetObjectInt32Param",false));
     simGetObjectInt32Parameter=(ptrSimGetObjectInt32Param)(_getProcAddress(lib,"simGetObjectInt32Param",false));
     simSetObjectInt32Parameter=(ptrSimSetObjectInt32Param)(_getProcAddress(lib,"simSetObjectInt32Param",false));
-    simGetObjectFloatParameter=(ptrSimGetObjectFloatParam)(_getProcAddress(lib,"simGetObjectFloatParam",false));
-    simSetObjectFloatParameter=(ptrSimSetObjectFloatParam)(_getProcAddress(lib,"simSetObjectFloatParam",false));
+    simGetObjectFloatParameter=(ptrSimGetObjectFloatParam)(_getProcAddress(lib,"simGetObjectFloatParam",true));
+    simSetObjectFloatParameter=(ptrSimSetObjectFloatParam)(_getProcAddress(lib,"simSetObjectFloatParam",true));
     simGetObjectStringParameter=(ptrSimGetObjectStringParam)(_getProcAddress(lib,"simGetObjectStringParam",false));
     simSetObjectStringParameter=(ptrSimSetObjectStringParam)(_getProcAddress(lib,"simSetObjectStringParam",false));
     simSetBooleanParameter=(ptrSimSetBoolParam)(_getProcAddress(lib,"simSetBoolParam",false));
@@ -397,18 +397,18 @@ int getSimProcAddressesOld(LIBRARY lib)
     simSetInt32Parameter=(ptrSimSetInt32Param)(_getProcAddress(lib,"simSetInt32Param",false));
     simGetInt32Parameter=(ptrSimGetInt32Param)(_getProcAddress(lib,"simGetInt32Param",false));
     simGetUInt64Parameter=(ptrSimGetUInt64Param)(_getProcAddress(lib,"simGetUInt64Param",false));
-    simSetFloatingParameter=(ptrSimSetFloatParam)(_getProcAddress(lib,"simSetFloatParam",false));
-    simGetFloatingParameter=(ptrSimGetFloatParam)(_getProcAddress(lib,"simGetFloatParam",false));
-    simSetFloatParameter=(ptrSimSetFloatParam)(_getProcAddress(lib,"simSetFloatParam",false));
-    simGetFloatParameter=(ptrSimGetFloatParam)(_getProcAddress(lib,"simGetFloatParam",false));
+    simSetFloatingParameter=(ptrSimSetFloatParam)(_getProcAddress(lib,"simSetFloatParam",true));
+    simGetFloatingParameter=(ptrSimGetFloatParam)(_getProcAddress(lib,"simGetFloatParam",true));
+    simSetFloatParameter=(ptrSimSetFloatParam)(_getProcAddress(lib,"simSetFloatParam",true));
+    simGetFloatParameter=(ptrSimGetFloatParam)(_getProcAddress(lib,"simGetFloatParam",true));
     simSetStringParameter=(ptrSimSetStringParam)(_getProcAddress(lib,"simSetStringParam",false));
     simGetStringParameter=(ptrSimGetStringParam)(_getProcAddress(lib,"simGetStringParam",false));
-    simSetArrayParameter=(ptrSimSetArrayParam)(_getProcAddress(lib,"simSetArrayParam",false));
-    simGetArrayParameter=(ptrSimGetArrayParam)(_getProcAddress(lib,"simGetArrayParam",false));
-    simGetEngineFloatParameter=(ptrSimGetEngineFloatParam)(_getProcAddress(lib,"simGetEngineFloatParam",false));
+    simSetArrayParameter=(ptrSimSetArrayParam)(_getProcAddress(lib,"simSetArrayParam",true));
+    simGetArrayParameter=(ptrSimGetArrayParam)(_getProcAddress(lib,"simGetArrayParam",true));
+    simGetEngineFloatParameter=(ptrSimGetEngineFloatParam)(_getProcAddress(lib,"simGetEngineFloatParam",true));
     simGetEngineInt32Parameter=(ptrSimGetEngineInt32Param)(_getProcAddress(lib,"simGetEngineInt32Param",false));
     simGetEngineBoolParameter=(ptrSimGetEngineBoolParam)(_getProcAddress(lib,"simGetEngineBoolParam",false));
-    simSetEngineFloatParameter=(ptrSimSetEngineFloatParam)(_getProcAddress(lib,"simSetEngineFloatParam",false));
+    simSetEngineFloatParameter=(ptrSimSetEngineFloatParam)(_getProcAddress(lib,"simSetEngineFloatParam",true));
     simSetEngineInt32Parameter=(ptrSimSetEngineInt32Param)(_getProcAddress(lib,"simSetEngineInt32Param",false));
     simSetEngineBoolParameter=(ptrSimSetEngineBoolParam)(_getProcAddress(lib,"simSetEngineBoolParam",false));
     simIsHandleValid=(ptrSimIsHandle)(_getProcAddress(lib,"simIsHandle",false));
@@ -485,6 +485,9 @@ int getSimProcAddressesOld(LIBRARY lib)
     simRemoveParticleObject=(ptrSimRemoveParticleObject)(_getProcAddress(lib,"simRemoveParticleObject",false));
     simAddParticleObject=(ptrSimAddParticleObject)(_getProcAddress(lib,"simAddParticleObject",false));
     simAddParticleObjectItem=(ptrSimAddParticleObjectItem)(_getProcAddress(lib,"simAddParticleObjectItem",false));
+    simGetVisionSensorImage=(ptrSimGetVisionSensorImage)(_getProcAddress(lib,"simGetVisionSensorImage",false));
+    simSetVisionSensorImage=(ptrSimSetVisionSensorImage)(_getProcAddress(lib,"simSetVisionSensorImage",false));
+    simGetVisionSensorDepthBuffer=(ptrSimGetVisionSensorDepthBuffer)(_getProcAddress(lib,"simGetVisionSensorDepthBuffer",false));
     /* deprecated, and previously single precision functions: */
     simJointGetForce=(ptrSimJointGetForce)(_getProcAddress(lib,"simJointGetForce",true));
     simGetMpConfigForTipPose=(ptrSimGetMpConfigForTipPose)(_getProcAddress(lib,"simGetMpConfigForTipPose",true));
@@ -506,8 +509,8 @@ int getSimProcAddressesOld(LIBRARY lib)
     _simGetNewtonParameters=(ptr_simGetNewtonParameters)(_getProcAddress(lib,"_simGetNewtonParameters",true));
     _simGetDamping=(ptr_simGetDamping)(_getProcAddress(lib,"_simGetDamping",true));
     _simGetFriction=(ptr_simGetFriction)(_getProcAddress(lib,"_simGetFriction",true));
-    simSetUIButtonColor=(ptrSimSetUIButtonColor)(_getProcAddress(lib,"simSetUIButtonColor",true));
-    simSetUIButtonArrayColor=(ptrSimSetUIButtonArrayColor)(_getProcAddress(lib,"simSetUIButtonArrayColor",true));
+    simSetUIButtonColor=(ptrSimSetUIButtonColor)(_getProcAddress(lib,"simSetUIButtonColor",false));
+    simSetUIButtonArrayColor=(ptrSimSetUIButtonArrayColor)(_getProcAddress(lib,"simSetUIButtonArrayColor",false));
     simRegisterContactCallback=(ptrSimRegisterContactCallback)(_getProcAddress(lib,"simRegisterContactCallback",true));
     simSetJointForce=(ptrSimSetJointForce)(_getProcAddress(lib,"simSetJointForce",true));
     simHandleMill=(ptrSimHandleMill)(_getProcAddress(lib,"simHandleMill",true));
@@ -544,7 +547,7 @@ int getSimProcAddressesOld(LIBRARY lib)
     simSendData=(ptrSimSendData)(_getProcAddress(lib,"simSendData",true));
     simSetObjectSizeValues=(ptrSimSetObjectSizeValues)(_getProcAddress(lib,"simSetObjectSizeValues",true));
     simGetObjectSizeValues=(ptrSimGetObjectSizeValues)(_getProcAddress(lib,"simGetObjectSizeValues",true));
-    simDisplayDialog=(ptrSimDisplayDialog)(_getProcAddress(lib,"simDisplayDialog",true));
+    simDisplayDialog=(ptrSimDisplayDialog)(_getProcAddress(lib,"simDisplayDialog",false));
     simScaleSelectedObjects=(ptrSimScaleSelectedObjects)(_getProcAddress(lib,"simScaleSelectedObjects",true));
     _simGetDynamicForceSensorLocalTransformationPart2=(ptr_simGetDynamicForceSensorLocalTransformationPart2)(_getProcAddress(lib,"_simGetDynamicForceSensorLocalTransformationPart2",true));
     _simSetDynamicJointLocalTransformationPart2=(ptr_simSetDynamicJointLocalTransformationPart2)(_getProcAddress(lib,"_simSetDynamicJointLocalTransformationPart2",true));
@@ -555,9 +558,6 @@ int getSimProcAddressesOld(LIBRARY lib)
     simGetScriptAttribute=(ptrSimGetScriptAttribute)(_getProcAddress(lib,"simGetScriptAttribute",true));
     simGetJointMaxForce=(ptrSimGetJointMaxForce)(_getProcAddress(lib,"simGetJointMaxForce",true));
     simSetJointMaxForce=(ptrSimSetJointMaxForce)(_getProcAddress(lib,"simSetJointMaxForce",true));
-    simGetVisionSensorImage=(ptrSimGetVisionSensorImage)(_getProcAddress(lib,"simGetVisionSensorImage",true));
-    simSetVisionSensorImage=(ptrSimSetVisionSensorImage)(_getProcAddress(lib,"simSetVisionSensorImage",true));
-    simGetVisionSensorDepthBuffer=(ptrSimGetVisionSensorDepthBuffer)(_getProcAddress(lib,"simGetVisionSensorDepthBuffer",true));
     simCreatePureShape=(ptrSimCreatePureShape)(_getProcAddress(lib,"simCreatePureShape",true));
     _simGetMotorPid=(ptr_simGetMotorPid)(_getProcAddress(lib,"_simGetMotorPid",true));
     simBuildMatrixQ=(ptrSimBuildMatrixQ)(_getProcAddress(lib,"simBuildMatrixQ",true));
