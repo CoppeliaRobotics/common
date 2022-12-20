@@ -382,8 +382,6 @@ ptrSimInitScript simInitScript=nullptr;
 ptrSimModuleEntry simModuleEntry=nullptr;
 ptrSimCheckExecAuthorization simCheckExecAuthorization=nullptr;
 ptrSimExtCallScriptFunction simExtCallScriptFunction=nullptr;
-ptrSimGetShapeVertex simGetShapeVertex=nullptr;
-ptrSimGetShapeTriangle simGetShapeTriangle=nullptr;
 
 // Following courtesy of Stephen James:
 ptrSimExtLaunchUIThread simExtLaunchUIThread=nullptr;
