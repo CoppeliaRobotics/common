@@ -5,8 +5,7 @@ copying, etc.) contained in the same directory if it is present, or
 under the same terms of the files in the parent directory otherwise.
 
 -----------------------------------------------------------------------
-CoppeliaSimLib, based on AutomationSim library from Marc Freese on
-December 2015
+Based on AutomationSim from Marc Freese on December 2015
 
 Copyright (C) 2006-2023 Coppelia Robotics AG
 
